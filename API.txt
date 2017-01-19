@@ -1,0 +1,98 @@
+API para mod Aventuras
+
+================================> Requisitos basicos <================================
+
+O mod que utilizar os recursos desse mod (aventuras) precisa ter suas tarefas na pasta
+tarefas (que deve estar na pasta de seu mod) e deve ter suas tarefas serializadas 
+usando o comando 
+/registrar_tarefa <mod> <tarefa>
+lembrando de manter as tarefas descritas seguindo o exemplo do arquivo 
+tarefa_exemplo.lua presente nesse mod. Primeiro monte elas na seguencia (tarefa_1.lua,
+tarefa_2.lua, tarefa_3.lua e etc) e deixando em uma pasta com nome escopos que deve 
+estar dentro da pasta de seu mod. O comando registrar_tarefas serializa a tarefa para 
+entao ser usada no jogo (nao esquecer de criar a pasta tarefas no diretorio do seu mod
+para que as tarefas serializadas sejam colocadas la pelo comando)
+
+Por questoes de cemantica do mod aventuras, os mods de aventuras devem ter o nome da 
+aventura (pode ser algo mais proximo de uma sequencia de tarefas como 
+escola_do_minerador ou mercador_aventureiro e etc)
+
+======================================================================================
+
+
+============================================
+= Registrar aventura
+aventuras.registrar_aventura(
+
+	<aventura>, (string) é o ID da aventura
+		
+	<#Def_Aventura>, (tabela desordenada) de parâmetros
+		^ Veja mais em '#Def_Aventura'
+		
+)
+
+#Def_Aventura = {
+	titulo = "Titulo", (string) Nome visivel da aventura
+	desc = "Descritivo", (string) Texto descritivo da aventura (tem limite de caracteres???)
+}
+
+===========================================
+= Registrar uma terafa
+aventuras.registrar_tarefa(
+
+	<aventura>, (string) é o ID da aventura correspondente
+	
+	<tarefa>, (numero) é o numero da tarefa
+		
+	<#Def_Tarefa>, (tabela desordenada) de parâmetros
+		^ Veja mais em '#Def_Tarefa'
+		
+)
+
+#Def_Tarefa = {
+	titulo = "Titulo", (string) Nome visivel da tarefa
+	tipo = "tipo", (string) termo que designa a maneira como será realizada a tarefa
+	...parametros da tarefa (Veja 'Tipos de Tarefas')...
+}
+
+= Tipos de Tarefas
+	"uninpc" Um unico NPC pede os itens e os recebe para concluir a missão
+	Requerimentos:
+		npc_fala1 = "Texto" (string) Texto da fala do NPC ao jogador quando pede os itens
+		npc_fala2 = "Texto" (string) Texto da fala do NPC ao jogador quando conclui a missão
+		item_rem = {"default:tree 20", "default:stone 70", "farming:straw 30"} (tabela ordenada) Itens exigidos do jogador (limite 4)
+		item_add = {"default:mese", "default:torch 5"} (tabela ordenada) Itens que o jogador recebe (limite 4)
+		npc = {"ex:npc1", "ex:npc2"} (tabela ordenada) Tabela de IDs de entidades Lua que permitem concluir a tarefa
+
+
+===========================================
+= Registrar dados para um NPC
+aventuras.npcs.registrar(
+	
+	<npc>, (string) ID da entidade que está representando o NPC
+	
+	<#Def_NPC>, (tabela desordenada) de parâmetros
+	
+)
+
+#Def_NPC
+	face = "imagem.png" (string) Nome da textura que representa a face/rosto do NPC (deve ser uma imagem quadrada)
+	bg = "imagem.png" (string) Nome da textura que ficará no fundo do formulário/formspec (a imagem é ajustada ao tamanho dos formulários)
+	cor_bg = "#000000" (string) Código da cor RGB no formato hexadecimal
+
+
+===========================================
+= Realizar um acesso a um NPC
+aventuras.acessar_npc(
+	
+	<self>, (object) entidade que está representando o NPC
+	
+	<player>, (object) jogador que realiza o acesso
+	
+	<#Def_Acesso>, (tabela desordenada) de parâmetros
+		
+)
+
+#Def_Acesso = {
+	face = "image.png", (string) Nome do arquivo de mídia da face exibida no formulario (formspec) de interface
+}
