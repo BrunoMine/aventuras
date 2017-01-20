@@ -1,6 +1,0 @@
---
--- Mod Aventuras
---
--- Diretrizes
---
-
