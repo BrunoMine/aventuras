@@ -27,11 +27,12 @@ aventuras.tb = {}
 -- Tabela de funções dos tipos de tarefas
 aventuras.tarefas = {}
 
--- Bando de dados
-aventuras.bd = memor.montar_bd()
-
 -- Carregar scripts
 notificar("Carregando scripts...")
+-- Scripts mod memor embarcado
+dofile(modpath.."/memor/init.lua")
+-- Criação do banco de dados
+aventuras.bd = memor.montar_bd()
 -- Funções comuns
 dofile(modpath.."/trocar.lua")
 dofile(modpath.."/npcs.lua")
@@ -41,5 +42,4 @@ dofile(modpath.."/tarefas/uninpc.lua")
 dofile(modpath.."/api.lua")
 dofile(modpath.."/teste.lua")
 notificar("OK")
-
 
