@@ -77,7 +77,7 @@ aventuras.npcs.registrar(
 
 #Def_NPC
 	face = "imagem.png" (string) Nome da textura que representa a face/rosto do NPC (deve ser uma imagem quadrada)
-	bg = "imagem.png" (string) Nome da textura que ficará no fundo do formulário/formspec (a imagem é ajustada ao tamanho dos formulários)
+	bg = "imagem.png" (string) Nome da textura que ficará no fundo do formulário/formspec (proporções da imagem deve ser 80x92)
 	cor_bg = "#000000" (string) Código da cor RGB no formato hexadecimal
 
 

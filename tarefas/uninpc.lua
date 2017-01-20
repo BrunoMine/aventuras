@@ -85,7 +85,7 @@ aventuras.tarefas.uninpc.acessar = function(name, aventura, numero)
 	-- Pegar dados da tarefa
 	local dados = aventuras.tb[aventura].tarefas[numero]
 	
-	local formspec = "size[8,9.3]"
+	local formspec = "size[8,9.2]"
 		
 		-- Título da aventura
 		.."label[0,0;"..aventuras.tb[aventura].titulo.."]"
@@ -187,24 +187,24 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			aventuras.bd:salvar(name, aventuras.acessos[name].aven, aventuras.acessos[name].tarefa)
 			
 			-- Exibir fala final da tarefa
-			local formspec = "size[8,4.1]"
+			local formspec = "size[8,9.2]"
 				
 				-- Titulo da aventura
 				.."label[0,0;"..aventuras.tb[aventuras.acessos[name].aven].titulo.."]"
 		
 				-- Titulo da tarefa e Fala do NPC
-				.."textarea[3,1;5.25,2.9;name;"..dados.titulo..";"..dados.fala2.."]"
-		
+				.."textarea[0.85,5.5;7,3;name;"..dados.titulo..";"..dados.fala2.."]"
+				
 				-- Botoes
-				.."button_exit[0,3.5;8,1;sair;Entendido]"
+				.."button_exit[0,8.5;8,1;sair;Entendido]"
 			
 			-- Colocar personalizações do NPC
 			local custom_npc = aventuras.npcs.registros[aventuras.acessos[name].ent.name]
 			-- Face do NPC
 			if custom_npc.face then 
-				formspec = formspec .. "image[0,0.8;3,3;"..custom_npc.face.."]"
+				formspec = formspec .. "image[2.3,1;4,4;"..custom_npc.face.."]"
 			else
-				formspec = formspec .. "label[0,1.7;Sem Foto]"
+				formspec = formspec .. "label[2.8,2.5;Sem Foto]"
 			end 
 			-- Imagem de fundo
 			if custom_npc.bg then 
