@@ -8,22 +8,19 @@
 	
 	Inicializador de scripts
   ]]
-
---[[
-	Script alterado para permitir funcionamento dentro do mod aventuras
-  ]]
-
+  
 -- Verifica se o mod memor original esta ativo
 if minetest.get_modpath("memor") then return end
+
 
 -- Notificador de Inicializador
 local notificar = function(msg)
 	if minetest.setting_get("log_mods") then
-		minetest.debug("[Aventuras/Memor]"..msg)
+		minetest.debug("[MEMOR]"..msg)
 	end
 end
 
-local modpath = minetest.get_modpath("aventuras").."/memor"
+local modpath = minetest.get_modpath("aventuras") .. "/lib/memor"
 
 -- Variavel global
 memor = {}

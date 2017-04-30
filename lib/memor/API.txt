@@ -25,12 +25,12 @@ Chamadas de função para o banco de dados criado
 		<index> é o endereço do valor (exemplo: fome, altura, dono)
 		<valor> é o valor armazenado (exemplo: 6, 30, "Caio")
 
-	pegar(tb, index) -- Retorna o valor armazenado (ou nulo caso seja inexistente)
+	pegar(index, valor) -- Retorna o valor armazenado (ou nulo caso seja inexistente)
 	
 		<tb> é o nome da tabela (exemplo: players, nodes, casas)
 		<index> é o endereço do valor (exemplo: fome, altura, dono)
 
-	verif(tb, index) -- Verifica se um determinado registro existe (retorna 'true' se existir)
+	verif(index, valor) -- Verifica se um determinado registro existe (retorna 'true' se existir)
 	
 		<tb> é o nome da tabela (exemplo: players, nodes, casas)
 		<index> é o endereço do valor (exemplo: fome, altura, dono)

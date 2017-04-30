@@ -1,6 +1,6 @@
 --[[
 	Mod Memor para Minetest
-	Memor v1.3 Copyright (C) 2016 BrunoMine (https://github.com/BrunoMine)
+	Memor v1.2 Copyright (C) 2016 BrunoMine (https://github.com/BrunoMine)
 	
 	Recebeste uma cópia da GNU Lesser General
 	Public License junto com esse software,
@@ -31,7 +31,15 @@ end)
 
 -- Remove o jogador de todas listas quando entrar no servidor
 minetest.register_on_leaveplayer(function(player)
+	local name = player:get_player_name()
 	for mod,l in pairs(memor.online_mods) do
-		memor.online_mods[mod][player:get_player_name()] = nil
+		local np = {}
+		for _,p in ipairs(minetest.get_connected_players()) do
+			local n = p:get_player_name()
+			if n ~= name then
+				np[n] = memor.online_mods[mod][n]
+			end
+		end
+		memor.online_mods[mod] = np
 	end
 end)
