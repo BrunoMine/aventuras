@@ -1,0 +1,12 @@
+{
+    "name": "aventuras",
+    "description": "Engine de aventuras para minetest",
+    "keywords": [
+        "aventuras"
+    ],
+    "homepage": "https://github.com/BrunoMine/aventuras",
+    "forum": "https://forum.minetest.net/viewtopic.php?t=1",
+    "authors": [
+        "BrunoMine"
+    ]
+}
