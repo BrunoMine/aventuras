@@ -161,7 +161,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			
 			-- Informa a conclusao da tarefa
 			minetest.show_formspec(name, "aventuras:troca_npc_fim", "size[10,3]"
-				.."bgcolor["..arte_npc.bg_cor..";true]"
+				.."bgcolor["..arte_npc.bgcolor..";true]"
 				..arte_npc.bg_img10x3
 				.."image[0,0;3.3,3.3;"..arte_npc.face.."]"
 				.."label[3,0;"..dados.titulo.."]"

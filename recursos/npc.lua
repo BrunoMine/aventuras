@@ -48,7 +48,7 @@ aventuras.recursos.npc.registrar = function(nome, aventura)
 	if not aventuras.recursos.npc.reg[nome] then aventuras.recursos.npc.reg[nome] = {} end
 	
 	-- Cria arte caso nao exista
-	if not aventuras.recursos.npc.registrar_arte[nome] then
+	if not aventuras.recursos.npc.arte[nome] then
 		aventuras.recursos.npc.registrar_arte(nome, {
 			face = "logo.png",
 			bgcolor = "bgcolor[#080808BB;true]",
