@@ -12,9 +12,11 @@
 -- Tabela de Recurso de NPCs
 aventuras.recursos.npc = {}
 
--- Tabelas de NPCs registrados
+-- Tabelas de aventuras NPCs registrados
 aventuras.recursos.npc.reg = {}
 
+-- Tabela de arte de NPCs registrados 
+aventuras.recursos.npc.arte = {}
 
 -- Verificar se ja foi criada a taela temporaria npcs
 local verif_tb_temp = function(name)
@@ -23,9 +25,19 @@ local verif_tb_temp = function(name)
 	end	
 end
 
+-- Registrar arte de um NPC
+aventuras.recursos.npc.registrar_arte = function(nome, def)
+	-- Armazena dados sobre arte
+	aventuras.recursos.npc.arte[nome] = {
+		face = def.face,
+		bgcolor = def.bgcolor,
+		bg_img1x1 = def.bg_img1x1,
+		bg_img10x3 = def.bg_img10x3,
+	}
+end
 
 -- Registrar um NPC
-aventuras.recursos.npc.registrar = function(nome, aventura, def)
+aventuras.recursos.npc.registrar = function(nome, aventura)
 
 	if not nome or not aventura then -- Verificar nome
 		minetest.log("error", "[Sunos] Faltam dados em aventuras.recursos.npc.registrar")
@@ -35,6 +47,17 @@ aventuras.recursos.npc.registrar = function(nome, aventura, def)
 	-- Cria registro do npc caso nao exista
 	if not aventuras.recursos.npc.reg[nome] then aventuras.recursos.npc.reg[nome] = {} end
 	
+	-- Cria arte caso nao exista
+	if not aventuras.recursos.npc.registrar_arte[nome] then
+		aventuras.recursos.npc.registrar_arte(nome, {
+			face = "logo.png",
+			bgcolor = "bgcolor[#080808BB;true]",
+			bg_img1x1 = "background[5,5;1,1;gui_formbg.png;true]",
+			bg_img10x3 = "background[5,5;1,1;gui_formbg.png;true]",
+		})
+	end
+	
+	-- Registra atribuição de aventura ao npc
 	aventuras.recursos.npc.reg[nome][aventura] = {}
 	
 end
@@ -51,6 +74,9 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 	
 	-- Prepara tabela temporaria de npcs relacionados ao jogador
 	verif_tb_temp(name)
+	
+	-- Salva o nome ultimo npc acessado
+	aventuras.online[name].npc = self.name
 	
 	-- Verifica tarefas de aventuras relacionadas
 	aventuras.online[name].tb_aventuras_ok = {} -- tabela de aventuras que aguardam a interação 'on_rightclick'
@@ -98,10 +124,12 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 		end
 		aventuras.online[name].menu_aven_tb = minetest.deserialize(minetest.serialize(aven_tb))
 		
+		local arte_npc = aventuras.recursos.npc.arte[self.name]
+		
 		-- Pergunta a tarefa escolhida
 		local formspec = "size[5,5]"
-			..default.gui_bg
-			..default.gui_bg_img
+			..arte_npc.bgcolor
+			..arte_npc.bg_img1x1
 			.."label[0,0;Escolha uma aventura]"
 			.."textlist[0,0.5;5,4.5;menu;"..titulos..";;true]"
 		
@@ -113,19 +141,17 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 		
 		local aventura = aventuras.comum.pegar_index(aventuras.online[name].tb_aventuras_ok)
 		local tarefa = aventuras.online[name].tb_aventuras_ok[aventura]
+		local npc = aventuras.online[name].npc
 		
 		local tipo_tarefa = aventuras.tb[aventura].tarefas[tarefa].tipo
 		
 		-- Direciona interação para a tarefa disponivel	
-		return aventuras.tarefas[tipo_tarefa].npcs.on_rightclick(self, clicker, aventura, tarefa)
+		return aventuras.tarefas[tipo_tarefa].npcs.on_rightclick(npc, clicker, aventura, tarefa)
 		
 	else
 	
 		-- Informa que nao existe tarefa disponivel no momento
-		minetest.show_formspec(clicker:get_player_name(), "aventuras:tarefa invalida", "size[5,1]"
-					..default.gui_bg
-					..default.gui_bg_img
-					.."label[0,0.25;Nenhuma interacao disponivel]")
+		aventuras.comum.exibir_alerta(clicker:get_player_name(), "Nenhuma interacao disponivel")
 		return true
 	end
 end
@@ -144,17 +170,16 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			local aventura = aventuras.online[name].menu_aven_tb[escolha]
 			local tarefa = aventuras.online[name].tb_aventuras_ok[aventura]
 			local tipo_tarefa = aventuras.tb[aventura].tarefas[tarefa].tipo
+			local npc = aventuras.online[name].npc
 			
 			-- Verifica se a tarefa ainda esta habilitada
 			if aventuras.bd:pegar(name, aventura) ~= tarefa-1 then
-				return minetest.show_formspec(player:get_player_name(), "aventuras:tarefa invalida", "size[4,1]"
-					..default.gui_bg
-					..default.gui_bg_img
-					.."label[0,0.25;Tarefa invalida]")
+				aventuras.comum.exibir_alerta(player:get_player_name(), "Tarefa invalida")
+				return
 			end
 			
 			-- Direciona interação para a tarefa disponivel
-			return aventuras.tarefas[tipo_tarefa].npcs.on_rightclick(self, player, aventura, tarefa)
+			return aventuras.tarefas[tipo_tarefa].npcs.on_rightclick(npc, player, aventura, tarefa)
 			
 		end
 	end

@@ -38,6 +38,7 @@ dofile(modpath.."/comum/verif_tarefa.lua")
 dofile(modpath.."/comum/contar_tb.lua")
 dofile(modpath.."/comum/pegar_index.lua")
 dofile(modpath.."/comum/trocar_itens.lua")
+dofile(modpath.."/comum/exibir_alerta.lua")
 
 -- API
 dofile(modpath.."/api.lua")

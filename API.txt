@@ -37,9 +37,9 @@ Tarefas
 		npcs = {"mobs_npc:igor", "mobs_npc:trader"},
 		^ Tabela de entidades que estao aptas para realizar a troca
 		item_rem = Tabela de Itens,
-		^ OPCIONAL | Tabela de itens exigidos para a troca
+		^ OPCIONAL | Tabela de itens exigidos para a troca (limite de 5 itens na tabela)
 		item_add = Tabela de Itens,
-		^ OPCIONAL | Tabela de itens recebidos pela troca
+		^ OPCIONAL | Tabela de itens recebidos pela troca (limite de 5 itens na tabela)
 		msg = "",
 		^ Mensagem apresentada ao pedir os itens
 		msg_fim = "",
@@ -57,18 +57,25 @@ Recursos
 --------
 
 ### NPCs
-* `aventuras.recursos.npc.registrar(nome, aventura, Definições de NPC)` : Registrar o uso de um NPC na engine
+* `aventuras.recursos.npc.registrar(nome, aventura)` : Registrar o uso de um NPC na engine
 	* `nome` é o nome da entidade-NPC (exemplo: "mobs_npc:igor")
 	* `aventura` é o nome da aventura (exemplo: "grande_desbravador")
-	* Executa a chamada `aventuras.tarefas["tipo de tarefa"].npcs.on_rightclick(self, clicker, aventura, tarefa)` quando o npc é acessado e o jogador está na tarefa cujo registro possui `npcs.on_rightclick["nome da entidade"]`
+	* Executa a chamada `aventuras.tarefas["tipo de tarefa"].npcs.on_rightclick(npc_name, clicker, aventura, tarefa)` quando o npc é acessado e o jogador está na tarefa cujo registro possui `npcs.on_rightclick["nome da entidade"]`
 	
 * `aventuras.recursos.npc.on_rightclick(self, clicker)` : Coordena o chamada 'on_rightclick' no NPC
-	* `self` entidade-NPC registrada (exemplo: "mobs_npc:igor")
+	* São os mesmo argumentos da chamada 'on_rightclick'
 
-### Definições de NPC
+* `aventuras.recursos.npc.registrar_arte(nome, Definições de arte de NPC)` : Registra dados de arte do npc
+	* `nome` é o nome da entidade-NPC (exemplo: "mobs_npc:igor")
+
+### Definições de arte de NPC
 	{
-		def.on_rightclick
-		^ Função on_rightclick padrao
+		face = "default_dirt.png",
+		^ Imagem da face do NPC para as formspecs de apresentação (recomenda-se largura e altura iguais)
+		bgcolor = "bgcolor[#080808BB;true]",
+		^ Valor RGB-Hexadecimal da cor de fundo para as formspecs de apresentação
+		bg_img1x1 = "background[5,5;1,1;gui_formbg.png;true]",
+		^ Imagem de fundo para as formspecs no formato quadrado
+		bg_img10x3 = "background[5,5;1,1;gui_formbg.png;true]",
+		^ Imagem de fundo para as formspecs no formato 10x3
 	}
-
-
