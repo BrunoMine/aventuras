@@ -7,7 +7,7 @@
 
 ## Description
 
-API de aventuras para minetest
+Engine de aventuras para minetest
 
 
 ## Project Resources
