@@ -1,7 +1,17 @@
-Aventuras
-=========
+# aventuras for Minetest
 
-API para criação de aventuras
+[![download](https://img.shields.io/github/tag/BrunoMine/aventuras.svg?style=flat-square&label=release)](https://github.com/BrunoMine/aventuras/archive/master.zip)
+[![git](https://img.shields.io/badge/git-project-green.svg?style=flat-square)](https://github.com/BrunoMine/aventuras)
+[![bower](https://img.shields.io/badge/bower-mod-green.svg?style=flat-square)](https://minetest-bower.herokuapp.com/mods/aventuras)
 
-## Licença
-Veja LICENSE.txt para informações detalhadas da licença LGPL 3.0
+
+## Description
+
+API de aventuras para minetest
+
+
+## Project Resources
+
+* [Download](https://github.com/BrunoMine/aventuras/archive/master.zip)
+* [Project](https://github.com/BrunoMine/aventuras)
+* [Bower](https://minetest-bower.herokuapp.com/mods/aventuras)
