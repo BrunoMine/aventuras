@@ -6,46 +6,130 @@
 	Public License junto com esse software,
 	se não, veja em <http://www.gnu.org/licenses/>. 
 	
-	Inicializador de variaveis e scripts
+	Teste basico do mod aventuras
   ]]
 
--- Notificador de Inicializador
-local notificar = function(msg)
-	if minetest.setting_get("log_mods") then
-		minetest.debug("[AVENTURAS]"..msg)
-	end
+--
+-- Preparação das entidades
+--
+
+-- Alterar on_rigthclick do mob igor
+minetest.registered_entities["mobs_npc:igor"].on_rightclick = function(self, clicker)
+	aventuras.recursos.npc.on_rightclick(self, clicker)
+end
+-- Registrar arte do npc Igor
+aventuras.recursos.npc.registrar_arte("mobs_npc:igor", {
+	face = "default_stone.png",
+	bgcolor = "bgcolor[#080808BB;true]",
+	bg_img1x1 = "background[5,5;1,1;default_wood.png;true]",
+	bg_img10x3 = "background[5,5;3,1;default_wood.png;true]",
+})
+
+
+-- Alterar on_rigthclick do mob trader
+minetest.registered_entities["mobs_npc:trader"].on_rightclick = function(self, clicker)
+	aventuras.recursos.npc.on_rightclick(self, clicker)
 end
 
-local modpath = minetest.get_modpath("aventuras")
+--
+-- Criação de Aventura de Teste 1
+-- e tarefas
+--
 
--- Variavel global
-aventuras = {}
+-- Registrar aventura de teste 1
+aventuras.registrar_aventura("aventura_de_teste_1", {
+	titulo = "Aventura de Teste 1",
+	desc = "Aventura feita para testar a Engine de aventuras"
+})
 
--- Tabela de Recursos
-aventuras.recursos = {}
+-- Adicionar tarefa 1 na aventura 1
+aventuras.adicionar_tarefa("aventura_de_teste_1", "troca_npc", {
+	titulo = "Conhecendo o Igor",
+	dados = {
+		npcs = {"mobs_npc:igor"},
+		msg = "Oi. Sou o Igor",
+		msg_fim = "Prazer em conhecer",
+	},
+})
 
--- Tabela de metodos comuns
-aventuras.comum = {} 
+-- Adicionar tarefa 2 na aventura 1
+aventuras.adicionar_tarefa("aventura_de_teste_1", "troca_npc", {
+	titulo = "Conhecendo o amigo imaginario do igor",
+	dados = {
+		npcs = {"mobs_npc:trader"},
+		msg = "Oi. Esse e meu amigo imaginario",
+		msg_fim = "Ele disse prazer em conhecer voce",
+	},
+})
 
--- Carregar scripts
-notificar("Carregando...")
+-- Adicionar tarefa 3 na aventura 1
+aventuras.adicionar_tarefa("aventura_de_teste_1", "troca_npc", {
+	titulo = "Oferencendo terra",
+	dados = {
+		npcs = {"mobs_npc:igor"},
+		msg = "Oi. Preciso de terra",
+		msg_fim = "Obrigado",
+		item_rem = {
+			{name="default:dirt", count=1, wear=0, metadata=""},
+		},
+	},
+})
 
--- Bibliotecas
-dofile(modpath.."/lib/memor/init.lua")
+-- Adicionar tarefa 4 na aventura 1
+aventuras.adicionar_tarefa("aventura_de_teste_1", "troca_npc", {
+	titulo = "Recebendo terra",
+	dados = {
+		npcs = {"mobs_npc:igor"},
+		msg = "Oi. Acho que nao preciso mais de terra",
+		msg_fim = "Obrigado novamente",
+		item_add = {
+			{name="default:dirt", count=1, wear=0, metadata=""},
+		},
+	},
+})
 
--- Metodos comuns
-dofile(modpath.."/comum/verif_tarefa.lua")
-dofile(modpath.."/comum/contar_tb.lua")
-dofile(modpath.."/comum/pegar_index.lua")
-dofile(modpath.."/comum/trocar_itens.lua")
-dofile(modpath.."/comum/exibir_alerta.lua")
+-- Adicionar tarefa 5 na aventura 1
+aventuras.adicionar_tarefa("aventura_de_teste_1", "troca_npc", {
+	titulo = "A troca",
+	dados = {
+		npcs = {"mobs_npc:igor"},
+		msg = "Me de essa terra, tome esses pedregulhos",
+		msg_fim = "Boa troca",
+		item_add = {
+			{name="default:cobble", count=1, wear=0, metadata=""},
+			{name="default:cobble", count=2, wear=0, metadata=""},
+			{name="default:cobble", count=5, wear=0, metadata=""},
+			{name="default:cobble", count=55, wear=0, metadata=""},
+			{name="default:wood", count=22, wear=0, metadata=""},
+		},
+		item_rem = {
+			{name="default:dirt", count=1, wear=0, metadata=""},
+		},
+	},
+})
 
--- API
-dofile(modpath.."/api.lua")
+--
+-- Criação de Aventura de Teste 2
+-- e tarefas
+--
 
--- Recursos
-dofile(modpath.."/recursos/npc.lua")
 
--- Tarefas
-dofile(modpath.."/tarefas/troca_npc.lua")
-notificar("OK")
+-- Registrar aventura de teste 2
+aventuras.registrar_aventura("aventura_de_teste_2", {
+	titulo = "Aventura de Teste 2",
+	desc = "Aventura feita para testar a Engine de aventuras"
+})
+
+-- Adicionar tarefa 1 na aventura 2
+aventuras.adicionar_tarefa("aventura_de_teste_2", "troca_npc", {
+	titulo = "Conhecendo o Igor",
+	dados = {
+		npcs = {"mobs_npc:igor"},
+		msg = "Oi. Sou o Rogi",
+		msg_fim = "Prazer em conhecer",
+	},
+})
+
+
+
+

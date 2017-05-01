@@ -1,2 +1,4 @@
 memor?
 default
+mobs_npc
+aventuras

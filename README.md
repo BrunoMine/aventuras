@@ -1,17 +1,5 @@
-# aventuras for Minetest
+Teste Aventuras
+===============
 
-[![download](https://img.shields.io/github/tag/BrunoMine/aventuras.svg?style=flat-square&label=release)](https://github.com/BrunoMine/aventuras/archive/master.zip)
-[![git](https://img.shields.io/badge/git-project-green.svg?style=flat-square)](https://github.com/BrunoMine/aventuras)
-[![bower](https://img.shields.io/badge/bower-mod-green.svg?style=flat-square)](https://minetest-bower.herokuapp.com/mods/aventuras)
-
-
-## Description
-
-Engine de aventuras para minetest
-
-
-## Project Resources
-
-* [Download](https://github.com/BrunoMine/aventuras/archive/master.zip)
-* [Project](https://github.com/BrunoMine/aventuras)
-* [Bower](https://minetest-bower.herokuapp.com/mods/aventuras)
+Esse é um mod de teste para desenvolvimento do mod Aventuras.
+Esse mod utiliza as entidades do mod mobs_npc para realizar os testes.
