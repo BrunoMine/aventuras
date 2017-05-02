@@ -100,6 +100,8 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 			if aventuras.tb[aventura].tarefas[tarefa_atual].npcs 
 				and aventuras.tb[aventura].tarefas[tarefa_atual].npcs.on_rightclick 
 				and aventuras.tb[aventura].tarefas[tarefa_atual].npcs.on_rightclick[self.name]
+				and aventuras.tb[aventura].tarefas[tarefa_atual].npcs.on_rightclick[self.name]
+				and aventuras.comum.check_aven_req(name, aventuras.tb[aventura].tarefas[tarefa_atual].aven_req) == true
 			then
 				-- Adiciona na tabela de aventuras que aguardam interação 
 				aventuras.online[name].tb_aventuras_ok[aventura] = tarefa_atual -- Armazena respectiva tarefa

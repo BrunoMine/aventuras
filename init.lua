@@ -39,6 +39,7 @@ dofile(modpath.."/comum/contar_tb.lua")
 dofile(modpath.."/comum/pegar_index.lua")
 dofile(modpath.."/comum/trocar_itens.lua")
 dofile(modpath.."/comum/exibir_alerta.lua")
+dofile(modpath.."/comum/check_aven_req.lua")
 
 -- API
 dofile(modpath.."/api.lua")
@@ -48,4 +49,6 @@ dofile(modpath.."/recursos/npc.lua")
 
 -- Tarefas
 dofile(modpath.."/tarefas/troca_npc.lua")
+dofile(modpath.."/tarefas/info_npc.lua")
+
 notificar("OK")

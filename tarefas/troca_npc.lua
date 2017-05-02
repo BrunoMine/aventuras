@@ -86,6 +86,8 @@ aventuras.tarefas.troca_npc.adicionar = function(aventura, def)
 		titulo = def.titulo,
 		tipo = "troca_npc",
 		
+		aven_req = def.dados.aven_req or {},
+		
 		msg = def.dados.msg,
 		msg_fim = def.dados.msg_fim,
 		item_rem = def.dados.item_rem,

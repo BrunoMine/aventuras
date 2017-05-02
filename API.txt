@@ -34,6 +34,8 @@ Tarefas
 
 ### Dados `troca_npc`
 	{
+		aven_req = {["uma_aventura"]=2,["outra_aventura"]=10},
+		^ Tabela de aventuras onde a index é o ID da aventura e armazena a tarefa mínima requerida.
 		npcs = {"mobs_npc:igor", "mobs_npc:trader"},
 		^ Tabela de entidades que estao aptas para realizar a troca
 		item_rem = Tabela de Itens,
@@ -44,6 +46,18 @@ Tarefas
 		^ Mensagem apresentada ao pedir os itens
 		msg_fim = "",
 		^ Mensagem apresentada ao entregar os itens (termino da tarefa)
+	}
+	
+### Dados `info_npc`
+	{
+		aven_req = {["uma_aventura"]=2,["outra_aventura"]=10},
+		^ Tabela de aventuras onde a index é o ID da aventura e armazena a tarefa mínima requerida.
+		npcs = {"mobs_npc:igor", "mobs_npc:trader"},
+		^ Tabela de entidades que estao aptas para realizar a tarefa
+		msg = "",
+		^ Mensagem apresentada ao acessar npc
+		msg_fim = "",
+		^ Mensagem apresentada ao concluir (termino da tarefa)
 	}
 
 ### Tabela de Itens
