@@ -124,12 +124,24 @@ aventuras.registrar_aventura("aventura_de_teste_2", {
 aventuras.adicionar_tarefa("aventura_de_teste_2", "troca_npc", {
 	titulo = "Conhecendo o Igor",
 	dados = {
+		aven_req = {
+			["aventura_de_teste_1"] = 2,
+		},
 		npcs = {"mobs_npc:igor"},
 		msg = "Oi. Sou o Rogi",
 		msg_fim = "Prazer em conhecer",
 	},
 })
 
+-- Adicionar tarefa 2 na aventura 2
+aventuras.adicionar_tarefa("aventura_de_teste_2", "info_npc", {
+	titulo = "Fazendo nada",
+	dados = {
+		npcs = {"mobs_npc:igor"},
+		msg = "Oi.",
+		msg_fim = "Obrigado por nada",
+	},
+})
 
 
 
