@@ -33,6 +33,7 @@ aventuras.recursos.npc.registrar_arte = function(nome, def)
 		bgcolor = def.bgcolor,
 		bg_img1x1 = def.bg_img1x1,
 		bg_img10x3 = def.bg_img10x3,
+		sounds = def.sounds or {},
 	}
 end
 

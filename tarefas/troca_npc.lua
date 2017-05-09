@@ -173,6 +173,13 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			-- Salva a conclusao da missao
 			aventuras.bd:salvar(name, "aventura_"..aventuras.online[name].troca_npc.aventura, aventuras.online[name].troca_npc.tarefa)
 			
+			-- Toca o som de conclusao
+			if arte_npc.sounds.concluir then
+				minetest.sound_play(arte_npc.sounds.concluir.name, {to_player = name, gain = arte_npc.sounds.concluir.gain})
+			else
+				minetest.sound_play("aventuras_concluir", {to_player = name, gain = 0.7})
+			end
+			
 		end
 		
 		

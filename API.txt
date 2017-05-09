@@ -3,9 +3,15 @@ API para mod Aventuras
 Aventuras
 ---------
 
-### Registro de Aventura
+### Métodos Básicos
 * `aventuras.registrar_aventura(nome, Definições de aventura)` : Registrar uma aventura
 	* `nome` é o nome da aventura (exemplo: "grande_desbravador")
+* `aventuras.adicionar_tarefa(aventura, tipo, Definições de tarefa)` : Adicionar uma tarefa em uma aventura
+	* `aventura` é o nome da aventura (exemplo: "grande_desbravador")
+	* `tipo` é o nome da aventura (exemplo: "simples")
+* `aventuras.verif_tarefa(nome, aventura)` : Retorna o número da última tarefa realizada (retorna `0` caso não tenha feito nenhuma)
+	* `nome` é o nome do jogador
+	* `aventura` é o nome da aventura
 	
 ### Definições de aventura
 	{
@@ -14,15 +20,6 @@ Aventuras
 		desc = "Uma aventura legal",
 		^ Pequena descrição da aventura
 	}
-
-
-Tarefas
--------
-
-### Adicionar tarefa
-* `aventuras.adicionar_tarefa(aventura, tipo, Definições de tarefa)` : Adicionar uma tarefa em uma aventura
-	* `aventura` é o nome da aventura (exemplo: "grande_desbravador")
-	* `tipo` é o nome da aventura (exemplo: "simples")
 
 ### Definições de tarefa
 	{
@@ -156,8 +153,15 @@ Recursos
 		^ Imagem de fundo para as formspecs no formato quadrado
 		bg_img10x3 = "background[5,5;1,1;gui_formbg.png;true]",
 		^ Imagem de fundo para as formspecs no formato 10x3
+		sounds = Sons de NPC,
+		^ Opcional. Tabela de sons do NPC
 	}
 
+### Sons de NPC
+	{
+		concluir = {name="aventuras_concluir",gain=1.0},
+		^ Nome do arquivo de audio de quando o jogador conclui uma tarefa no NPC
+	}
 
 Termos reservados
 -----------------
@@ -170,3 +174,15 @@ O banco de dados funciona com o sseguintes valores:
 
 * `aventura_<nome de aventura>`
 * `tarefa_<nome do tipo de tarefa>`
+
+Midias padrão
+-------------
+Você pode usar essas mídias alternativamente. Elas já estão presentes na Engine.
+
+### Texturas
+aventuras_tarefa_duvida.png
+
+### Sons
+aventuras_concluir.ogg
+
+
