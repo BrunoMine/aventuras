@@ -32,7 +32,7 @@ Tarefas
 		^ Tabela de dados que o referido tipo de tarefa designar
 	}
 
-### Dados `troca_npc`
+### Dados `troca_npc` : Nessa tarefa o jogador deve realizar um troca com um ou mais npcs
 	{
 		aven_req = {["uma_aventura"]=2,["outra_aventura"]=10},
 		^ Tabela de aventuras onde a index é o ID da aventura e armazena a tarefa mínima requerida.
@@ -48,7 +48,7 @@ Tarefas
 		^ Mensagem apresentada ao entregar os itens (termino da tarefa)
 	}
 	
-### Dados `info_npc`
+### Dados `info_npc` : Nessa tarefa o jogador apenas precisa acessar o npc e clicar em concluir
 	{
 		aven_req = {["uma_aventura"]=2,["outra_aventura"]=10},
 		^ Tabela de aventuras onde a index é o ID da aventura e armazena a tarefa mínima requerida.
@@ -58,6 +58,38 @@ Tarefas
 		^ Mensagem apresentada ao acessar npc
 		msg_fim = "",
 		^ Mensagem apresentada ao concluir (termino da tarefa)
+	}
+
+### Dados `place_node` : Nessa tarefa o jogador precisa acessar um NPC e depois colocar um node para concluir
+	{
+		aven_req = {["uma_aventura"]=2,["outra_aventura"]=10},
+		^ Tabela de aventuras onde a index é o ID da aventura e armazena a tarefa mínima requerida.
+		npcs = {"mobs_npc:igor", "mobs_npc:trader"},
+		^ Tabela de entidades que estao aptas para informar a tarefa (habilitar para ser realizada)
+		msg = "",
+		^ Mensagem apresentada ao acessar npc
+		msg_fim = "",
+		^ Mensagem apresentada ao concluir (uma pequena frase no chat)
+		node = "default:cobble",
+		^ Itemstring do node a ser colocado para concluir a tarefa
+		img_node = "aventuras_tarefa_duvida.png",
+		^ Opcional. Imagem para ser exibida ao acessar npc (caso esteja nula será exibido o item que precisa ser colocado)
+	}
+
+### Dados `dig_node` : Nessa tarefa o jogador precisa acessar um NPC e depois cavar um node para concluir
+	{
+		aven_req = {["uma_aventura"]=2,["outra_aventura"]=10},
+		^ Tabela de aventuras onde a index é o ID da aventura e armazena a tarefa mínima requerida.
+		npcs = {"mobs_npc:igor", "mobs_npc:trader"},
+		^ Tabela de entidades que estao aptas para informar a tarefa (habilitar para ser realizada)
+		msg = "",
+		^ Mensagem apresentada ao acessar npc
+		msg_fim = "",
+		^ Mensagem apresentada ao concluir (uma pequena frase no chat)
+		node = "default:cobble",
+		^ Itemstring do node a ser cavado para concluir a tarefa
+		img_node = "aventuras_tarefa_duvida.png",
+		^ Opcional. Imagem para ser exibida ao acessar npc (caso esteja nula será exibido o item que precisa ser cavado)
 	}
 
 ### Tabela de Itens
@@ -93,3 +125,16 @@ Recursos
 		bg_img10x3 = "background[5,5;1,1;gui_formbg.png;true]",
 		^ Imagem de fundo para as formspecs no formato 10x3
 	}
+
+
+Termos reservados
+-----------------
+Todos os nomes de tipos de tarefas são reservados
+
+
+Banco de Dados
+--------------
+O banco de dados funciona com o sseguintes valores:
+
+* `aventura_<nome de aventura>`
+* `tarefa_<nome do tipo de tarefa>`

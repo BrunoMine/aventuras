@@ -50,5 +50,7 @@ dofile(modpath.."/recursos/npc.lua")
 -- Tarefas
 dofile(modpath.."/tarefas/troca_npc.lua")
 dofile(modpath.."/tarefas/info_npc.lua")
+dofile(modpath.."/tarefas/place_node.lua")
+dofile(modpath.."/tarefas/dig_node.lua")
 
 notificar("OK")

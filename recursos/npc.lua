@@ -83,15 +83,15 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 	for aventura,def in pairs(aventuras.recursos.npc.reg[self.name]) do
 		
 		-- Verifica se o jogador tem registro da aventura
-		if aventuras.bd:verif(name, aventura) ~= true then
+		if aventuras.bd:verif(name, "aventura_"..aventura) ~= true then
 		
 			-- Cria o registro do jogaor na aventura
-			aventuras.bd:salvar(name, aventura, 0)
+			aventuras.bd:salvar(name, "aventura_"..aventura, 0)
 		
 		end
 		
 		-- Tarefa do jogador nessa aventura
-		local tarefa_atual = aventuras.bd:pegar(name, aventura) + 1
+		local tarefa_atual = aventuras.bd:pegar(name, "aventura_"..aventura) + 1
 		
 		-- Verificar se tarefa existe
 		if aventuras.comum.verif_tarefa(aventura, tarefa_atual) == true then
@@ -175,7 +175,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			local npc = aventuras.online[name].npc
 			
 			-- Verifica se a tarefa ainda esta habilitada
-			if aventuras.bd:pegar(name, aventura) ~= tarefa-1 then
+			if aventuras.bd:pegar(name, "aventura_"..aventura) ~= tarefa-1 then
 				aventuras.comum.exibir_alerta(player:get_player_name(), "Tarefa invalida")
 				return
 			end
