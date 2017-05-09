@@ -6,13 +6,13 @@
 	Public License junto com esse software,
 	se não, veja em <http://www.gnu.org/licenses/>. 
 	
-	Framework : Tarefa do tipo dig_node
+	Framework : Tarefa do tipo comer
 	
-	Nessa tarefa o jogador precisa acessar um NPC e depois cavar um node para concluir (uma mensagem aparece no chat quando a aventura termina)
+	Nessa tarefa o jogador precisa acessar um NPC e depois comer algo para concluir (uma mensagem aparece no chat quando a aventura termina)
   ]]
 
 -- Tabela de registros dessa tarefa
-aventuras.tarefas.dig_node = {}
+aventuras.tarefas.comer = {}
 
 
 -- Gerar um formspec de tarefa
@@ -40,17 +40,17 @@ local gerar_form = function(aventura, dados, npc)
 end
 
 -- Adicionar tarefa à aventura
-aventuras.tarefas.dig_node.adicionar = function(aventura, def)
+aventuras.tarefas.comer.adicionar = function(aventura, def)
 
 	-- Prepara tabela registros da tarefa
 	local reg = {
 		titulo = def.titulo,
-		tipo = "dig_node",
+		tipo = "comer",
 		
 		aven_req = def.dados.aven_req or {},
 		
-		node = def.dados.node,
-		img_node = def.dados.img_node,
+		node = def.dados.item,
+		img_node = def.dados.img_item,
 		
 		msg = def.dados.msg,
 		msg_fim = def.dados.msg_fim,
@@ -75,47 +75,47 @@ aventuras.tarefas.dig_node.adicionar = function(aventura, def)
 end
 
 -- Interface com entidades/npcs
-aventuras.tarefas.dig_node.npcs = {}
+aventuras.tarefas.comer.npcs = {}
 
 -- Receber chamada de 'on_rightclick' de algum dos npcs acessados
-aventuras.tarefas.dig_node.npcs.on_rightclick = function(npc, clicker, aventura, tarefa)
+aventuras.tarefas.comer.npcs.on_rightclick = function(npc, clicker, aventura, tarefa)
 	
 	local name = clicker:get_player_name()
 	
-	if not aventuras.online[name].dig_node then aventuras.online[name].dig_node = {} end
+	if not aventuras.online[name].comer then aventuras.online[name].comer = {} end
 	
 	-- Pegar dados da tarefa atual
 	local dados = aventuras.tb[aventura].tarefas[tarefa]
 	
 	-- Salva os dados da tarefa que estará sendo processada nos proximos momentos
-	aventuras.online[name].dig_node.aventura=aventura
-	aventuras.online[name].dig_node.dados=dados
-	aventuras.online[name].dig_node.tarefa=tarefa
-	aventuras.online[name].dig_node.npc=npc
+	aventuras.online[name].comer.aventura=aventura
+	aventuras.online[name].comer.dados=dados
+	aventuras.online[name].comer.tarefa=tarefa
+	aventuras.online[name].comer.npc=npc
 	
 	-- Exibir pedido de itens
-	minetest.show_formspec(name, "aventuras:dig_node", gerar_form(aventura, dados, npc))
+	minetest.show_formspec(name, "aventuras:comer", gerar_form(aventura, dados, npc))
 	
 	-- Habilitar tarefa para ser realizada a qualquer momento
-	if not aventuras.online[name].dig_node.aven then aventuras.online[name].dig_node.aven = {} end
-	if not aventuras.online[name].dig_node.aven[dados.node] then aventuras.online[name].dig_node.aven[dados.node] = {} end
-	aventuras.online[name].dig_node.aven[dados.node][aventura] = true
-	aventuras.bd:salvar(name, "tarefa_dig_node", aventuras.online[name].dig_node.aven)
+	if not aventuras.online[name].comer.aven then aventuras.online[name].comer.aven = {} end
+	if not aventuras.online[name].comer.aven[dados.node] then aventuras.online[name].comer.aven[dados.node] = {} end
+	aventuras.online[name].comer.aven[dados.node][aventura] = true
+	aventuras.bd:salvar(name, "tarefa_comer", aventuras.online[name].comer.aven)
 	
 	return
 
 end
 
--- Verificar ao cavar node
-minetest.register_on_dignode(function(pos, oldnode, digger)
+-- Verificar ao comer algo
+minetest.register_on_item_eat(function(hp_change, replace_with_item, itemstack, user, pointed_thing)
 	
-	if aventuras.online[digger:get_player_name()].dig_node -- a maioria ja para aqui
-		and aventuras.online[digger:get_player_name()].dig_node.aven[oldnode.name]
+	if aventuras.online[user:get_player_name()].comer -- a maioria ja para aqui
+		and aventuras.online[user:get_player_name()].comer.aven[itemstack:get_name()]
 	then
-		local name = digger:get_player_name()
+		local name = user:get_player_name()
 		
 		-- conclui todas as missoes que aguardavam essa tarefa
-		for aventura,d in pairs(aventuras.online[name].dig_node.aven[oldnode.name]) do
+		for aventura,d in pairs(aventuras.online[name].comer.aven[itemstack:get_name()]) do
 			
 			local tarefa = aventuras.bd:pegar(name, "aventura_"..aventura)+1
 			local dados = aventuras.tb[aventura].tarefas[tarefa] 
@@ -127,16 +127,16 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 			minetest.chat_send_player(name, dados.msg_fim)
 			
 			-- Remove aventura pendente da tabela
-			aventuras.online[name].dig_node.aven[oldnode.name][aventura] = nil
+			aventuras.online[name].comer.aven[itemstack:get_name()][aventura] = nil
 		end
 		
 		-- Toca o som de conclusao
 		minetest.sound_play("aventuras_concluir", {to_player = name, gain = 0.7})
 		
 		-- Deleta dados temporarios desse tipo de tarefa caso nao tenha mais nenhum pendente
-		if aventuras.comum.contar_tb(aventuras.online[name].dig_node.aven[oldnode.name]) == 0 then
-			aventuras.online[name].dig_node = nil
-			aventuras.bd:remover(name, "tarefa_dig_node")
+		if aventuras.comum.contar_tb(aventuras.online[name].comer.aven[itemstack:get_name()]) == 0 then
+			aventuras.online[name].comer = nil
+			aventuras.bd:remover(name, "tarefa_comer")
 		end
 		
 	end
@@ -147,9 +147,9 @@ end)
 -- Mantem a tabela temporaria de dados enquanto o jogador estiver online
 minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
-	if aventuras.bd:verif(name, "tarefa_dig_node") == true then
-		if not aventuras.online[name].dig_node then aventuras.online[name].dig_node = {} end
-		aventuras.online[name].dig_node.aven = aventuras.bd:pegar(name, "tarefa_dig_node")
+	if aventuras.bd:verif(name, "tarefa_comer") == true then
+		if not aventuras.online[name].comer then aventuras.online[name].comer = {} end
+		aventuras.online[name].comer.aven = aventuras.bd:pegar(name, "tarefa_comer")
 	end
 end)
 

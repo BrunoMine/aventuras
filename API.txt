@@ -92,6 +92,38 @@ Tarefas
 		^ Opcional. Imagem para ser exibida ao acessar npc (caso esteja nula será exibido o item que precisa ser cavado)
 	}
 
+### Dados `craftar` : Nessa tarefa o jogador precisa acessar um NPC e depois craftar algo para concluir
+	{
+		aven_req = {["uma_aventura"]=2,["outra_aventura"]=10},
+		^ Tabela de aventuras onde a index é o ID da aventura e armazena a tarefa mínima requerida.
+		npcs = {"mobs_npc:igor", "mobs_npc:trader"},
+		^ Tabela de entidades que estao aptas para informar a tarefa (habilitar para ser realizada)
+		msg = "",
+		^ Mensagem apresentada ao acessar npc
+		msg_fim = "",
+		^ Mensagem apresentada ao concluir (uma pequena frase no chat)
+		item = "default:cobble",
+		^ Itemstring do item a ser craftado para concluir a tarefa
+		img_item = "aventuras_tarefa_duvida.png",
+		^ Opcional. Imagem para ser exibida ao acessar npc (caso esteja nula será exibido o item que precisa ser craftado)
+	}
+
+### Dados `comer` : Nessa tarefa o jogador precisa acessar um NPC e depois comer algo para concluir
+	{
+		aven_req = {["uma_aventura"]=2,["outra_aventura"]=10},
+		^ Tabela de aventuras onde a index é o ID da aventura e armazena a tarefa mínima requerida.
+		npcs = {"mobs_npc:igor", "mobs_npc:trader"},
+		^ Tabela de entidades que estao aptas para informar a tarefa (habilitar para ser realizada)
+		msg = "",
+		^ Mensagem apresentada ao acessar npc
+		msg_fim = "",
+		^ Mensagem apresentada ao concluir (uma pequena frase no chat)
+		item = "default:apple",
+		^ Itemstring do item a ser comido para concluir a tarefa
+		img_item = "aventuras_tarefa_duvida.png",
+		^ Opcional. Imagem para ser exibida ao acessar npc (caso esteja nula será exibido o item que precisa ser comido)
+	}
+
 ### Tabela de Itens
 	{
 		{name="default:dirt", count=50, wear=0, metadata=""},

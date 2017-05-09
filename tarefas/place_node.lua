@@ -130,6 +130,9 @@ minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack
 			aventuras.online[name].place_node.aven[newnode.name][aventura] = nil
 		end
 		
+		-- Toca o som de conclusao
+		minetest.sound_play("aventuras_concluir", {to_player = name, gain = 0.7})
+		
 		-- Deleta dados temporarios desse tipo de tarefa caso nao tenha mais nenhum pendente
 		if aventuras.comum.contar_tb(aventuras.online[name].place_node.aven[newnode.name]) == 0 then
 			aventuras.online[name].place_node = nil
