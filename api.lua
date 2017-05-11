@@ -47,9 +47,9 @@ aventuras.adicionar_tarefa = function(aventura, tipo, def)
 end
 
 -- Verifica qual a ultima tarefa concluida de um jogador
-aventuras.verif_tarefa = function(nome, aventura)
+aventuras.pegar_tarefa = function(nome, aventura)
 	if not nome or not aventura then
-		minetest.log("error", "[Aventuras] dados faltantes em aventuras.verif_nivel")
+		minetest.log("error", "[Aventuras] dados faltantes em aventuras.pegar_tarefa")
 		return false
 	end
 	
@@ -57,6 +57,20 @@ aventuras.verif_tarefa = function(nome, aventura)
 		return 0
 	else
 		return aventuras.bd:pegar(nome, "aventura_"..aventura)
+	end
+end
+
+-- Salvar a ultima tarefa feita por um jogador
+aventuras.salvar_tarefa = function(nome, aventura, tarefa)
+	if not nome or not aventura or not tarefa then
+		minetest.log("error", "[Aventuras] dados faltantes em aventuras.salvar_tarefa")
+		return false
+	end
+	
+	if aventuras.bd:verif(nome, "aventura_"..aventura) ~= true then
+		return false
+	else
+		return aventuras.bd:salvar(nome, "aventura_"..aventura, tarefa)
 	end
 end
 

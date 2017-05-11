@@ -9,9 +9,13 @@ Aventuras
 * `aventuras.adicionar_tarefa(aventura, tipo, Definições de tarefa)` : Adicionar uma tarefa em uma aventura
 	* `aventura` é o nome da aventura (exemplo: "grande_desbravador")
 	* `tipo` é o nome da aventura (exemplo: "simples")
-* `aventuras.verif_tarefa(nome, aventura)` : Retorna o número da última tarefa realizada (retorna `0` caso não tenha feito nenhuma)
+* `aventuras.pegar_tarefa(nome, aventura)` : Retorna o número da última tarefa realizada (retorna `0` caso não tenha feito nenhuma)
 	* `nome` é o nome do jogador
 	* `aventura` é o nome da aventura
+* `aventuras.salvar_tarefa(nome, aventura, tarefa)` : Salva a ultima tarefa realizada por um jogador
+	* `nome` é o nome do jogador
+	* `aventura` é o nome da aventura
+	* `tarefa` é o numero da tarefa
 	
 ### Definições de aventura
 	{
