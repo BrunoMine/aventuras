@@ -16,7 +16,18 @@ Aventuras
 	* `nome` é o nome do jogador
 	* `aventura` é o nome da aventura
 	* `tarefa` é o numero da tarefa
-	
+
+### Métodos Comuns
+* `aventuras.comum.verif_tarefa(aventura, tarefa)` : Verifica se uma tarefa existe
+	* `aventura` é o nome da aventura
+	* `tarefa` é o numero da tarefa
+
+### Funções de registo de chamada global (callbacks)
+
+* `aventuras.callbacks.registrar_ao_concluir(function(nome, aventura, tarefa))`
+	* Chamada quando um jogador conclui uma tarefa
+
+
 ### Definições de aventura
 	{
 		titulo = "Grande Desbravador",

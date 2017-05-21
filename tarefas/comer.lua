@@ -121,7 +121,8 @@ minetest.register_on_item_eat(function(hp_change, replace_with_item, itemstack, 
 			local dados = aventuras.tb[aventura].tarefas[tarefa] 
 			
 			-- Salva a conclusao da missao
-			aventuras.bd:salvar(name, "aventura_"..aventura, tarefa)
+			aventuras.salvar_tarefa(name, aventura, tarefa)
+			aventuras.callbacks.concluiu(name, aventura, tarefa)
 			
 			-- Envia mensagem final da tarefa
 			minetest.chat_send_player(name, dados.msg_fim)

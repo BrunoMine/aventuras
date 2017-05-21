@@ -44,6 +44,9 @@ dofile(modpath.."/comum/check_aven_req.lua")
 -- API
 dofile(modpath.."/api.lua")
 
+-- Callbacks
+dofile(modpath.."/callbacks.lua")
+
 -- Recursos
 dofile(modpath.."/recursos/npc.lua")
 

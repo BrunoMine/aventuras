@@ -73,4 +73,3 @@ aventuras.salvar_tarefa = function(nome, aventura, tarefa)
 		return aventuras.bd:salvar(nome, "aventura_"..aventura, tarefa)
 	end
 end
-
