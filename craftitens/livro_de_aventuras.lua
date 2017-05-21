@@ -130,3 +130,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 	end
 end)
+
+minetest.register_craft({
+	output = "aventuras:livro_de_aventuras",
+	recipe = {
+		{ "default:gold_ingot"},
+		{ "wool:blue"},
+		{ "default:book"}
+	}
+})
