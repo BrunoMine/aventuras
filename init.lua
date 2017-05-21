@@ -23,6 +23,9 @@ aventuras.recursos.npc.registrar_arte("mobs_npc:igor", {
 	bgcolor = "bgcolor[#080808BB;true]",
 	bg_img1x1 = "background[5,5;1,1;default_wood.png;true]",
 	bg_img10x3 = "background[5,5;3,1;default_wood.png;true]",
+	sounds = {
+		concluir = {name = "default_break_glass", gain = 2.0}
+	},
 })
 
 
@@ -39,16 +42,19 @@ end
 -- Registrar aventura de teste 1
 aventuras.registrar_aventura("aventura_de_teste_1", {
 	titulo = "Aventura de Teste 1",
-	desc = "Aventura feita para testar a Engine de aventuras"
+	desc = "Aventura feita para testar a Engine de aventuras",
+	img = "default_dirt.png",
 })
 
 -- Adicionar tarefa 1 na aventura 1
-aventuras.adicionar_tarefa("aventura_de_teste_1", "troca_npc", {
+aventuras.adicionar_tarefa("aventura_de_teste_1", "dig_node", {
 	titulo = "Conhecendo o Igor",
 	dados = {
 		npcs = {"mobs_npc:igor"},
-		msg = "Oi. Sou o Igor",
-		msg_fim = "Prazer em conhecer",
+		msg = "Cava a terra ali",
+		msg_fim = "Tarefa concluida. Voce cavou a terra",
+		node = "default:dirt",
+		--img_node = "default_dirt.png",
 	},
 })
 
@@ -143,5 +149,9 @@ aventuras.adicionar_tarefa("aventura_de_teste_2", "info_npc", {
 	},
 })
 
-
-
+-- Teste de chamada (callback)
+--[[
+aventuras.callbacks.registrar_ao_concluir(function(name, aventura, tarefa)
+	minetest.chat_send_all(dump(name))
+end)
+]]
