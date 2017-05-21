@@ -14,16 +14,16 @@ aventuras.callbacks = {}
 
 -- Chamada de tarefa concluida
 -- Funções armazenadas
-aventuras.callbacks.ao_concluir = {}
+aventuras.callbacks.ao_concluir_f = {}
 -- Registrar nova função para a chamada
 aventuras.callbacks.registrar_ao_concluir = function(func)
 	if func then
-		table.insert(aventuras.callbacks.ao_concluir, func)
+		table.insert(aventuras.callbacks.ao_concluir_f, func)
 	end
 end
 -- Informa uma conclusão
 aventuras.callbacks.concluiu = function(name, aventura, tarefa)
-	for _,func in ipairs(aventuras.callbacks.ao_concluir) do
+	for _,func in ipairs(aventuras.callbacks.ao_concluir_f) do
 		func(name, aventura, tarefa)
 	end
 end

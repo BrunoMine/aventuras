@@ -52,9 +52,9 @@ aventuras.recursos.npc.registrar = function(nome, aventura)
 	if not aventuras.recursos.npc.arte[nome] then
 		aventuras.recursos.npc.registrar_arte(nome, {
 			face = "logo.png",
-			bgcolor = "bgcolor[#080808BB;true]",
-			bg_img1x1 = "background[5,5;1,1;gui_formbg.png;true]",
-			bg_img10x3 = "background[5,5;1,1;gui_formbg.png;true]",
+			bgcolor = default.gui_bg,
+			bg_img1x1 = default.gui_bg_img,
+			bg_img10x3 = default.gui_bg_img,
 		})
 	end
 	
@@ -83,16 +83,15 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 	aventuras.online[name].tb_aventuras_ok = {} -- tabela de aventuras que aguardam a interação 'on_rightclick'
 	for aventura,def in pairs(aventuras.recursos.npc.reg[self.name]) do
 		
-		-- Verifica se o jogador tem registro da aventura
-		if aventuras.bd:verif(name, "aventura_"..aventura) ~= true then
+		local tarefa_atual = 1
 		
-			-- Cria o registro do jogaor na aventura
-			aventuras.bd:salvar(name, "aventura_"..aventura, 0)
+		-- Verifica se o jogador tem registro da aventura
+		if aventuras.bd:verif(name, "aventura_"..aventura) == true then
+		
+			-- Pega a tarefa atual de acordo com o que está armazenado
+			tarefa_atual = aventuras.bd:pegar(name, "aventura_"..aventura) + 1
 		
 		end
-		
-		-- Tarefa do jogador nessa aventura
-		local tarefa_atual = aventuras.bd:pegar(name, "aventura_"..aventura) + 1
 		
 		-- Verificar se tarefa existe
 		if aventuras.comum.verif_tarefa(aventura, tarefa_atual) == true then
@@ -104,6 +103,11 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 				and aventuras.tb[aventura].tarefas[tarefa_atual].npcs.on_rightclick[self.name]
 				and aventuras.comum.check_aven_req(name, aventuras.tb[aventura].tarefas[tarefa_atual].aven_req) == true
 			then
+				-- Torna a aventura conhecida caso descobriu agora
+				if aventuras.bd:verif(name, "aventura_"..aventura) ~= true then
+					minetest.chat_send_all("descobriu agora")
+					aventuras.bd:salvar(name, "aventura_"..aventura, 0)
+				end
 				-- Adiciona na tabela de aventuras que aguardam interação 
 				aventuras.online[name].tb_aventuras_ok[aventura] = tarefa_atual -- Armazena respectiva tarefa
 			end

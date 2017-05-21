@@ -1,7 +1,5 @@
-API para mod Aventuras
+API para mod Aventuras 0.1.0
 
-Aventuras
----------
 
 ### Métodos Básicos
 * `aventuras.registrar_aventura(nome, Definições de aventura)` : Registrar uma aventura
@@ -34,6 +32,8 @@ Aventuras
 		^ Titulo da aventura
 		desc = "Uma aventura legal",
 		^ Pequena descrição da aventura
+		img = "default_apple.png",
+		^ OPCIONAL | Imagem (quadrada) que representa a aventura
 	}
 
 ### Definições de tarefa

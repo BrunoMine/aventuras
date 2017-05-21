@@ -47,6 +47,9 @@ dofile(modpath.."/api.lua")
 -- Callbacks
 dofile(modpath.."/callbacks.lua")
 
+-- Craftitens
+dofile(modpath.."/craftitens/livro_de_aventuras.lua")
+
 -- Recursos
 dofile(modpath.."/recursos/npc.lua")
 
