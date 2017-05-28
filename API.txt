@@ -1,4 +1,4 @@
-API para mod Aventuras 0.2.0
+API para mod Aventuras 0.2.1
 
 
 ### Métodos Básicos
