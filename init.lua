@@ -40,14 +40,14 @@ end
 --
 
 -- Registrar aventura de teste 1
-aventuras.registrar_aventura("aventura_de_teste_1", {
+aventuras.registrar_aventura("teste_aventuras:aventura_de_teste_1", {
 	titulo = "Aventura de Teste 1",
 	desc = "Aventura feita para testar a Engine de aventuras",
 	img = "default_dirt.png",
 })
 
 -- Adicionar tarefa 1 na aventura 1
-aventuras.adicionar_tarefa("aventura_de_teste_1", "dig_node", {
+aventuras.adicionar_tarefa("teste_aventuras:aventura_de_teste_1", "dig_node", {
 	titulo = "Conhecendo o Igor",
 	dados = {
 		npcs = {"mobs_npc:igor"},
@@ -59,7 +59,7 @@ aventuras.adicionar_tarefa("aventura_de_teste_1", "dig_node", {
 })
 
 -- Adicionar tarefa 2 na aventura 1
-aventuras.adicionar_tarefa("aventura_de_teste_1", "troca_npc", {
+aventuras.adicionar_tarefa("teste_aventuras:aventura_de_teste_1", "troca_npc", {
 	titulo = "Conhecendo o amigo imaginario do igor",
 	dados = {
 		npcs = {"mobs_npc:trader"},
@@ -69,7 +69,7 @@ aventuras.adicionar_tarefa("aventura_de_teste_1", "troca_npc", {
 })
 
 -- Adicionar tarefa 3 na aventura 1
-aventuras.adicionar_tarefa("aventura_de_teste_1", "troca_npc", {
+aventuras.adicionar_tarefa("teste_aventuras:aventura_de_teste_1", "troca_npc", {
 	titulo = "Oferencendo terra",
 	dados = {
 		npcs = {"mobs_npc:igor"},
@@ -82,7 +82,7 @@ aventuras.adicionar_tarefa("aventura_de_teste_1", "troca_npc", {
 })
 
 -- Adicionar tarefa 4 na aventura 1
-aventuras.adicionar_tarefa("aventura_de_teste_1", "troca_npc", {
+aventuras.adicionar_tarefa("teste_aventuras:aventura_de_teste_1", "troca_npc", {
 	titulo = "Recebendo terra",
 	dados = {
 		npcs = {"mobs_npc:igor"},
@@ -95,7 +95,7 @@ aventuras.adicionar_tarefa("aventura_de_teste_1", "troca_npc", {
 })
 
 -- Adicionar tarefa 5 na aventura 1
-aventuras.adicionar_tarefa("aventura_de_teste_1", "troca_npc", {
+aventuras.adicionar_tarefa("teste_aventuras:aventura_de_teste_1", "troca_npc", {
 	titulo = "A troca",
 	dados = {
 		npcs = {"mobs_npc:igor"},
@@ -121,17 +121,17 @@ aventuras.adicionar_tarefa("aventura_de_teste_1", "troca_npc", {
 
 
 -- Registrar aventura de teste 2
-aventuras.registrar_aventura("aventura_de_teste_2", {
+aventuras.registrar_aventura("teste_aventuras:aventura_de_teste_2", {
 	titulo = "Aventura de Teste 2",
 	desc = "Aventura feita para testar a Engine de aventuras"
 })
 
 -- Adicionar tarefa 1 na aventura 2
-aventuras.adicionar_tarefa("aventura_de_teste_2", "troca_npc", {
+aventuras.adicionar_tarefa("teste_aventuras:aventura_de_teste_2", "troca_npc", {
 	titulo = "Conhecendo o Igor",
 	dados = {
 		aven_req = {
-			["aventura_de_teste_1"] = 2,
+			["teste_aventuras:aventura_de_teste_1"] = 2,
 		},
 		npcs = {"mobs_npc:igor"},
 		msg = "Oi. Sou o Rogi",
@@ -140,7 +140,7 @@ aventuras.adicionar_tarefa("aventura_de_teste_2", "troca_npc", {
 })
 
 -- Adicionar tarefa 2 na aventura 2
-aventuras.adicionar_tarefa("aventura_de_teste_2", "info_npc", {
+aventuras.adicionar_tarefa("teste_aventuras:aventura_de_teste_2", "info_npc", {
 	titulo = "Fazendo nada",
 	dados = {
 		npcs = {"mobs_npc:igor"},
