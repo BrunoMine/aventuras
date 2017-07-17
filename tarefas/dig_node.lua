@@ -100,7 +100,7 @@ aventuras.tarefas.dig_node.npcs.on_rightclick = function(npc, clicker, aventura,
 	if not aventuras.online[name].dig_node.aven then aventuras.online[name].dig_node.aven = {} end
 	if not aventuras.online[name].dig_node.aven[dados.node] then aventuras.online[name].dig_node.aven[dados.node] = {} end
 	aventuras.online[name].dig_node.aven[dados.node][aventura] = true
-	aventuras.bd:salvar(name, "tarefa_dig_node", aventuras.online[name].dig_node.aven)
+	aventuras.bd.salvar(name, "tarefa_dig_node", aventuras.online[name].dig_node.aven)
 	
 	return
 
@@ -117,7 +117,7 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 		-- conclui todas as missoes que aguardavam essa tarefa
 		for aventura,d in pairs(aventuras.online[name].dig_node.aven[oldnode.name]) do
 			
-			local tarefa = aventuras.bd:pegar(name, "aventura_"..aventura)+1
+			local tarefa = aventuras.bd.pegar(name, "aventura_"..aventura)+1
 			local dados = aventuras.tb[aventura].tarefas[tarefa] 
 			
 			-- Salva a conclusao da missao
@@ -137,7 +137,7 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 		-- Deleta dados temporarios desse tipo de tarefa caso nao tenha mais nenhum pendente
 		if aventuras.comum.contar_tb(aventuras.online[name].dig_node.aven[oldnode.name]) == 0 then
 			aventuras.online[name].dig_node = nil
-			aventuras.bd:remover(name, "tarefa_dig_node")
+			aventuras.bd.remover(name, "tarefa_dig_node")
 		end
 		
 	end
@@ -148,9 +148,9 @@ end)
 -- Mantem a tabela temporaria de dados enquanto o jogador estiver online
 minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
-	if aventuras.bd:verif(name, "tarefa_dig_node") == true then
+	if aventuras.bd.verif(name, "tarefa_dig_node") == true then
 		if not aventuras.online[name].dig_node then aventuras.online[name].dig_node = {} end
-		aventuras.online[name].dig_node.aven = aventuras.bd:pegar(name, "tarefa_dig_node")
+		aventuras.online[name].dig_node.aven = aventuras.bd.pegar(name, "tarefa_dig_node")
 	end
 end)
 

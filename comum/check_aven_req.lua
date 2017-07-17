@@ -14,8 +14,8 @@
 aventuras.comum.check_aven_req = function(name, aven_req)
 	
 	for aven,tarefa in pairs(aven_req) do
-		if aventuras.bd:verif(name, aven) ~= true
-			or aventuras.bd:pegar(name, aven) < tarefa 
+		if aventuras.bd.verif(name, aven) ~= true
+			or aventuras.bd.pegar(name, aven) < tarefa 
 		then
 			return false
 		end

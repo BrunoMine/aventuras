@@ -86,10 +86,10 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 		local tarefa_atual = 1
 		
 		-- Verifica se o jogador tem registro da aventura
-		if aventuras.bd:verif(name, "aventura_"..aventura) == true then
+		if aventuras.bd.verif(name, "aventura_"..aventura) == true then
 		
 			-- Pega a tarefa atual de acordo com o que está armazenado
-			tarefa_atual = aventuras.bd:pegar(name, "aventura_"..aventura) + 1
+			tarefa_atual = aventuras.bd.pegar(name, "aventura_"..aventura) + 1
 		
 		end
 		
@@ -104,9 +104,9 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 				and aventuras.comum.check_aven_req(name, aventuras.tb[aventura].tarefas[tarefa_atual].aven_req) == true
 			then
 				-- Torna a aventura conhecida caso descobriu agora
-				if aventuras.bd:verif(name, "aventura_"..aventura) ~= true then
+				if aventuras.bd.verif(name, "aventura_"..aventura) ~= true then
 					minetest.chat_send_all("descobriu agora")
-					aventuras.bd:salvar(name, "aventura_"..aventura, 0)
+					aventuras.bd.salvar(name, "aventura_"..aventura, 0)
 				end
 				-- Adiciona na tabela de aventuras que aguardam interação 
 				aventuras.online[name].tb_aventuras_ok[aventura] = tarefa_atual -- Armazena respectiva tarefa
@@ -180,7 +180,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			local npc = aventuras.online[name].npc
 			
 			-- Verifica se a tarefa ainda esta habilitada
-			if aventuras.bd:pegar(name, "aventura_"..aventura) ~= tarefa-1 then
+			if aventuras.bd.pegar(name, "aventura_"..aventura) ~= tarefa-1 then
 				aventuras.comum.exibir_alerta(player:get_player_name(), "Tarefa invalida")
 				return
 			end

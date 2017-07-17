@@ -12,8 +12,8 @@
 
 -- Deletar Registros do livro
 aventuras.callbacks.registrar_ao_concluir(function(name)
-	if aventuras.bd:verif(name, "livro_de_aventuras") == true then
-		aventuras.bd:remover(name, "livro_de_aventuras")
+	if aventuras.bd.verif(name, "livro_de_aventuras") == true then
+		aventuras.bd.remover(name, "livro_de_aventuras")
 	end
 end)
 
@@ -32,7 +32,7 @@ local criar_registro = function(name)
 	end
 	
 	if aventuras.comum.contar_tb(reg) > 0 then
-		aventuras.bd:salvar(name, "livro_de_aventuras", reg)
+		aventuras.bd.salvar(name, "livro_de_aventuras", reg)
 	end
 end
 
@@ -48,7 +48,7 @@ minetest.register_craftitem("aventuras:livro_de_aventuras", {
 		local name = user:get_player_name()
 		
 		-- Tenta criar uma lista do livro
-		if aventuras.bd:verif(name, "livro_de_aventuras") == false then
+		if aventuras.bd.verif(name, "livro_de_aventuras") == false then
 			criar_registro(name)
 		end
 		
@@ -56,8 +56,8 @@ minetest.register_craftitem("aventuras:livro_de_aventuras", {
 			..default.gui_bg
 			..default.gui_bg_img
 		
-		if aventuras.bd:verif(name, "livro_de_aventuras") == true then
-			local list = aventuras.bd:pegar(name, "livro_de_aventuras")
+		if aventuras.bd.verif(name, "livro_de_aventuras") == true then
+			local list = aventuras.bd.pegar(name, "livro_de_aventuras")
 			local s = ""
 			
 			for n,t in pairs(list) do
@@ -93,7 +93,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			
 			local name = player:get_player_name()
 			
-			local list = aventuras.bd:pegar(name, "livro_de_aventuras")
+			local list = aventuras.bd.pegar(name, "livro_de_aventuras")
 			if not list then return end
 			
 			local aventura = ""

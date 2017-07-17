@@ -10,17 +10,11 @@
   ]]
 
 
--- Tabela temporaria de jogador online
-aventuras.online = memor.online()
-
 -- Tabela global de aventuras
 aventuras.tb = {}
 
 -- Tabela global de tarefas
 aventuras.tarefas = {}
-
--- Montar banco de dados
-aventuras.bd = memor.montar_bd(minetest.get_current_modname())
 
 -- Registrar uma Aventura
 aventuras.registrar_aventura = function(nome, def)
@@ -53,10 +47,10 @@ aventuras.pegar_tarefa = function(nome, aventura)
 		return false
 	end
 	
-	if aventuras.bd:verif(nome, "aventura_"..aventura) ~= true then
+	if aventuras.bd.verif(nome, "aventura_"..aventura) ~= true then
 		return 0
 	else
-		return aventuras.bd:pegar(nome, "aventura_"..aventura)
+		return aventuras.bd.pegar(nome, "aventura_"..aventura)
 	end
 end
 
@@ -67,9 +61,9 @@ aventuras.salvar_tarefa = function(nome, aventura, tarefa)
 		return false
 	end
 	
-	if aventuras.bd:verif(nome, "aventura_"..aventura) ~= true then
+	if aventuras.bd.verif(nome, "aventura_"..aventura) ~= true then
 		return false
 	else
-		return aventuras.bd:salvar(nome, "aventura_"..aventura, tarefa)
+		return aventuras.bd.salvar(nome, "aventura_"..aventura, tarefa)
 	end
 end

@@ -27,13 +27,14 @@ aventuras.recursos = {}
 -- Tabela de metodos comuns
 aventuras.comum = {} 
 
+-- Banco de dados
+aventuras.bd = dofile(modpath.."/lib/memor.lua")
+
 -- Carregar scripts
 notificar("Carregando...")
 
--- Bibliotecas
-dofile(modpath.."/lib/memor/init.lua")
-
 -- Metodos comuns
+dofile(modpath.."/comum/online.lua")
 dofile(modpath.."/comum/verif_tarefa.lua")
 dofile(modpath.."/comum/contar_tb.lua")
 dofile(modpath.."/comum/pegar_index.lua")

@@ -100,7 +100,7 @@ aventuras.tarefas.craftar.npcs.on_rightclick = function(npc, clicker, aventura, 
 	if not aventuras.online[name].craftar.aven then aventuras.online[name].craftar.aven = {} end
 	if not aventuras.online[name].craftar.aven[dados.node] then aventuras.online[name].craftar.aven[dados.node] = {} end
 	aventuras.online[name].craftar.aven[dados.node][aventura] = true
-	aventuras.bd:salvar(name, "tarefa_craftar", aventuras.online[name].craftar.aven)
+	aventuras.bd.salvar(name, "tarefa_craftar", aventuras.online[name].craftar.aven)
 	
 	return
 
@@ -117,7 +117,7 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 		-- conclui todas as missoes que aguardavam essa tarefa
 		for aventura,d in pairs(aventuras.online[name].craftar.aven[itemstack:get_name()]) do
 			
-			local tarefa = aventuras.bd:pegar(name, "aventura_"..aventura)+1
+			local tarefa = aventuras.bd.pegar(name, "aventura_"..aventura)+1
 			local dados = aventuras.tb[aventura].tarefas[tarefa] 
 			
 			-- Salva a conclusao da missao
@@ -137,7 +137,7 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 		-- Deleta dados temporarios desse tipo de tarefa caso nao tenha mais nenhum pendente
 		if aventuras.comum.contar_tb(aventuras.online[name].craftar.aven[itemstack:get_name()]) == 0 then
 			aventuras.online[name].craftar = nil
-			aventuras.bd:remover(name, "tarefa_craftar")
+			aventuras.bd.remover(name, "tarefa_craftar")
 		end
 		
 	end
@@ -148,9 +148,9 @@ end)
 -- Mantem a tabela temporaria de dados enquanto o jogador estiver online
 minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
-	if aventuras.bd:verif(name, "tarefa_craftar") == true then
+	if aventuras.bd.verif(name, "tarefa_craftar") == true then
 		if not aventuras.online[name].craftar then aventuras.online[name].craftar = {} end
-		aventuras.online[name].craftar.aven = aventuras.bd:pegar(name, "tarefa_craftar")
+		aventuras.online[name].craftar.aven = aventuras.bd.pegar(name, "tarefa_craftar")
 	end
 end)
 
