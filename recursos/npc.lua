@@ -9,6 +9,8 @@
 	Recurso utilizado em tarefas : NPCs
   ]]
 
+local SS = aventuras.t.aventuras.SS
+
 -- Tabela de Recurso de NPCs
 aventuras.recursos.npc = {}
 
@@ -105,7 +107,6 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 			then
 				-- Torna a aventura conhecida caso descobriu agora
 				if aventuras.bd.verif(name, "aventura_"..aventura) ~= true then
-					minetest.chat_send_all("descobriu agora")
 					aventuras.bd.salvar(name, "aventura_"..aventura, 0)
 				end
 				-- Adiciona na tabela de aventuras que aguardam interação 
@@ -133,11 +134,13 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 		
 		local arte_npc = aventuras.recursos.npc.arte[self.name]
 		
+		local lang = aventuras.getlang(clicker:get_player_name())
+		
 		-- Pergunta a tarefa escolhida
 		local formspec = "size[5,5]"
 			..arte_npc.bgcolor
 			..arte_npc.bg_img1x1
-			.."label[0,0;Escolha uma aventura]"
+			.."label[0,0;"..SS(lang, "Escolha uma aventura").."]"
 			.."textlist[0,0.5;5,4.5;menu;"..titulos..";;true]"
 		
 		
@@ -158,7 +161,8 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 	else
 	
 		-- Informa que nao existe tarefa disponivel no momento
-		aventuras.comum.exibir_alerta(clicker:get_player_name(), "Nenhuma interacao disponivel")
+		local lang = aventuras.getlang(clicker:get_player_name())
+		aventuras.comum.exibir_alerta(clicker:get_player_name(), SS(lang, "Nenhuma interacao disponivel"))
 		return true
 	end
 end

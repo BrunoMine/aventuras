@@ -14,8 +14,10 @@
 -- Tabela de registros dessa tarefa
 aventuras.tarefas.troca_npc = {}
 
+local SS = aventuras.t.aventuras.SS
+
 -- Gerar um formspec de tarefa
-local gerar_form = function(aventura, dados, npc)
+local gerar_form = function(aventura, dados, npc, name)
 	
 	local arte_npc = aventuras.recursos.npc.arte[npc]
 	
@@ -27,11 +29,11 @@ local gerar_form = function(aventura, dados, npc)
 		.."label[3,1;"..dados.titulo.."]"
 		.."textarea[3.1,1.5;7,2.5;msg;;"..dados.msg.."]"
 		-- Itens Requisitados
-		.."label[0,4;Requisitos]"
+		.."label[0,4;"..SS(aventuras.getlang(name), "Requisitos").."]"
 		-- Itens de Recompensa
-		.."label[0,6.5;Recompensas]"
+		.."label[0,6.5;"..SS(aventuras.getlang(name), "Recompensas").."]"
 		-- Botao concluir
-		.."button[0,9;10,1;concluir;Concluir]"
+		.."button[0,9;10,1;concluir;"..SS(aventuras.getlang(name), "Concluir").."]"
 	
 	-- Colocar itens requisitados
 	if dados.item_rem then
@@ -83,6 +85,7 @@ aventuras.tarefas.troca_npc.adicionar = function(aventura, def)
 	
 	-- Prepara tabela registros da tarefa
 	local reg = {
+		mod = def.mod,
 		titulo = def.titulo,
 		tipo = "troca_npc",
 		
@@ -133,7 +136,7 @@ aventuras.tarefas.troca_npc.npcs.on_rightclick = function(npc, clicker, aventura
 	aventuras.online[name].troca_npc = {aventura=aventura, dados=dados, tarefa=tarefa, npc=npc}
 	
 	-- Exibir pedido de itens
-	minetest.show_formspec(name, "aventuras:troca_npc", gerar_form(aventura, dados, npc))
+	minetest.show_formspec(name, "aventuras:troca_npc", gerar_form(aventura, dados, npc, clicker:get_player_name()))
 	
 	return
 
@@ -153,7 +156,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			-- Tenta realizar a troca
 			if dados.item_rem or dados.item_add then
 				if aventuras.comum.trocar_itens(player, dados.item_rem, dados.item_add) == false then
-					aventuras.comum.exibir_alerta(name, "Precisa dos itens para a troca")
+					aventuras.comum.exibir_alerta(name, SS("Precisa dos itens para a troca"))
 					return
 				end
 			end

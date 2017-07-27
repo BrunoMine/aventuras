@@ -14,9 +14,10 @@
 -- Tabela de registros dessa tarefa
 aventuras.tarefas.info_npc = {}
 
+local SS = aventuras.t.aventuras.SS
 
 -- Gerar um formspec de tarefa
-local gerar_form = function(aventura, dados, npc)
+local gerar_form = function(aventura, dados, npc, name)
 	
 	local arte_npc = aventuras.recursos.npc.arte[npc]
 	
@@ -28,7 +29,7 @@ local gerar_form = function(aventura, dados, npc)
 		.."image[2.15,1;3,3;"..arte_npc.face.."]"
 		.."textarea[0.26,3.8;7,2.5;msg;;"..dados.msg.."]"
 		-- Botao concluir
-		.."button[0,6;7,1;concluir;Concluir]"
+		.."button[0,6;7,1;concluir;"..SS(aventuras.getlang(name), "Concluir").."]"
 	
 	return formspec
 end
@@ -38,6 +39,7 @@ aventuras.tarefas.info_npc.adicionar = function(aventura, def)
 	
 	-- Prepara tabela registros da tarefa
 	local reg = {
+		mod = def.mod,
 		titulo = def.titulo,
 		tipo = "info_npc",
 		
@@ -80,7 +82,7 @@ aventuras.tarefas.info_npc.npcs.on_rightclick = function(npc, clicker, aventura,
 	aventuras.online[name].info_npc = {aventura=aventura, dados=dados, tarefa=tarefa, npc=npc}
 	
 	-- Exibir pedido de itens
-	minetest.show_formspec(name, "aventuras:info_npc", gerar_form(aventura, dados, npc))
+	minetest.show_formspec(name, "aventuras:info_npc", gerar_form(aventura, dados, npc, clicker:get_player_name()))
 	
 	return
 

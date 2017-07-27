@@ -14,9 +14,10 @@
 -- Tabela de registros dessa tarefa
 aventuras.tarefas.craftar = {}
 
+local SS = aventuras.t.aventuras.SS
 
 -- Gerar um formspec de tarefa
-local gerar_form = function(aventura, dados, npc)
+local gerar_form = function(aventura, dados, npc, name)
 	
 	local arte_npc = aventuras.recursos.npc.arte[npc]
 	
@@ -28,7 +29,7 @@ local gerar_form = function(aventura, dados, npc)
 		.."image[0.65,1;3,3;"..arte_npc.face.."]"
 		.."textarea[0.26,3.8;7,2.5;msg;;"..dados.msg.."]"
 		-- Botao concluir
-		.."button_exit[0,6;7,1;;Entendido]"
+		.."button_exit[0,6;7,1;;"..SS(aventuras.getlang(name), "Entendido").."]"
 	
 	if dados.img_node then
 		formspec = formspec .. "image[3.65,1;3,3;"..dados.img_node.."]"
@@ -44,6 +45,7 @@ aventuras.tarefas.craftar.adicionar = function(aventura, def)
 
 	-- Prepara tabela registros da tarefa
 	local reg = {
+		mod = def.mod,
 		titulo = def.titulo,
 		tipo = "craftar",
 		
@@ -94,7 +96,7 @@ aventuras.tarefas.craftar.npcs.on_rightclick = function(npc, clicker, aventura, 
 	aventuras.online[name].craftar.npc=npc
 	
 	-- Exibir pedido de itens
-	minetest.show_formspec(name, "aventuras:craftar", gerar_form(aventura, dados, npc))
+	minetest.show_formspec(name, "aventuras:craftar", gerar_form(aventura, dados, npc, clicker:get_player_name()))
 	
 	-- Habilitar tarefa para ser realizada a qualquer momento
 	if not aventuras.online[name].craftar.aven then aventuras.online[name].craftar.aven = {} end
