@@ -39,9 +39,11 @@ aventuras.registrar_aventura = function(nome, def)
 	aventuras.tb[nome] = def
 	aventuras.tb[nome].tarefas = {}
 	
-	-- Cria algoritimos de tradução
-	aventuras.t[mod] = {}
-	aventuras.t[mod].S, aventuras.t[mod].NS, aventuras.t[mod].SS, aventuras.t[mod].SNS = dofile(minetest.get_modpath("aventuras").."/lib/intllib.lua")
+	-- Cria algoritimos de tradução caso não exista ainda
+	if not aventuras.t[mod] then
+		aventuras.t[mod] = {}
+		aventuras.t[mod].S, aventuras.t[mod].NS, aventuras.t[mod].SS, aventuras.t[mod].SNS = dofile(minetest.get_modpath("aventuras").."/lib/intllib.lua")
+	end
 end
 
 -- Adicionar uma Tarefa para uma aventura

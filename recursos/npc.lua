@@ -41,7 +41,7 @@ end
 
 -- Registrar um NPC
 aventuras.recursos.npc.registrar = function(nome, aventura)
-
+	
 	if not nome or not aventura then -- Verificar nome
 		minetest.log("error", "[Sunos] Faltam dados em aventuras.recursos.npc.registrar")
 		return false
@@ -121,6 +121,8 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 	
 	if qtd_tarefas > 1 then
 		
+		local lang = aventuras.getlang(clicker:get_player_name())
+		
 		-- Tabela de aventuras
 		local aven_tb = {}
 		-- String de titulos de aventuras
@@ -128,13 +130,13 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 		for aventura,n in pairs(aventuras.online[name].tb_aventuras_ok) do
 			if titulos ~= "" then titulos = titulos .. "," end
 			table.insert(aven_tb, aventura)
-			titulos = titulos .. aventuras.tb[aventura].titulo
+			local dados = aventuras.tb[aventura]
+			local t = aventuras.t[dados.mod]
+			titulos = titulos .. t.SS(lang, dados.titulo)
 		end
 		aventuras.online[name].menu_aven_tb = minetest.deserialize(minetest.serialize(aven_tb))
 		
 		local arte_npc = aventuras.recursos.npc.arte[self.name]
-		
-		local lang = aventuras.getlang(clicker:get_player_name())
 		
 		-- Pergunta a tarefa escolhida
 		local formspec = "size[5,5]"
@@ -159,7 +161,7 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 		return aventuras.tarefas[tipo_tarefa].npcs.on_rightclick(npc, clicker, aventura, tarefa)
 		
 	else
-	
+		
 		-- Informa que nao existe tarefa disponivel no momento
 		local lang = aventuras.getlang(clicker:get_player_name())
 		aventuras.comum.exibir_alerta(clicker:get_player_name(), SS(lang, "Nenhuma interacao disponivel"))
@@ -183,9 +185,11 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			local tipo_tarefa = aventuras.tb[aventura].tarefas[tarefa].tipo
 			local npc = aventuras.online[name].npc
 			
+			local lang = aventuras.getlang(name)
+			
 			-- Verifica se a tarefa ainda esta habilitada
 			if aventuras.bd.pegar(name, "aventura_"..aventura) ~= tarefa-1 then
-				aventuras.comum.exibir_alerta(player:get_player_name(), "Tarefa invalida")
+				aventuras.comum.exibir_alerta(player:get_player_name(), SS(lang, "Tarefa invalida"))
 				return
 			end
 			

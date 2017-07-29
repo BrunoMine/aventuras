@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-27 14:02-0300\n"
-"PO-Revision-Date: 2017-07-27 14:09-0300\n"
+"POT-Creation-Date: 2017-07-29 12:26-0300\n"
+"PO-Revision-Date: 2017-07-29 12:26-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -37,3 +37,36 @@ msgstr "Estado atual"
 #: craftitens/livro_de_aventuras.lua
 msgid "Voltar"
 msgstr "Voltar"
+
+#: tarefas/comer.lua tarefas/craftar.lua tarefas/dig_node.lua
+#: tarefas/place_node.lua
+msgid "Entendido"
+msgstr "Entendido"
+
+#: tarefas/info_npc.lua tarefas/troca_npc.lua
+msgid "Concluir"
+msgstr "Concluir"
+
+#: tarefas/troca_npc.lua
+msgid "Requisitos"
+msgstr "Requisitos"
+
+#: tarefas/troca_npc.lua
+msgid "Recompensas"
+msgstr "Recompensas"
+
+#: tarefas/troca_npc.lua
+msgid "Precisa dos itens para a troca"
+msgstr "Precisa dos itens para a troca"
+
+#: recursos/npc.lua
+msgid "Escolha uma aventura"
+msgstr "Escolha uma aventura"
+
+#: recursos/npc.lua
+msgid "Nenhuma interacao disponivel"
+msgstr "Nenhuma interacao disponivel"
+
+#: recursos/npc.lua
+msgid "Tarefa invalida"
+msgstr "Tarefa invalida"

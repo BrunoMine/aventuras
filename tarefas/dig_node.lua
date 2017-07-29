@@ -20,16 +20,18 @@ local SS = aventuras.t.aventuras.SS
 local gerar_form = function(aventura, dados, npc, name)
 	
 	local arte_npc = aventuras.recursos.npc.arte[npc]
+	local t = aventuras.t[dados.mod]
+	local lang = aventuras.getlang(name)
 	
 	local formspec = "size[7,7]"
 		..arte_npc.bgcolor
 		..arte_npc.bg_img1x1
-		.."label[0,0;"..aventuras.tb[aventura].titulo.."]"
-		.."label[0,0.5;"..dados.titulo.."]"
+		.."label[0,0;"..t.SS(lang, aventuras.tb[aventura].titulo).."]"
+		.."label[0,0.5;"..t.SS(lang, dados.titulo).."]"
 		.."image[0.65,1;3,3;"..arte_npc.face.."]"
-		.."textarea[0.26,3.8;7,2.5;msg;;"..dados.msg.."]"
+		.."textarea[0.26,3.8;7,2.5;msg;;"..t.SS(lang, dados.msg).."]"
 		-- Botao concluir
-		.."button_exit[0,6;7,1;;"..SS(aventuras.getlang(name), "Entendido").."]"
+		.."button_exit[0,6;7,1;;"..SS(lang, "Entendido").."]"
 	
 	if dados.img_node then
 		formspec = formspec .. "image[3.65,1;3,3;"..dados.img_node.."]"

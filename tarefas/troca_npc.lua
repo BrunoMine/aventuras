@@ -20,20 +20,22 @@ local SS = aventuras.t.aventuras.SS
 local gerar_form = function(aventura, dados, npc, name)
 	
 	local arte_npc = aventuras.recursos.npc.arte[npc]
+	local t = aventuras.t[dados.mod]
+	local lang = aventuras.getlang(name)
 	
 	local formspec = "size[10,10]"
 		..arte_npc.bgcolor
 		..arte_npc.bg_img1x1
-		.."label[0,0;"..aventuras.tb[aventura].titulo.."]"
+		.."label[0,0;"..t.SS(lang, aventuras.tb[aventura].titulo).."]"
 		.."image[0,1;3,3;"..arte_npc.face.."]"
-		.."label[3,1;"..dados.titulo.."]"
-		.."textarea[3.1,1.5;7,2.5;msg;;"..dados.msg.."]"
+		.."label[3,1;"..t.SS(lang, dados.titulo).."]"
+		.."textarea[3.1,1.5;7,2.5;msg;;"..t.SS(lang, dados.msg).."]"
 		-- Itens Requisitados
-		.."label[0,4;"..SS(aventuras.getlang(name), "Requisitos").."]"
+		.."label[0,4;"..SS(lang, "Requisitos").."]"
 		-- Itens de Recompensa
-		.."label[0,6.5;"..SS(aventuras.getlang(name), "Recompensas").."]"
+		.."label[0,6.5;"..SS(lang, "Recompensas").."]"
 		-- Botao concluir
-		.."button[0,9;10,1;concluir;"..SS(aventuras.getlang(name), "Concluir").."]"
+		.."button[0,9;10,1;concluir;"..SS(lang, "Concluir").."]"
 	
 	-- Colocar itens requisitados
 	if dados.item_rem then
@@ -150,27 +152,30 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			
 			local name = player:get_player_name()
 			
+			local lang = aventuras.getlang(name)
+			
 			-- Obter dados da tarefa que está sendo processada
 			local dados = aventuras.online[name].troca_npc.dados
 			
 			-- Tenta realizar a troca
 			if dados.item_rem or dados.item_add then
 				if aventuras.comum.trocar_itens(player, dados.item_rem, dados.item_add) == false then
-					aventuras.comum.exibir_alerta(name, SS("Precisa dos itens para a troca"))
+					aventuras.comum.exibir_alerta(name, SS(lang, "Precisa dos itens para a troca"))
 					return
 				end
 			end
 			
 			-- Pegar dados sobre arte do npc
 			local arte_npc = aventuras.recursos.npc.arte[aventuras.online[name].troca_npc.npc]
-			
+			local t = aventuras.t[dados.mod]
+		
 			-- Informa a conclusao da tarefa
 			minetest.show_formspec(name, "aventuras:troca_npc_fim", "size[10,3]"
 				.."bgcolor["..arte_npc.bgcolor..";true]"
 				..arte_npc.bg_img10x3
 				.."image[0,0;3.3,3.3;"..arte_npc.face.."]"
-				.."label[3,0;"..dados.titulo.."]"
-				.."textarea[3.26,0.5;7,3;msg_fim;;"..dados.msg_fim.."]"
+				.."label[3,0;"..t.SS(lang, dados.titulo).."]"
+				.."textarea[3.26,0.5;7,3;msg_fim;;"..t.SS(lang, dados.msg_fim).."]"
 			)
 			
 			-- Salva a conclusao da missao
