@@ -276,17 +276,17 @@ bd.listar = function(tb)
 end
 
 -- Fim
-local respostas = {
+local idiomas = {
 	["en"] = "English language defined.",
 	["pt"] = "Idioma portugues definido.",
 	["de"] = "Deutsch Sprache gesetzt.",
 	["es"] = "Idioma espanol definido.",
 }
 local resposta = function(lang)
-	if not respostas[lang] then
+	if not idiomas[lang] then
 		return lang.." language code defined"
 	else
-		return respostas[lang]
+		return idiomas[lang]
 	end
 end
 
@@ -310,6 +310,11 @@ minetest.register_chatcommand("mylang", {
 		end
 		local lang = string.lower(param)
 		
+		-- Verifica se o idioma é aceitavel
+		if not idiomas[lang] then
+			return false, "Invalid language code (choose one of these \"en\", \"pt\", \"de\" or \"es\")"
+		end
+		
 		-- Salvar escolha
 		definir_idioma(name, lang)
 		
@@ -321,7 +326,7 @@ minetest.register_chatcommand("mylang", {
 -- Pegar idioma salvo
 local pegar_idioma = function(name)
 	if bd.verif("langs", name) ~= true then
-		return "en"
+		return nil
 	end
 	return bd.pegar("langs", name)
 end
