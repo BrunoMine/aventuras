@@ -290,6 +290,12 @@ local resposta = function(lang)
 	end
 end
 
+local definir_idioma = function(name, lang)
+	if name and lang then
+		bd.salvar("langs", name, lang)
+	end
+end
+
 -- Comando para escolher
 minetest.register_chatcommand("mylang", {
 	params = "lang",
@@ -305,7 +311,7 @@ minetest.register_chatcommand("mylang", {
 		local lang = string.lower(param)
 		
 		-- Salvar escolha
-		bd.salvar("langs", name, lang)
+		definir_idioma(name, lang)
 		
 		
 		return true, resposta(lang)
@@ -315,9 +321,9 @@ minetest.register_chatcommand("mylang", {
 -- Pegar idioma salvo
 local pegar_idioma = function(name)
 	if bd.verif("langs", name) ~= true then
-		return nil
+		return "en"
 	end
 	return bd.pegar("langs", name)
 end
 
-return pegar_idioma
+return pegar_idioma, definir_idioma
