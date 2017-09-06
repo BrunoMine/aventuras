@@ -1,0 +1,72 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FULL NAME <EMAIL@ADDRESS>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-29 12:26-0300\n"
+"PO-Revision-Date: 2017-07-29 12:27-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Gtranslator 2.91.7\n"
+
+#: craftitens/livro_de_aventuras.lua
+msgid "Livro de Aventuras"
+msgstr "Adventure's Book"
+
+#: craftitens/livro_de_aventuras.lua
+msgid "Nenhuma aventura descoberta ainda"
+msgstr "No adventure discovered yet"
+
+#: craftitens/livro_de_aventuras.lua
+msgid "Finalizado"
+msgstr "Completed"
+
+#: craftitens/livro_de_aventuras.lua
+msgid "Estado atual"
+msgstr "Current status"
+
+#: craftitens/livro_de_aventuras.lua
+msgid "Voltar"
+msgstr "Return"
+
+#: tarefas/comer.lua tarefas/craftar.lua tarefas/dig_node.lua
+#: tarefas/place_node.lua
+msgid "Entendido"
+msgstr "Understood"
+
+#: tarefas/info_npc.lua tarefas/troca_npc.lua
+msgid "Concluir"
+msgstr "Conclude"
+
+#: tarefas/troca_npc.lua
+msgid "Requisitos"
+msgstr "Requirements"
+
+#: tarefas/troca_npc.lua
+msgid "Recompensas"
+msgstr "Rewards"
+
+#: tarefas/troca_npc.lua
+msgid "Precisa dos itens para a troca"
+msgstr "You need the items for the exchange"
+
+#: recursos/npc.lua
+msgid "Escolha uma aventura"
+msgstr "Choose an adventure"
+
+#: recursos/npc.lua
+msgid "Nenhuma interacao disponivel"
+msgstr "no interaction available"
+
+#: recursos/npc.lua
+msgid "Tarefa invalida"
+msgstr "Invalid task"

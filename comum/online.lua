@@ -13,11 +13,11 @@
 aventuras.online = {}
 
 -- Adiciona o jogador em todas listas quando entrar no servidor
-minetest.register_on_joinplayer(function(player)
-	aventuras.online[player:get_player_name()] = {}
+aventuras.register_on_joinplayer(function(player)
+	sunos.online[player:get_player_name()] = {}
 end)
 
 -- Remove o jogador de todas listas quando entrar no servidor
-minetest.register_on_leaveplayer(function(player)
-	aventuras.online[player:get_player_name()] = nil
+aventuras.register_on_leaveplayer(function(player)
+	sunos.online[player:get_player_name()] = nil
 end)

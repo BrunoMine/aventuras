@@ -9,6 +9,8 @@
 	Recurso utilizado em tarefas : NPCs
   ]]
 
+local SS = aventuras.t.aventuras.SS
+
 -- Tabela de Recurso de NPCs
 aventuras.recursos.npc = {}
 
@@ -39,7 +41,7 @@ end
 
 -- Registrar um NPC
 aventuras.recursos.npc.registrar = function(nome, aventura)
-
+	
 	if not nome or not aventura then -- Verificar nome
 		minetest.log("error", "[Sunos] Faltam dados em aventuras.recursos.npc.registrar")
 		return false
@@ -105,7 +107,6 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 			then
 				-- Torna a aventura conhecida caso descobriu agora
 				if aventuras.bd.verif(name, "aventura_"..aventura) ~= true then
-					minetest.chat_send_all("descobriu agora")
 					aventuras.bd.salvar(name, "aventura_"..aventura, 0)
 				end
 				-- Adiciona na tabela de aventuras que aguardam interação 
@@ -120,6 +121,8 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 	
 	if qtd_tarefas > 1 then
 		
+		local lang = aventuras.getlang(clicker:get_player_name())
+		
 		-- Tabela de aventuras
 		local aven_tb = {}
 		-- String de titulos de aventuras
@@ -127,7 +130,9 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 		for aventura,n in pairs(aventuras.online[name].tb_aventuras_ok) do
 			if titulos ~= "" then titulos = titulos .. "," end
 			table.insert(aven_tb, aventura)
-			titulos = titulos .. aventuras.tb[aventura].titulo
+			local dados = aventuras.tb[aventura]
+			local t = aventuras.t[dados.mod]
+			titulos = titulos .. t.SS(lang, dados.titulo)
 		end
 		aventuras.online[name].menu_aven_tb = minetest.deserialize(minetest.serialize(aven_tb))
 		
@@ -137,7 +142,7 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 		local formspec = "size[5,5]"
 			..arte_npc.bgcolor
 			..arte_npc.bg_img1x1
-			.."label[0,0;Escolha uma aventura]"
+			.."label[0,0;"..SS(lang, "Escolha uma aventura").."]"
 			.."textlist[0,0.5;5,4.5;menu;"..titulos..";;true]"
 		
 		
@@ -156,9 +161,10 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 		return aventuras.tarefas[tipo_tarefa].npcs.on_rightclick(npc, clicker, aventura, tarefa)
 		
 	else
-	
+		
 		-- Informa que nao existe tarefa disponivel no momento
-		aventuras.comum.exibir_alerta(clicker:get_player_name(), "Nenhuma interacao disponivel")
+		local lang = aventuras.getlang(clicker:get_player_name())
+		aventuras.comum.exibir_alerta(clicker:get_player_name(), SS(lang, "Nenhuma interacao disponivel"))
 		return true
 	end
 end
@@ -179,9 +185,11 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			local tipo_tarefa = aventuras.tb[aventura].tarefas[tarefa].tipo
 			local npc = aventuras.online[name].npc
 			
+			local lang = aventuras.getlang(name)
+			
 			-- Verifica se a tarefa ainda esta habilitada
 			if aventuras.bd.pegar(name, "aventura_"..aventura) ~= tarefa-1 then
-				aventuras.comum.exibir_alerta(player:get_player_name(), "Tarefa invalida")
+				aventuras.comum.exibir_alerta(player:get_player_name(), SS(lang, "Tarefa invalida"))
 				return
 			end
 			
