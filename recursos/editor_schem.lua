@@ -223,7 +223,6 @@ minetest.register_node("aventuras:editor_schem", {
 			local name = placer:get_player_name()
 			
 			acessos[name].pos = pointed_thing.above
-			minetest.set_node(acessos[name].pos, {name="default:dirt"})
 			sfinv.set_player_inventory_formspec(placer)
 			minetest.chat_send_player(name, "Local preparado. Acesse seu inventario para continuar")
 		end
