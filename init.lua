@@ -30,6 +30,9 @@ aventuras.comum = {}
 -- Banco de dados
 aventuras.bd = dofile(modpath.."/lib/memor.lua")
 
+-- Verifica modo editor
+aventuras.editor_mode = minetest.setting_getbool("aventuras_editor_mode")
+
 -- Carregar scripts
 notificar("Carregando...")
 
@@ -53,6 +56,7 @@ dofile(modpath.."/craftitens/livro_de_aventuras.lua")
 
 -- Recursos
 dofile(modpath.."/recursos/npc.lua")
+dofile(modpath.."/recursos/editor_schem.lua")
 
 -- Tarefas
 dofile(modpath.."/tarefas/troca_npc.lua")
