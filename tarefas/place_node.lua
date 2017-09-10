@@ -25,10 +25,10 @@ local gerar_form = function(aventura, dados, npc, name)
 	local formspec = "size[7,7]"
 		..arte_npc.bgcolor
 		..arte_npc.bg_img1x1
-		.."label[0,0;"..S(aventuras.tb[aventura].titulo).."]"
-		.."label[0,0.5;"..S(dados.titulo).."]"
+		.."label[0,0;"..aventuras.tb[aventura].titulo.."]"
+		.."label[0,0.5;"..dados.titulo.."]"
 		.."image[0.65,1;3,3;"..arte_npc.face.."]"
-		.."textarea[0.26,3.8;7,2.5;msg;;"..S(dados.msg).."]"
+		.."textarea[0.26,3.8;7,2.5;;"..dados.msg..";]"
 		-- Botao concluir
 		.."button_exit[0,6;7,1;;"..S("Entendido").."]"
 	

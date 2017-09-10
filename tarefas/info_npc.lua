@@ -24,10 +24,10 @@ local gerar_form = function(aventura, dados, npc, name)
 	local formspec = "size[7,7]"
 		..arte_npc.bgcolor
 		..arte_npc.bg_img1x1
-		.."label[0,0;"..S(aventuras.tb[aventura].titulo).."]"
-		.."label[0,0.5;"..S(dados.titulo).."]"
+		.."label[0,0;"..aventuras.tb[aventura].titulo.."]"
+		.."label[0,0.5;"..dados.titulo.."]"
 		.."image[2.15,1;3,3;"..arte_npc.face.."]"
-		.."textarea[0.26,3.8;7,2.5;msg;;"..S(dados.msg).."]"
+		.."textarea[0.26,3.8;7,2.5;;"..dados.msg..";]"
 		-- Botao concluir
 		.."button[0,6;7,1;concluir;"..S("Concluir").."]"
 	
@@ -108,7 +108,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 				..arte_npc.bg_img10x3
 				.."image[0,0;3.3,3.3;"..arte_npc.face.."]"
 				.."label[3,0;"..dados.titulo.."]"
-				.."textarea[3.26,0.5;7,3;msg_fim;;"..dados.msg_fim.."]"
+				.."textarea[3.26,0.5;7,3;;"..dados.msg_fim..";]"
 			)
 			
 			-- Salva a conclusao da missao
