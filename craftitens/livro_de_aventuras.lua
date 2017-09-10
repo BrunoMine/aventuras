@@ -109,8 +109,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 					ultima_tarefa = t
 				end
 			end
-			
-			local lang = aventuras.getlang(name)
 	
 			-- Estado atual
 			local estado = ultima_tarefa.."/"..table.maxn(aventuras.tb[aventura].tarefas)
@@ -120,11 +118,11 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			local formspec = "size[6,7.2]"
 				..default.gui_bg
 				..default.gui_bg_img
-				.."label[0,0;"..t.SS(lang, aventuras.tb[aventura].titulo).."]"
+				.."label[0,0;"..aventuras.tb[aventura].titulo.."]"
 				.."image[0,0.5;3,3;"..(aventuras.tb[aventura].img or "logo.png").."]"
 				.."label[2.5,0.5;"..S("Estado atual").."]"
 				.."label[2.5,1;"..estado.."]"
-				.."textarea[0.3,3.4;6,4.5;desc;;"..aventuras.tb[aventura].desc.."]"
+				.."textarea[0.3,3.4;6,4.5;;"..aventuras.tb[aventura].desc..";]"
 				.."button[5,6.8;1.3,1;voltar;"..S("Voltar").."]"
 			
 			minetest.show_formspec(name, "aventuras:livro_de_aventuras_info", formspec)
