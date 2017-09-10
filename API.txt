@@ -14,6 +14,15 @@ API para mod Aventuras 0.3.0
 	* `nome` é o nome do jogador
 	* `aventura` é o nome da aventura
 	* `tarefa` é o numero da tarefa
+* `aventuras.registrar_item_bau_noob(itemstring, def)` : Registra um item para ser comprado por jogadores quando estiverem numa tarefa especifica
+	* `nome` é o nome do jogador (exemplo: "mymod:bilhete_1")
+	* def = {
+		aventura = "mymod:aventura_exemplo", -- Aventura relacionada
+		tarefa = 1, -- Tarefa que o jogador deve ter realizado por ultimo (onde o mesmo recebe o item)
+		desc_item = "Apple", -- Descrição do item no menu
+		custo = 1, -- [OPCIONAL] Custo da compra (o item é definido com aventuras_moeda_bau_noob). Se nulo, é definido como 1
+		give_item = func(player), -- [OPCIONAL] Função que da o item ao jogador. Se nulo, uma unidade é dada ao jogador
+	}
 
 ### Métodos Comuns
 * `aventuras.comum.verif_tarefa(aventura, tarefa)` : Verifica se uma tarefa existe

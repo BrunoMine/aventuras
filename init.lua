@@ -24,11 +24,17 @@ aventuras = {}
 -- Algoritimo da propria API
 aventuras.S = dofile(modpath.."/lib/intllib.lua")
 
+-- Item de troca por itens de aventuras estraviados
+aventuras.moeda_bau_noob = minetest.setting_get("aventuras_moeda_bau_noob") or "default:gold_ingot"
+
 -- Tabela de Recursos
 aventuras.recursos = {}
 
 -- Tabela de metodos comuns
 aventuras.comum = {} 
+
+-- Biblioteca para simplificação de trocas
+aventuras.tror = dofile(modpath.."/lib/tror.lua")
 
 -- Banco de dados
 aventuras.bd = dofile(modpath.."/lib/memor.lua")
@@ -62,6 +68,9 @@ dofile(modpath.."/craftitens/livro_de_aventuras.lua")
 -- Recursos
 dofile(modpath.."/recursos/npc.lua")
 dofile(modpath.."/recursos/editor_schem.lua")
+
+-- Nodes
+dofile(modpath.."/nodes/bau_aventureiro_noob.lua")
 
 -- Tarefas
 dofile(modpath.."/tarefas/troca_npc.lua")
