@@ -17,7 +17,7 @@ aventuras.tarefas.craftar = {}
 local S = aventuras.S
 
 -- Gerar um formspec de tarefa
-local gerar_form = function(aventura, dados, npc, name)
+aventuras.tarefas.craftar.gerar_form = function(aventura, dados, npc, name)
 	
 	local arte_npc = aventuras.recursos.npc.arte[npc]
 	
@@ -34,7 +34,7 @@ local gerar_form = function(aventura, dados, npc, name)
 	if dados.img_node then
 		formspec = formspec .. "image[3.65,1;3,3;"..dados.img_node.."]"
 	else
-		formspec = formspec .. "item_image_button[3.65,1;2.75,2.75;"..dados.node..";item;]"
+		formspec = formspec .. "item_image_button[3.65,1;2.75,2.75;"..dados.item..";item;]"
 	end
 	
 	return formspec
@@ -51,7 +51,7 @@ aventuras.tarefas.craftar.adicionar = function(aventura, def)
 		
 		aven_req = def.dados.aven_req or {},
 		
-		node = def.dados.item,
+		item = def.dados.item,
 		img_node = def.dados.img_item,
 		
 		msg = def.dados.msg,
@@ -80,69 +80,13 @@ end
 aventuras.tarefas.craftar.npcs = {}
 
 -- Receber chamada de 'on_rightclick' de algum dos npcs acessados
-aventuras.tarefas.craftar.npcs.on_rightclick = function(npc, clicker, aventura, tarefa)
-	
-	local name = clicker:get_player_name()
-	
-	if not aventuras.online[name].craftar then aventuras.online[name].craftar = {} end
-	
-	-- Pegar dados da tarefa atual
-	local dados = aventuras.tb[aventura].tarefas[tarefa]
-	
-	-- Salva os dados da tarefa que estará sendo processada nos proximos momentos
-	aventuras.online[name].craftar.aventura=aventura
-	aventuras.online[name].craftar.dados=dados
-	aventuras.online[name].craftar.tarefa=tarefa
-	aventuras.online[name].craftar.npc=npc
-	
-	-- Exibir pedido de itens
-	minetest.show_formspec(name, "aventuras:craftar", gerar_form(aventura, dados, npc, clicker:get_player_name()))
-	
-	-- Habilitar tarefa para ser realizada a qualquer momento
-	if not aventuras.online[name].craftar.aven then aventuras.online[name].craftar.aven = {} end
-	if not aventuras.online[name].craftar.aven[dados.node] then aventuras.online[name].craftar.aven[dados.node] = {} end
-	aventuras.online[name].craftar.aven[dados.node][aventura] = true
-	aventuras.bd.salvar(name, "tarefa_craftar", aventuras.online[name].craftar.aven)
-	
-	return
-
-end
+aventuras.tarefas.craftar.npcs.on_rightclick = aventuras.comum.get_on_rightclick_npc("craftar")
 
 -- Verificar ao craftar node
 minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
 	
-	if aventuras.online[player:get_player_name()].craftar -- a maioria ja para aqui
-		and aventuras.online[player:get_player_name()].craftar.aven[itemstack:get_name()]
-	then
-		local name = player:get_player_name()
-		
-		-- conclui todas as missoes que aguardavam essa tarefa
-		for aventura,d in pairs(aventuras.online[name].craftar.aven[itemstack:get_name()]) do
-			
-			local tarefa = aventuras.bd.pegar(name, "aventura_"..aventura)+1
-			local dados = aventuras.tb[aventura].tarefas[tarefa] 
-			
-			-- Salva a conclusao da missao
-			aventuras.salvar_tarefa(name, aventura, tarefa)
-			aventuras.callbacks.concluiu(name, aventura, tarefa)
-			
-			-- Envia mensagem final da tarefa
-			minetest.chat_send_player(name, dados.msg_fim)
-			
-			-- Remove aventura pendente da tabela
-			aventuras.online[name].craftar.aven[itemstack:get_name()][aventura] = nil
-		end
-		
-		-- Toca o som de conclusao
-		minetest.sound_play("aventuras_concluir", {to_player = name, gain = 0.7})
-		
-		-- Deleta dados temporarios desse tipo de tarefa caso nao tenha mais nenhum pendente
-		if aventuras.comum.contar_tb(aventuras.online[name].craftar.aven[itemstack:get_name()]) == 0 then
-			aventuras.online[name].craftar = nil
-			aventuras.bd.remover(name, "tarefa_craftar")
-		end
-		
-	end
+	-- Realiza rotina padrão para itens aguardados por esse tipo de tarefa
+	aventuras.comum.verif_item_tarefa(player:get_player_name(), "craftar", itemstack:get_name())
 	
 end)
 

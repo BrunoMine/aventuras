@@ -47,6 +47,8 @@ dofile(modpath.."/comum/pegar_index.lua")
 dofile(modpath.."/comum/trocar_itens.lua")
 dofile(modpath.."/comum/exibir_alerta.lua")
 dofile(modpath.."/comum/check_aven_req.lua")
+dofile(modpath.."/comum/on_rightclick_npc.lua")
+dofile(modpath.."/comum/verif_item_tarefa.lua")
 
 -- API
 dofile(modpath.."/api.lua")

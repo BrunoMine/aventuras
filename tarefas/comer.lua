@@ -17,7 +17,7 @@ aventuras.tarefas.comer = {}
 local S = aventuras.S
 
 -- Gerar um formspec de tarefa
-local gerar_form = function(aventura, dados, npc, name)
+aventuras.tarefas.comer.gerar_form = function(aventura, dados, npc, name)
 	
 	local arte_npc = aventuras.recursos.npc.arte[npc]
 	
@@ -34,11 +34,12 @@ local gerar_form = function(aventura, dados, npc, name)
 	if dados.img_node then
 		formspec = formspec .. "image[3.65,1;3,3;"..dados.img_node.."]"
 	else
-		formspec = formspec .. "item_image_button[3.65,1;2.75,2.75;"..dados.node..";item;]"
+		formspec = formspec .. "item_image_button[3.65,1;2.75,2.75;"..dados.item..";item;]"
 	end
 	
 	return formspec
 end
+
 
 -- Adicionar tarefa à aventura
 aventuras.tarefas.comer.adicionar = function(aventura, def)
@@ -51,7 +52,7 @@ aventuras.tarefas.comer.adicionar = function(aventura, def)
 		
 		aven_req = def.dados.aven_req or {},
 		
-		node = def.dados.item,
+		item = def.dados.item,
 		img_node = def.dados.img_item,
 		
 		msg = def.dados.msg,
@@ -80,69 +81,13 @@ end
 aventuras.tarefas.comer.npcs = {}
 
 -- Receber chamada de 'on_rightclick' de algum dos npcs acessados
-aventuras.tarefas.comer.npcs.on_rightclick = function(npc, clicker, aventura, tarefa)
-	
-	local name = clicker:get_player_name()
-	
-	if not aventuras.online[name].comer then aventuras.online[name].comer = {} end
-	
-	-- Pegar dados da tarefa atual
-	local dados = aventuras.tb[aventura].tarefas[tarefa]
-	
-	-- Salva os dados da tarefa que estará sendo processada nos proximos momentos
-	aventuras.online[name].comer.aventura=aventura
-	aventuras.online[name].comer.dados=dados
-	aventuras.online[name].comer.tarefa=tarefa
-	aventuras.online[name].comer.npc=npc
-	
-	-- Exibir pedido de itens
-	minetest.show_formspec(name, "aventuras:comer", gerar_form(aventura, dados, npc, clicker:get_player_name()))
-	
-	-- Habilitar tarefa para ser realizada a qualquer momento
-	if not aventuras.online[name].comer.aven then aventuras.online[name].comer.aven = {} end
-	if not aventuras.online[name].comer.aven[dados.node] then aventuras.online[name].comer.aven[dados.node] = {} end
-	aventuras.online[name].comer.aven[dados.node][aventura] = true
-	aventuras.bd.salvar(name, "tarefa_comer", aventuras.online[name].comer.aven)
-	
-	return
-
-end
+aventuras.tarefas.comer.npcs.on_rightclick = aventuras.comum.get_on_rightclick_npc("comer")
 
 -- Verificar ao comer algo
 minetest.register_on_item_eat(function(hp_change, replace_with_item, itemstack, user, pointed_thing)
 	
-	if aventuras.online[user:get_player_name()].comer -- a maioria ja para aqui
-		and aventuras.online[user:get_player_name()].comer.aven[itemstack:get_name()]
-	then
-		local name = user:get_player_name()
-		
-		-- conclui todas as missoes que aguardavam essa tarefa
-		for aventura,d in pairs(aventuras.online[name].comer.aven[itemstack:get_name()]) do
-			
-			local tarefa = aventuras.bd.pegar(name, "aventura_"..aventura)+1
-			local dados = aventuras.tb[aventura].tarefas[tarefa] 
-			
-			-- Salva a conclusao da missao
-			aventuras.salvar_tarefa(name, aventura, tarefa)
-			aventuras.callbacks.concluiu(name, aventura, tarefa)
-			
-			-- Envia mensagem final da tarefa
-			minetest.chat_send_player(name, dados.msg_fim)
-			
-			-- Remove aventura pendente da tabela
-			aventuras.online[name].comer.aven[itemstack:get_name()][aventura] = nil
-		end
-		
-		-- Toca o som de conclusao
-		minetest.sound_play("aventuras_concluir", {to_player = name, gain = 0.7})
-		
-		-- Deleta dados temporarios desse tipo de tarefa caso nao tenha mais nenhum pendente
-		if aventuras.comum.contar_tb(aventuras.online[name].comer.aven[itemstack:get_name()]) == 0 then
-			aventuras.online[name].comer = nil
-			aventuras.bd.remover(name, "tarefa_comer")
-		end
-		
-	end
+	-- Realiza rotina padrão para itens aguardados por esse tipo de tarefa
+	aventuras.comum.verif_item_tarefa(user:get_player_name(), "comer", itemstack:get_name())
 	
 end)
 
