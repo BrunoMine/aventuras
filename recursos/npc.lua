@@ -9,7 +9,7 @@
 	Recurso utilizado em tarefas : NPCs
   ]]
 
-local SS = aventuras.t.aventuras.SS
+local S = aventuras.S
 
 -- Tabela de Recurso de NPCs
 aventuras.recursos.npc = {}
@@ -121,8 +121,6 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 	
 	if qtd_tarefas > 1 then
 		
-		local lang = aventuras.getlang(clicker:get_player_name())
-		
 		-- Tabela de aventuras
 		local aven_tb = {}
 		-- String de titulos de aventuras
@@ -131,8 +129,7 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 			if titulos ~= "" then titulos = titulos .. "," end
 			table.insert(aven_tb, aventura)
 			local dados = aventuras.tb[aventura]
-			local t = aventuras.t[dados.mod]
-			titulos = titulos .. t.SS(lang, dados.titulo)
+			titulos = titulos .. dados.titulo
 		end
 		aventuras.online[name].menu_aven_tb = minetest.deserialize(minetest.serialize(aven_tb))
 		
@@ -142,7 +139,7 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 		local formspec = "size[5,5]"
 			..arte_npc.bgcolor
 			..arte_npc.bg_img1x1
-			.."label[0,0;"..SS(lang, "Escolha uma aventura").."]"
+			.."label[0,0;"..S("Escolha uma aventura").."]"
 			.."textlist[0,0.5;5,4.5;menu;"..titulos..";;true]"
 		
 		
@@ -163,8 +160,7 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 	else
 		
 		-- Informa que nao existe tarefa disponivel no momento
-		local lang = aventuras.getlang(clicker:get_player_name())
-		aventuras.comum.exibir_alerta(clicker:get_player_name(), SS(lang, "Nenhuma interacao disponivel"))
+		aventuras.comum.exibir_alerta(clicker:get_player_name(), S("Nenhuma interacao disponivel"))
 		return true
 	end
 end
@@ -184,8 +180,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			local tarefa = aventuras.online[name].tb_aventuras_ok[aventura]
 			local tipo_tarefa = aventuras.tb[aventura].tarefas[tarefa].tipo
 			local npc = aventuras.online[name].npc
-			
-			local lang = aventuras.getlang(name)
 			
 			-- Verifica se a tarefa ainda esta habilitada
 			if aventuras.bd.pegar(name, "aventura_"..aventura) ~= tarefa-1 then

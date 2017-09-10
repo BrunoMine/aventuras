@@ -9,8 +9,7 @@
 	Livro de aventuras
   ]]
 
-local SS = aventuras.t.aventuras.SS
-local S = aventuras.t.aventuras.S
+local S = aventuras.S
 
 
 -- Deletar Registros do livro
@@ -57,10 +56,7 @@ minetest.register_craftitem("aventuras:livro_de_aventuras", {
 		
 		local formspec = "size[10,6]"
 			..default.gui_bg
-			..default.gui_bg_img
-		
-		local lang = aventuras.getlang(name)
-				
+			..default.gui_bg_img				
 		
 		
 		if aventuras.bd.verif(name, "livro_de_aventuras") == true then
@@ -71,21 +67,19 @@ minetest.register_craftitem("aventuras:livro_de_aventuras", {
 				if aventuras.tb[n] then
 					if s ~= "" then s = s .. "," end
 					
-					local t = aventuras.t[aventuras.tb[n].mod]
-					
-					s = s .. t.SS(lang, aventuras.tb[n].titulo) .. " ("..ut.."/"..table.maxn(aventuras.tb[n].tarefas)..")"
+					s = s .. aventuras.tb[n].titulo .. " ("..ut.."/"..table.maxn(aventuras.tb[n].tarefas)..")"
 				end
 				
 			end
 			
 			formspec = formspec
-				.."label[0,0;"..SS(lang, "Livro de Aventuras").."]"
+				.."label[0,0;"..S("Livro de Aventuras").."]"
 				.."textlist[0,0.6;9.8,5.6;menu;"..s..";;true]"
 			
 		else
 			formspec = formspec
-				.."label[0,0;"..SS(lang, "Livro de Aventuras").."]"
-				.."textlist[0,0.6;9.8,5.6;menu;"..SS(lang, "Nenhuma aventura descoberta ainda")..";;true]"
+				.."label[0,0;"..S("Livro de Aventuras").."]"
+				.."textlist[0,0.6;9.8,5.6;menu;"..S("Nenhuma aventura descoberta ainda")..";;true]"
 		end
 		
 		minetest.show_formspec(name, "aventuras:livro_de_aventuras", formspec)
@@ -122,17 +116,16 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			local estado = ultima_tarefa.."/"..table.maxn(aventuras.tb[aventura].tarefas)
 			if ultima_tarefa == table.maxn(aventuras.tb[aventura].tarefas) then estado = estado .. core.colorize("#00FF00", " ("..SS(lang, "Finalizado")..")") end
 			
-			local t = aventuras.t[aventuras.tb[aventura].mod]
 			
 			local formspec = "size[6,7.2]"
 				..default.gui_bg
 				..default.gui_bg_img
 				.."label[0,0;"..t.SS(lang, aventuras.tb[aventura].titulo).."]"
 				.."image[0,0.5;3,3;"..(aventuras.tb[aventura].img or "logo.png").."]"
-				.."label[2.5,0.5;"..SS(lang, "Estado atual").."]"
+				.."label[2.5,0.5;"..S("Estado atual").."]"
 				.."label[2.5,1;"..estado.."]"
-				.."textarea[0.3,3.4;6,4.5;desc;;"..t.SS(lang, aventuras.tb[aventura].desc).."]"
-				.."button[5,6.8;1.3,1;voltar;"..SS(lang, "Voltar").."]"
+				.."textarea[0.3,3.4;6,4.5;desc;;"..aventuras.tb[aventura].desc.."]"
+				.."button[5,6.8;1.3,1;voltar;"..S("Voltar").."]"
 			
 			minetest.show_formspec(name, "aventuras:livro_de_aventuras_info", formspec)
 		end

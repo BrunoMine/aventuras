@@ -14,24 +14,22 @@
 -- Tabela de registros dessa tarefa
 aventuras.tarefas.info_npc = {}
 
-local SS = aventuras.t.aventuras.SS
+local S = aventuras.S
 
 -- Gerar um formspec de tarefa
 local gerar_form = function(aventura, dados, npc, name)
 	
 	local arte_npc = aventuras.recursos.npc.arte[npc]
-	local t = aventuras.t[dados.mod]
-	local lang = aventuras.getlang(name)
 	
 	local formspec = "size[7,7]"
 		..arte_npc.bgcolor
 		..arte_npc.bg_img1x1
-		.."label[0,0;"..t.SS(lang, aventuras.tb[aventura].titulo).."]"
-		.."label[0,0.5;"..t.SS(lang, dados.titulo).."]"
+		.."label[0,0;"..S(aventuras.tb[aventura].titulo).."]"
+		.."label[0,0.5;"..S(dados.titulo).."]"
 		.."image[2.15,1;3,3;"..arte_npc.face.."]"
-		.."textarea[0.26,3.8;7,2.5;msg;;"..t.SS(lang, dados.msg).."]"
+		.."textarea[0.26,3.8;7,2.5;msg;;"..S(dados.msg).."]"
 		-- Botao concluir
-		.."button[0,6;7,1;concluir;"..SS(lang, "Concluir").."]"
+		.."button[0,6;7,1;concluir;"..S("Concluir").."]"
 	
 	return formspec
 end

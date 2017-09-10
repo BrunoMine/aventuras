@@ -21,6 +21,9 @@ local modpath = minetest.get_modpath("aventuras")
 -- Variavel global
 aventuras = {}
 
+-- Algoritimo da propria API
+aventuras.S = dofile(modpath.."/lib/intllib.lua")
+
 -- Tabela de Recursos
 aventuras.recursos = {}
 
