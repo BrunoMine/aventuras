@@ -228,7 +228,10 @@ minetest.register_node("aventuras:editor_schem", {
 		end
 	end,
 })
-
+-- Esconde node de preparacao caso nao esteja no modo editor
+if aventuras.editor_mode ~= true then
+	minetest.override_item("aventuras:editor_schem", {groups = {choppy=2, oddly_breakable_by_hand=2, not_in_creative_inventory=1}})
+end
 
 -- Node decorativo para mostrar area superior
 minetest.register_node("aventuras:node_cloud", {

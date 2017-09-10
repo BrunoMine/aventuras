@@ -1,0 +1,8 @@
+# Configurações aplicaveis para o menu gráfico
+
+# Habilita o modo de editor de aventuras
+# Enable adventures editor mode
+aventuras_editor_mode (Modo Editor | Editor Mode) bool false
+
+
+

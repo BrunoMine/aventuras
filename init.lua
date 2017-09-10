@@ -31,7 +31,7 @@ aventuras.comum = {}
 aventuras.bd = dofile(modpath.."/lib/memor.lua")
 
 -- Verifica modo editor
-aventuras.editor_mode = minetest.setting_getbool("aventuras_editor_mode")
+aventuras.editor_mode = minetest.setting_getbool("aventuras_editor_mode") or false
 
 -- Carregar scripts
 notificar("Carregando...")
