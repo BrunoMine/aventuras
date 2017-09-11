@@ -77,6 +77,21 @@ API para mod Aventuras 0.3.0
 			^ "front" spawna em frente ao node (um bloco de distancia)
 		},
 	},
+	
+	random_spawn = { --[[
+	^ Spawn aleatorio
+	^ NPCs que spawnam aleatoriamente duram um tempo limitado no mapa e desaparecem]]
+	
+		nodes = {"nodename1", "nodename2"}, -- Tabela de nodes 
+		min_light = 10, -- Luminosidade minima do local
+		chance = 15000, -- Chance de spawn ocorrer
+		active_object_count = 1, -- Limite de mobs por blocos de mapa
+		min_height = 0, -- Altura minima para spawn ocorrer
+		day_toggle = true, --[[ Define se deve estar de dia ou de noite
+		^ `true` para spawn apenas de dia
+		^ `false` para spawn apenas de noite 
+		^ `nil` para qualquer momento]]
+	}
 }
 
 ### Definições de aventura

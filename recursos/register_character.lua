@@ -14,8 +14,10 @@
 -- Tempo (em segundos) que demora para um bau verificar se tem um sovagxa dele por perto
 local tempo_verif_npc = 60
 -- Distancia (om blocos) que um bau verifica em sua volta para encontrar seu proprio npc
-local dist_verif_npc = 10
+local dist_verif_npc = 100
 
+-- Tempo para verificar se tem outro npc igual por perto
+local tempo_verif_duplicado = 8
 -- Verificador do npc sovagxa
 -- Tempo (em segundos) que um npc demora para verificar se esta perto da pos de seu bau
 local tempo_verif_bau = 20
@@ -168,13 +170,35 @@ aventuras.register_character = function(charname, def)
 				
 				-- Se for um npc spawnado aleatoriamente
 				elseif self.spawn_type == 2 then
+					self.temp = self.temp + dtime
 					
-					
+					if self.temp >= tempo_verif_duplicado then
+						self.life_time = self.life_time - self.temp
+						self.temp = 0
+						
+						local pos = self.object:getpos()
+						for  n,obj in ipairs(minetest.get_objects_inside_radius(pos, dist_verif_npc)) do
+							local ent = obj:get_luaentity() or {}
+							if ent.name == charname 
+								and tostring(ent.object) ~= tostring(self.object)
+							then -- Verifica se é o mesmo npc
+								self.object:remove()
+								return
+							end
+						end
+						
+						-- Verifica se tem um outro duplicado
+						if self.life_time < 0 then
+							self.object:remove()
+							return
+						end
+					end
 					
 				-- Nenhuma origem encontrada
 				else
 					-- Considera spawnado pela API Mobs_Redo (spawn aleatorio)
 					self.spawn_type = 2
+					self.temp = 0
 					self.life_time = 300
 				end
 		
@@ -211,6 +235,19 @@ aventuras.register_character = function(charname, def)
 			end,
 		})
 		
+	end
+	
+	-- Configurar Spawn aleatorio
+	if def.random_spawn then
+		mobs:spawn({
+			name = charname,
+			nodes = def.random_spawn.nodes,
+			min_light = def.random_spawn.min_light or 10,
+			chance = def.random_spawn.chance or 1,
+			active_object_count = def.random_spawn.active_object_count or 1,
+			min_height = def.random_spawn.min_height or 0,
+			day_toggle = def.random_spawn.day_toggle,
+		})
 	end
 	
 end
