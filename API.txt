@@ -2,6 +2,8 @@ API para mod Aventuras 0.3.0
 
 
 ### Métodos Básicos
+* `aventuras.register_character(nome, Definições de personagem)` : Registra um personagem
+	* `nome` é ID que representa o personagem (exemplo, se for npc esse será o nome da entidade registrada)
 * `aventuras.registrar_aventura(nome, Definições de aventura)` : Registrar uma aventura
 	* `nome` é o nome da aventura (exemplo: "nome_mod:grande_desbravador")
 * `aventuras.adicionar_tarefa(aventura, tipo, Definições de tarefa)` : Adicionar uma tarefa em uma aventura
@@ -34,6 +36,48 @@ API para mod Aventuras 0.3.0
 * `aventuras.callbacks.registrar_ao_concluir(function(nome, aventura, tarefa))`
 	* Chamada quando um jogador conclui uma tarefa
 
+
+### Definições de personagem (`register_character`)
+{
+	type = "npc", --[[ 
+	^ Tipo do personagem
+	^ "npc" para NPCs (entidades Lua)]] 
+	
+	npc_preset = "human", --[[ 
+	^ Predefinição da entidade a ser criada
+	^ "human" para ser predefinido como um humano]]
+	 
+	npc = { -- Caracteristicas da entidade Lua
+	
+		textures = { --[[ 
+		^ Texturas da entidade
+		^ Se voce deseja que a entidade use texturas alternativas 
+		  precisa lista-las como abaixo]]
+			{"texture.png"}, 
+			{"texture.1.png"}, 
+			{"texture.2.png"},
+		},
+		
+		sounds = { --[[ 
+		^ Sons da entidade
+		^ Não precisa listar todos os sons alternativos]]
+			random = "sound", -- Som emitido aleatoriamente pela entidade
+		},
+		
+	},
+	
+	arte_npc = Definições de arte de NPC, -- Arte do NPC
+	
+	spawner_node = { --[[ 
+	^ Nodes que spawnadores do npc 
+	^ Os NPCs surgem proximos aos nodes
+		["aventuras_tomas:bau"] = {
+			spawn_mode = "front", --[[
+			^ Maneira como o NPC spawna pelo node
+			^ "front" spawna em frente ao node (um bloco de distancia)
+		},
+	},
+}
 
 ### Definições de aventura
 	{

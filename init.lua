@@ -66,7 +66,8 @@ dofile(modpath.."/callbacks.lua")
 dofile(modpath.."/craftitens/livro_de_aventuras.lua")
 
 -- Recursos
-dofile(modpath.."/recursos/npc.lua")
+dofile(modpath.."/recursos/acesso_npc.lua")
+dofile(modpath.."/recursos/register_character.lua")
 dofile(modpath.."/recursos/editor_schem.lua")
 
 -- Nodes

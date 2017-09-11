@@ -2,3 +2,4 @@ default
 wool
 sfinv
 intllib?
+mobs?
