@@ -46,8 +46,8 @@ local show_formspec = function(name)
 		..default.get_hotbar_bg(0,4.85)
 	
 	-- Verifica quais item estao disponiveis de acordo com a ultima aventura realizada
-	if aventuras.bd.verif(name, "livro_de_aventuras") == true then
-		local list = aventuras.bd.pegar(name, "livro_de_aventuras")
+	if aventuras.bd.verif("player_"..name, "livro_de_aventuras") == true then
+		local list = aventuras.bd.pegar("player_"..name, "livro_de_aventuras")
 		local s = ""
 		
 		-- Tabela temporaria de acesso
