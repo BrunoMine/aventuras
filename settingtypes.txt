@@ -4,5 +4,11 @@
 # Enable adventures editor mode
 aventuras_editor_mode (Modo Editor | Editor Mode) bool false
 
+# Itemstring do item usado como moeda de troca para o jogador 
+# recuperar um item que perdeu na aventura
+# Itemstring of a item used as an exchange currency for the player 
+# to retrieve an item he lost in the adventure.
+aventuras_moeda_bau_noob (Moeda de trocas para item de noob) string "default:gold_ingot"
+
 
 
