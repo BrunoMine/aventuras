@@ -6,13 +6,13 @@
 	Public License junto com esse software,
 	se não, veja em <http://www.gnu.org/licenses/>. 
 	
-	Framework : Tarefa do tipo info_npc
+	Framework : Tarefa do tipo npc_info
 	
 	Nessa tarefa o jogador apenas precisa acessar o npc e clicar em concluir
   ]]
 
 -- Tabela de registros dessa tarefa
-aventuras.tarefas.info_npc = {}
+aventuras.tarefas.npc_info = {}
 
 local S = aventuras.S
 
@@ -35,13 +35,13 @@ local gerar_form = function(aventura, dados, npc, name)
 end
 
 -- Adicionar tarefa à aventura
-aventuras.tarefas.info_npc.adicionar = function(aventura, def)
+aventuras.tarefas.npc_info.adicionar = function(aventura, def)
 	
 	-- Prepara tabela registros da tarefa
 	local reg = {
 		mod = def.mod,
 		titulo = def.titulo,
-		tipo = "info_npc",
+		tipo = "npc_info",
 		
 		aven_req = def.dados.aven_req or {},
 		
@@ -68,10 +68,10 @@ aventuras.tarefas.info_npc.adicionar = function(aventura, def)
 end
 
 -- Interface com entidades/npcs
-aventuras.tarefas.info_npc.npcs = {}
+aventuras.tarefas.npc_info.npcs = {}
 
 -- Receber chamada de 'on_rightclick' de algum dos npcs acessados
-aventuras.tarefas.info_npc.npcs.on_rightclick = function(npc, clicker, aventura, tarefa)
+aventuras.tarefas.npc_info.npcs.on_rightclick = function(npc, clicker, aventura, tarefa)
 	
 	-- Pegar dados da tarefa atual
 	local dados = aventuras.tb[aventura].tarefas[tarefa]
@@ -79,10 +79,10 @@ aventuras.tarefas.info_npc.npcs.on_rightclick = function(npc, clicker, aventura,
 	local name = clicker:get_player_name()
 	
 	-- Salva os dados da tarefa que estará sendo processada nos proximos momentos
-	aventuras.online[name].info_npc = {aventura=aventura, dados=dados, tarefa=tarefa, npc=npc}
+	aventuras.online[name].npc_info = {aventura=aventura, dados=dados, tarefa=tarefa, npc=npc}
 	
 	-- Exibir pedido de itens
-	minetest.show_formspec(name, "aventuras:info_npc", gerar_form(aventura, dados, npc, clicker:get_player_name()))
+	minetest.show_formspec(name, "aventuras:npc_info", gerar_form(aventura, dados, npc, clicker:get_player_name()))
 	
 	return
 
@@ -90,20 +90,20 @@ end
 
 -- Receptor de botões
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if formname == "aventuras:info_npc" then
+	if formname == "aventuras:npc_info" then
 		
 		if fields.concluir then
 			
 			local name = player:get_player_name()
 			
 			-- Obter dados da tarefa que está sendo processada
-			local dados = aventuras.online[name].info_npc.dados
+			local dados = aventuras.online[name].npc_info.dados
 			
 			-- Pegar dados sobre arte do npc
-			local arte_npc = aventuras.recursos.npc.arte[aventuras.online[name].info_npc.npc]
+			local arte_npc = aventuras.recursos.npc.arte[aventuras.online[name].npc_info.npc]
 			
 			-- Informa a conclusao da tarefa
-			minetest.show_formspec(name, "aventuras:info_npc_fim", "size[10,3]"
+			minetest.show_formspec(name, "aventuras:npc_info_fim", "size[10,3]"
 				.."bgcolor["..arte_npc.bgcolor..";true]"
 				..arte_npc.bg_img10x3
 				.."image[0,0;3.3,3.3;"..arte_npc.face.."]"
@@ -112,8 +112,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			)
 			
 			-- Salva a conclusao da missao
-			aventuras.salvar_tarefa(name, aventuras.online[name].info_npc.aventura, aventuras.online[name].info_npc.tarefa)
-			aventuras.callbacks.concluiu(name, aventuras.online[name].info_npc.aventura, aventuras.online[name].info_npc.tarefa)
+			aventuras.salvar_tarefa(name, aventuras.online[name].npc_info.aventura, aventuras.online[name].npc_info.tarefa)
+			aventuras.callbacks.concluiu(name, aventuras.online[name].npc_info.aventura, aventuras.online[name].npc_info.tarefa)
 			
 			-- Toca o som de conclusao
 			if arte_npc.sounds.concluir then

@@ -29,7 +29,7 @@ aventuras.comum.verif_item_tarefa = function(name, tipo_tarefa, item)
 		for aventura,d in pairs(aventuras.online[name][tipo_tarefa].aven[item]) do
 			
 			-- Numero da tarefa que esta sendo realizada (numero da ultima + 1)
-			local tarefa = aventuras.bd.pegar(name, "aventura_"..aventura)+1
+			local tarefa = aventuras.bd.pegar("player_"..name, "aventura_"..aventura)+1
 			
 			-- Dados da tarefa na aventura
 			local dados = aventuras.tb[aventura].tarefas[tarefa] 
@@ -53,7 +53,7 @@ aventuras.comum.verif_item_tarefa = function(name, tipo_tarefa, item)
 		-- Deleta dados temporarios desse tipo de tarefa caso nao tenha mais nenhum pendente
 		if aventuras.comum.contar_tb(aventuras.online[name][tipo_tarefa].aven[item]) == 0 then
 			aventuras.online[name][tipo_tarefa] = nil
-			aventuras.bd.remover(name, "tarefa_"..tipo_tarefa)
+			aventuras.bd.remover("player_"..name, "tarefa_"..tipo_tarefa)
 		end
 		
 		return true

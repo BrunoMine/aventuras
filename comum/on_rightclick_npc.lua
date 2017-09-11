@@ -39,7 +39,7 @@ aventuras.comum.get_on_rightclick_npc = function(tipo_tarefa)
 		if not dados_temp.aven then dados_temp.aven = {} end
 		if not dados_temp.aven[dados.item] then dados_temp.aven[dados.item] = {} end
 		dados_temp.aven[dados.item][aventura] = true
-		aventuras.bd.salvar(name, "tarefa_"..tipo_tarefa, dados_temp.aven)
+		aventuras.bd.salvar("player_"..name, "tarefa_"..tipo_tarefa, dados_temp.aven)
 	
 		return
 	end

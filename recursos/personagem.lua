@@ -77,7 +77,7 @@ aventuras.registered_characteres = {}
 
 
 -- Registrar Personagem
-aventuras.register_character = function(charname, def)
+aventuras.registrar_personagem = function(charname, def)
 	
 	-- Salva dados
 	aventuras.registered_characteres[charname] = minetest.deserialize(minetest.serialize(def))

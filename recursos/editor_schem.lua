@@ -11,11 +11,11 @@
 
 local acessos = {}
 
-if aventuras.bd.verif("aventuras", "editor_schem_acessos") == true then
-	acessos = aventuras.bd.pegar("aventuras", "editor_schem_acessos")
+if aventuras.bd.verif("editor_schem", "acessos") == true then
+	acessos = aventuras.bd.pegar("editor_schem", "acessos")
 end
 minetest.register_on_shutdown(function()
-	aventuras.bd.salvar("aventuras", "editor_schem_acessos", acessos)
+	aventuras.bd.salvar("editor_schem", "acessos", acessos)
 end)
 minetest.register_on_joinplayer(function(player)
 	if aventuras.editor_mode ~= true then return end

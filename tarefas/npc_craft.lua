@@ -6,18 +6,18 @@
 	Public License junto com esse software,
 	se não, veja em <http://www.gnu.org/licenses/>. 
 	
-	Framework : Tarefa do tipo comer
+	Framework : Tarefa do tipo npc_craft
 	
-	Nessa tarefa o jogador precisa acessar um NPC e depois comer algo para concluir (uma mensagem aparece no chat quando a aventura termina)
+	Nessa tarefa o jogador precisa acessar um NPC e depois craftar algo para concluir (uma mensagem aparece no chat quando a aventura termina)
   ]]
 
 -- Tabela de registros dessa tarefa
-aventuras.tarefas.comer = {}
+aventuras.tarefas.npc_craft = {}
 
 local S = aventuras.S
 
 -- Gerar um formspec de tarefa
-aventuras.tarefas.comer.gerar_form = function(aventura, dados, npc, name)
+aventuras.tarefas.npc_craft.gerar_form = function(aventura, dados, npc, name)
 	
 	local arte_npc = aventuras.recursos.npc.arte[npc]
 	
@@ -40,15 +40,14 @@ aventuras.tarefas.comer.gerar_form = function(aventura, dados, npc, name)
 	return formspec
 end
 
-
 -- Adicionar tarefa à aventura
-aventuras.tarefas.comer.adicionar = function(aventura, def)
+aventuras.tarefas.npc_craft.adicionar = function(aventura, def)
 
 	-- Prepara tabela registros da tarefa
 	local reg = {
 		mod = def.mod,
 		titulo = def.titulo,
-		tipo = "comer",
+		tipo = "npc_craft",
 		
 		aven_req = def.dados.aven_req or {},
 		
@@ -78,16 +77,16 @@ aventuras.tarefas.comer.adicionar = function(aventura, def)
 end
 
 -- Interface com entidades/npcs
-aventuras.tarefas.comer.npcs = {}
+aventuras.tarefas.npc_craft.npcs = {}
 
 -- Receber chamada de 'on_rightclick' de algum dos npcs acessados
-aventuras.tarefas.comer.npcs.on_rightclick = aventuras.comum.get_on_rightclick_npc("comer")
+aventuras.tarefas.npc_craft.npcs.on_rightclick = aventuras.comum.get_on_rightclick_npc("npc_craft")
 
--- Verificar ao comer algo
-minetest.register_on_item_eat(function(hp_change, replace_with_item, itemstack, user, pointed_thing)
+-- Verificar ao npc_craft node
+minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
 	
 	-- Realiza rotina padrão para itens aguardados por esse tipo de tarefa
-	aventuras.comum.verif_item_tarefa(user:get_player_name(), "comer", itemstack:get_name())
+	aventuras.comum.verif_item_tarefa(player:get_player_name(), "npc_craft", itemstack:get_name())
 	
 end)
 
@@ -95,9 +94,9 @@ end)
 -- Mantem a tabela temporaria de dados enquanto o jogador estiver online
 minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
-	if aventuras.bd.verif(name, "tarefa_comer") == true then
-		if not aventuras.online[name].comer then aventuras.online[name].comer = {} end
-		aventuras.online[name].comer.aven = aventuras.bd.pegar(name, "tarefa_comer")
+	if aventuras.bd.verif("player_"..name, "tarefa_npc_craft") == true then
+		if not aventuras.online[name].npc_craft then aventuras.online[name].npc_craft = {} end
+		aventuras.online[name].npc_craft.aven = aventuras.bd.pegar("player_"..name, "tarefa_npc_craft")
 	end
 end)
 

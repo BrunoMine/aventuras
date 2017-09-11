@@ -67,17 +67,17 @@ dofile(modpath.."/craftitens/livro_de_aventuras.lua")
 
 -- Recursos
 dofile(modpath.."/recursos/acesso_npc.lua")
-dofile(modpath.."/recursos/register_character.lua")
+dofile(modpath.."/recursos/personagem.lua")
 dofile(modpath.."/recursos/editor_schem.lua")
 
 -- Nodes
 dofile(modpath.."/nodes/bau_aventureiro_noob.lua")
 
 -- Tarefas
-dofile(modpath.."/tarefas/troca_npc.lua")
-dofile(modpath.."/tarefas/info_npc.lua")
-dofile(modpath.."/tarefas/place_node.lua")
-dofile(modpath.."/tarefas/dig_node.lua")
-dofile(modpath.."/tarefas/craftar.lua")
-dofile(modpath.."/tarefas/comer.lua")
+dofile(modpath.."/tarefas/npc_troca.lua")
+dofile(modpath.."/tarefas/npc_info.lua")
+dofile(modpath.."/tarefas/npc_placenode.lua")
+dofile(modpath.."/tarefas/npc_dignode.lua")
+dofile(modpath.."/tarefas/npc_craft.lua")
+dofile(modpath.."/tarefas/npc_alimento.lua")
 notificar("OK")

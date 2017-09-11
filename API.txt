@@ -1,43 +1,64 @@
 API para mod Aventuras 0.3.0
 
 
-### Métodos Básicos
-* `aventuras.register_character(nome, Definições de personagem)` : Registra um personagem
-	* `nome` é ID que representa o personagem (exemplo, se for npc esse será o nome da entidade registrada)
-* `aventuras.registrar_aventura(nome, Definições de aventura)` : Registrar uma aventura
-	* `nome` é o nome da aventura (exemplo: "nome_mod:grande_desbravador")
-* `aventuras.adicionar_tarefa(aventura, tipo, Definições de tarefa)` : Adicionar uma tarefa em uma aventura
-	* `aventura` é o nome da aventura (exemplo: "nome_mod:grande_desbravador")
-	* `tipo` é o nome da aventura (exemplo: "simples")
-* `aventuras.pegar_tarefa(nome, aventura)` : Retorna o número da última tarefa realizada (retorna `0` caso não tenha feito nenhuma)
-	* `nome` é o nome do jogador
-	* `aventura` é o nome da aventura
-* `aventuras.salvar_tarefa(nome, aventura, tarefa)` : Salva a ultima tarefa realizada por um jogador
-	* `nome` é o nome do jogador
-	* `aventura` é o nome da aventura
-	* `tarefa` é o numero da tarefa
-* `aventuras.registrar_item_bau_noob(itemstring, def)` : Registra um item para ser comprado por jogadores quando estiverem numa tarefa especifica
-	* `nome` é o nome do jogador (exemplo: "mymod:bilhete_1")
-	* def = {
-		aventura = "mymod:aventura_exemplo", -- Aventura relacionada
-		tarefa = 1, -- Tarefa que o jogador deve ter realizado por ultimo (onde o mesmo recebe o item)
-		desc_item = "Apple", -- Descrição do item no menu
-		custo = 1, -- [OPCIONAL] Custo da compra (o item é definido com aventuras_moeda_bau_noob). Se nulo, é definido como 1
-		give_item = func(player), -- [OPCIONAL] Função que da o item ao jogador. Se nulo, uma unidade é dada ao jogador
-	}
+### Métodos
 
-### Métodos Comuns
-* `aventuras.comum.verif_tarefa(aventura, tarefa)` : Verifica se uma tarefa existe
-	* `aventura` é o nome da aventura
-	* `tarefa` é o numero da tarefa
+* `aventuras.registrar_personagem(IdPersonagem, Definições de personagem)`
+	* Registra um personagem
+	* `IdPersonagem` é ID que representa o personagem 
+	  (exemplo, se for npc esse será o nome da entidade registrada)
+	
+* `aventuras.registrar_aventura(Aventura, Definições de aventura)` 
+	* Registrar uma aventura
+	* `Aventura` é o nome da aventura (exemplo: "nome_mod:grande_desbravador")
+	
+* `aventuras.adicionar_tarefa(Aventura, Definições de tarefa)` 
+	* Adicionar uma tarefa em uma aventura
+	
+* `aventuras.pegar_tarefa(NomeJogador, Aventura)` 
+	* Retorna o número da última tarefa realizada 
+	* Retorna `0` caso não tenha feito nenhuma
+	
+* `aventuras.salvar_tarefa(NomeJogador, Aventura, Tarefa)` 
+	* Salva a ultima tarefa realizada por um jogador
+	* `Tarefa` é o numero da tarefa
+	
+* `aventuras.registrar_item_bau_noob(ItemString, Definições do item noob)` 
+	* Registra um item para ser comprado por jogadores quando estiverem numa tarefa especifica
+	* O nome Item Noob é defido ao fato do item ser destinado aos jogadores que perderam o item
+	  que seria usado na proxima etapa da tarefa.
+	* `ItemString` é o itemstring do item (exemplo: "mymod:bilhete_1")
+	
+* `aventuras.comum.verif_tarefa(Aventura, Tarefa)` 
+	* Verifica se uma tarefa existe
+
+
 
 ### Funções de registo de chamada global (callbacks)
 
-* `aventuras.callbacks.registrar_ao_concluir(function(nome, aventura, tarefa))`
+* `aventuras.callbacks.registrar_ao_concluir(function(NomeJogador, Aventura, Tarefa))`
 	* Chamada quando um jogador conclui uma tarefa
 
 
-### Definições de personagem (`register_character`)
+### Definições do item noob (`registrar_item_bau_noob`)
+{
+	aventura = "mymod:aventura_exemplo", -- Aventura relacionada
+	
+	tarefa = 10, -- Tarefa que o jogador deve ter realizado por ultimo (onde o mesmo recebe o item)
+	
+	desc_item = "Apple", -- Descrição do item no menu
+	
+	custo = 1, --[[ OPCIONAL 
+	^ Custo da compra 
+	^ O item é definido com a definição aventuras_moeda_bau_noob
+	^ Se nulo, é definido como 1 ]]
+		
+	give_item = func(player), --[[ OPCIONAL
+	^ Função que da o item ao jogador
+	^ Se nulo, uma unidade é dada ao jogador ]]
+}
+
+### Definições de personagem (`registrar_personagem`)
 {
 	type = "npc", --[[ 
 	^ Tipo do personagem
@@ -95,121 +116,69 @@ API para mod Aventuras 0.3.0
 }
 
 ### Definições de aventura
-	{
-		titulo = "Grande Desbravador",
-		^ Titulo da aventura
-		desc = "Uma aventura legal",
-		^ Pequena descrição da aventura
-		img = "default_apple.png",
-		^ OPCIONAL | Imagem (quadrada) que representa a aventura
-	}
+{
+	titulo = "Grande Desbravador", -- Titulo da aventura
+	desc = "Uma aventura legal", -- Pequena descrição da aventura
+	img = "default_apple.png", -- [OPCIONAL] Imagem (quadrada) que representa a aventura
+}
 
 ### Definições de tarefa
-	{
-		titulo = "Descobrindo o mundo",
-		^ Titulo da tarefa
-		dados = {},
-		^ Tabela de dados que o referido tipo de tarefa designar
-	}
-
-### Dados `troca_npc` : Nessa tarefa o jogador deve realizar um troca com um ou mais npcs
-	{
-		aven_req = {["uma_aventura"]=2,["outra_aventura"]=10},
-		^ Tabela de aventuras onde a index é o ID da aventura e armazena a tarefa mínima requerida.
-		npcs = {"mobs_npc:igor", "mobs_npc:trader"},
-		^ Tabela de entidades que estao aptas para realizar a troca
-		item_rem = Tabela de Itens,
-		^ OPCIONAL | Tabela de itens exigidos para a troca (limite de 5 itens na tabela)
-		item_add = Tabela de Itens,
-		^ OPCIONAL | Tabela de itens recebidos pela troca (limite de 5 itens na tabela)
-		msg = "",
-		^ Mensagem apresentada ao pedir os itens
-		msg_fim = "",
-		^ Mensagem apresentada ao entregar os itens (termino da tarefa)
-	}
+{
+	titulo = "Descobrindo o mundo", -- Titulo da tarefa
 	
-### Dados `info_npc` : Nessa tarefa o jogador apenas precisa acessar o npc e clicar em concluir
-	{
-		aven_req = {["nome_mod:uma_aventura"]=2,["nome_mod:outra_aventura"]=10},
-		^ Tabela de aventuras onde a index é o ID da aventura e armazena a tarefa mínima requerida.
-		npcs = {"mobs_npc:igor", "mobs_npc:trader"},
-		^ Tabela de entidades que estao aptas para realizar a tarefa
-		msg = "",
-		^ Mensagem apresentada ao acessar npc
-		msg_fim = "",
-		^ Mensagem apresentada ao concluir (termino da tarefa)
-	}
+	tipo = "info_npc" --[[ 
+	^ "npc_info" o jogador deve falar com um NPC
+	^ "npc_troca" o jogador deve trocar itens com um NPC
+	^ "npc_place_node" o jogador deve colocar um node após falar com um NPC
+	^ "npc_dig_node" o jogador deve quebrar um node após falar com um NPC 
+	^ "npc_comida" o jogador deve comer algo apos falar com um NPC 
+	^ "npc_craft" o jogador deve craftar algo apos falar com um NPC ]]
+	
+	dados = { -- Tabela de dados que o referido tipo de tarefa designar
+		
+		aven_req = {["uma_aventura"]=2,["outra_aventura"]=10}, --[[
+		^ Exige que o jogador tenha concluido algumas tarefas de outras aventuras ]]
+		
+		npcs = {"mobs_npc:igor", "mobs_npc:trader"}, --[[
+		^ Tabela de entidades que possibilitam a realização da tarefa ]]
+		
+		item_rem = Tabela de Itens, --[[
+		^ Usado para tarefas do tipo "npc_troca"
+		^ Tabela de itens exigidos para a troca (limite de 5 itens na tabela) ]]
+		
+		item_add = Tabela de Itens, --[[
+		^ Usado para tarefas do tipo "npc_troca" 
+		^ Tabela de itens recebidos pela troca (limite de 5 itens na tabela) ]]
+		
+		item = "", --[[ 
+		^ Itemstring de um item
+		^ Na tarefa do tipo "npc_place" o jogador deve colocar o node informado aqui
+		^ Na tarefa do tipo "npc_dig" o jogador deve quebrar o node informado aqui
+		^ Na tarefa do tipo "npc_craft" o jogador deve craftar o item informado aqui
+		^ Na tarefa do tipo "npc_comida" o jogador deve comer o alimento informado aqui ]]	
+		
+		img_item = "aventuras_tarefa_duvida.png" --[[
+		^ OPCIONAL
+		^ Nome de um arquivo de imagem
+		^ Quando informado, essa imagem fica no lugar da imagem do `item` informado acima ]]
+		
+		msg = "", -- Mensagem apresentada pelo NPC quando o jogador acessa inicialmente
+		
+		msg_fim = "", --[[
+		^ Mensagem apresentada quando o jogador conclui a tarefa
+		^ Caso o jogador esteja em uma interação com o NPC, essa mensagem será a fala do NPC
+		^ Caso o jogador não esteja interagindo com o NPC no momento da conclusão, 
+		  a mensagem é exibida do console do chat (como nas tarefas do tipo "npc_craft" e "npc_food")
+	},
+}
 
-### Dados `place_node` : Nessa tarefa o jogador precisa acessar um NPC e depois colocar um node para concluir
-	{
-		aven_req = {["nome_mod:uma_aventura"]=2,["nome_mod:outra_aventura"]=10},
-		^ Tabela de aventuras onde a index é o ID da aventura e armazena a tarefa mínima requerida.
-		npcs = {"mobs_npc:igor", "mobs_npc:trader"},
-		^ Tabela de entidades que estao aptas para informar a tarefa (habilitar para ser realizada)
-		msg = "",
-		^ Mensagem apresentada ao acessar npc
-		msg_fim = "",
-		^ Mensagem apresentada ao concluir (uma pequena frase no chat)
-		node = "default:cobble",
-		^ Itemstring do node a ser colocado para concluir a tarefa
-		img_node = "aventuras_tarefa_duvida.png",
-		^ Opcional. Imagem para ser exibida ao acessar npc (caso esteja nula será exibido o item que precisa ser colocado)
-	}
-
-### Dados `dig_node` : Nessa tarefa o jogador precisa acessar um NPC e depois cavar um node para concluir
-	{
-		aven_req = {["nome_mod:uma_aventura"]=2,["nome_mod:outra_aventura"]=10},
-		^ Tabela de aventuras onde a index é o ID da aventura e armazena a tarefa mínima requerida.
-		npcs = {"mobs_npc:igor", "mobs_npc:trader"},
-		^ Tabela de entidades que estao aptas para informar a tarefa (habilitar para ser realizada)
-		msg = "",
-		^ Mensagem apresentada ao acessar npc
-		msg_fim = "",
-		^ Mensagem apresentada ao concluir (uma pequena frase no chat)
-		node = "default:cobble",
-		^ Itemstring do node a ser cavado para concluir a tarefa
-		img_node = "aventuras_tarefa_duvida.png",
-		^ Opcional. Imagem para ser exibida ao acessar npc (caso esteja nula será exibido o item que precisa ser cavado)
-	}
-
-### Dados `craftar` : Nessa tarefa o jogador precisa acessar um NPC e depois craftar algo para concluir
-	{
-		aven_req = {["nome_mod:uma_aventura"]=2,["nome_mod:outra_aventura"]=10},
-		^ Tabela de aventuras onde a index é o ID da aventura e armazena a tarefa mínima requerida.
-		npcs = {"mobs_npc:igor", "mobs_npc:trader"},
-		^ Tabela de entidades que estao aptas para informar a tarefa (habilitar para ser realizada)
-		msg = "",
-		^ Mensagem apresentada ao acessar npc
-		msg_fim = "",
-		^ Mensagem apresentada ao concluir (uma pequena frase no chat)
-		item = "default:cobble",
-		^ Itemstring do item a ser craftado para concluir a tarefa
-		img_item = "aventuras_tarefa_duvida.png",
-		^ Opcional. Imagem para ser exibida ao acessar npc (caso esteja nula será exibido o item que precisa ser craftado)
-	}
-
-### Dados `comer` : Nessa tarefa o jogador precisa acessar um NPC e depois comer algo para concluir
-	{
-		aven_req = {["nome_mod:uma_aventura"]=2,["nome_mod:outra_aventura"]=10},
-		^ Tabela de aventuras onde a index é o ID da aventura e armazena a tarefa mínima requerida.
-		npcs = {"mobs_npc:igor", "mobs_npc:trader"},
-		^ Tabela de entidades que estao aptas para informar a tarefa (habilitar para ser realizada)
-		msg = "",
-		^ Mensagem apresentada ao acessar npc
-		msg_fim = "",
-		^ Mensagem apresentada ao concluir (uma pequena frase no chat)
-		item = "default:apple",
-		^ Itemstring do item a ser comido para concluir a tarefa
-		img_item = "aventuras_tarefa_duvida.png",
-		^ Opcional. Imagem para ser exibida ao acessar npc (caso esteja nula será exibido o item que precisa ser comido)
-	}
 
 ### Tabela de Itens
-	{
-		{name="default:dirt", count=50, wear=0, metadata=""},
-		{name="default:sand", count=5, wear=0, metadata=""},
-		{name="default:cobble", count=1, wear=0, metadata=""},
-	}
+{
+	{name="default:dirt", count=50, wear=0, metadata=""},
+	{name="default:sand", count=5, wear=0, metadata=""},
+	{name="default:cobble", count=1, wear=0, metadata=""},
+}
 
 Recursos
 --------
@@ -227,18 +196,18 @@ Recursos
 	* `nome` é o nome da entidade-NPC (exemplo: "mobs_npc:igor")
 
 ### Definições de arte de NPC
-	{
-		face = "default_dirt.png",
-		^ Imagem da face do NPC para as formspecs de apresentação (recomenda-se largura e altura iguais)
-		bgcolor = "bgcolor[#080808BB;true]",
-		^ Valor RGB-Hexadecimal da cor de fundo para as formspecs de apresentação
-		bg_img1x1 = "background[5,5;1,1;gui_formbg.png;true]",
-		^ Imagem de fundo para as formspecs no formato quadrado
-		bg_img10x3 = "background[5,5;1,1;gui_formbg.png;true]",
-		^ Imagem de fundo para as formspecs no formato 10x3
-		sounds = Sons de NPC,
-		^ Opcional. Tabela de sons do NPC
-	}
+{
+	face = "default_dirt.png",
+	^ Imagem da face do NPC para as formspecs de apresentação (recomenda-se largura e altura iguais)
+	bgcolor = "bgcolor[#080808BB;true]",
+	^ Valor RGB-Hexadecimal da cor de fundo para as formspecs de apresentação
+	bg_img1x1 = "background[5,5;1,1;gui_formbg.png;true]",
+	^ Imagem de fundo para as formspecs no formato quadrado
+	bg_img10x3 = "background[5,5;1,1;gui_formbg.png;true]",
+	^ Imagem de fundo para as formspecs no formato 10x3
+	sounds = Sons de NPC,
+	^ Opcional. Tabela de sons do NPC
+}
 
 ### Sons de NPC
 	{
@@ -246,26 +215,20 @@ Recursos
 		^ Nome do arquivo de audio de quando o jogador conclui uma tarefa no NPC
 	}
 
-Termos reservados
------------------
-Todos os nomes de tipos de tarefas são reservados
-
-
 Banco de Dados
 --------------
-O banco de dados funciona com o sseguintes valores:
+O banco de dados utilizado pela API é o Memor. Veja a documentação especifica para este.
 
-* `aventura_<nome de aventura>`
-* `tarefa_<nome do tipo de tarefa>`
+A estrutura dos dados é feita da seguinte forma:
 
-Midias padrão
--------------
-Você pode usar essas mídias alternativamente. Elas já estão presentes na Engine.
-
-### Texturas
-aventuras_tarefa_duvida.png
-
-### Sons
-aventuras_concluir.ogg
+mundo
+ --aventuras
+   |--editor_schem
+   |   --acessos (dados de acessos)
+   |
+    --player_<NomeJogador>
+      |--aventura_<Aventura> (ultima tarefa realizada)
+      |--tarefa_<TipoTarefa> (dados de processamento da tarefa) 
+       --livro_de_aventuras (dados do livro de aventuras do jogador)
 
 

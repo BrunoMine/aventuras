@@ -6,13 +6,13 @@
 	Public License junto com esse software,
 	se não, veja em <http://www.gnu.org/licenses/>. 
 	
-	Framework : Tarefa do tipo troca_npc
+	Framework : Tarefa do tipo npc_troca
 	
 	Nessa tarefa o jogador deve realizar um troca com um ou mais npcs
   ]]
 
 -- Tabela de registros dessa tarefa
-aventuras.tarefas.troca_npc = {}
+aventuras.tarefas.npc_troca = {}
 
 local S = aventuras.S
 
@@ -81,13 +81,13 @@ end
 
 
 -- Adicionar tarefa à aventura
-aventuras.tarefas.troca_npc.adicionar = function(aventura, def)
+aventuras.tarefas.npc_troca.adicionar = function(aventura, def)
 	
 	-- Prepara tabela registros da tarefa
 	local reg = {
 		mod = def.mod,
 		titulo = def.titulo,
-		tipo = "troca_npc",
+		tipo = "npc_troca",
 		
 		aven_req = def.dados.aven_req or {},
 		
@@ -122,10 +122,10 @@ aventuras.tarefas.troca_npc.adicionar = function(aventura, def)
 end
 
 -- Interface com entidades/npcs
-aventuras.tarefas.troca_npc.npcs = {}
+aventuras.tarefas.npc_troca.npcs = {}
 
 -- Receber chamada de 'on_rightclick' de algum dos npcs acessados
-aventuras.tarefas.troca_npc.npcs.on_rightclick = function(npc, clicker, aventura, tarefa)
+aventuras.tarefas.npc_troca.npcs.on_rightclick = function(npc, clicker, aventura, tarefa)
 	
 	-- Pegar dados da tarefa atual
 	local dados = aventuras.tb[aventura].tarefas[tarefa]
@@ -133,10 +133,10 @@ aventuras.tarefas.troca_npc.npcs.on_rightclick = function(npc, clicker, aventura
 	local name = clicker:get_player_name()
 	
 	-- Salva os dados da tarefa que estará sendo processada nos proximos momentos
-	aventuras.online[name].troca_npc = {aventura=aventura, dados=dados, tarefa=tarefa, npc=npc}
+	aventuras.online[name].npc_troca = {aventura=aventura, dados=dados, tarefa=tarefa, npc=npc}
 	
 	-- Exibir pedido de itens
-	minetest.show_formspec(name, "aventuras:troca_npc", gerar_form(aventura, dados, npc, clicker:get_player_name()))
+	minetest.show_formspec(name, "aventuras:npc_troca", gerar_form(aventura, dados, npc, clicker:get_player_name()))
 	
 	return
 
@@ -144,14 +144,14 @@ end
 
 -- Receptor de botões
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if formname == "aventuras:troca_npc" then
+	if formname == "aventuras:npc_troca" then
 		
 		if fields.concluir then
 			
 			local name = player:get_player_name()
 			
 			-- Obter dados da tarefa que está sendo processada
-			local dados = aventuras.online[name].troca_npc.dados
+			local dados = aventuras.online[name].npc_troca.dados
 			
 			-- Tenta realizar a troca
 			if dados.item_rem or dados.item_add then
@@ -162,10 +162,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			end
 			
 			-- Pegar dados sobre arte do npc
-			local arte_npc = aventuras.recursos.npc.arte[aventuras.online[name].troca_npc.npc]
+			local arte_npc = aventuras.recursos.npc.arte[aventuras.online[name].npc_troca.npc]
 		
 			-- Informa a conclusao da tarefa
-			minetest.show_formspec(name, "aventuras:troca_npc_fim", "size[10,3]"
+			minetest.show_formspec(name, "aventuras:npc_troca_fim", "size[10,3]"
 				.."bgcolor["..arte_npc.bgcolor..";true]"
 				..arte_npc.bg_img10x3
 				.."image[0,0;3.3,3.3;"..arte_npc.face.."]"
@@ -174,8 +174,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			)
 			
 			-- Salva a conclusao da missao
-			aventuras.salvar_tarefa(name, aventuras.online[name].troca_npc.aventura, aventuras.online[name].troca_npc.tarefa)
-			aventuras.callbacks.concluiu(name, aventuras.online[name].troca_npc.aventura, aventuras.online[name].troca_npc.tarefa)
+			aventuras.salvar_tarefa(name, aventuras.online[name].npc_troca.aventura, aventuras.online[name].npc_troca.tarefa)
+			aventuras.callbacks.concluiu(name, aventuras.online[name].npc_troca.aventura, aventuras.online[name].npc_troca.tarefa)
 			
 			-- Toca o som de conclusao
 			if arte_npc.sounds.concluir then

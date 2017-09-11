@@ -6,19 +6,18 @@
 	Public License junto com esse software,
 	se não, veja em <http://www.gnu.org/licenses/>. 
 	
-	Framework : Tarefa do tipo place_node
+	Framework : Tarefa do tipo npc_alimento
 	
-	Nessa tarefa o jogador precisa acessar um NPC e depois colocar um node para concluir (uma mensagem aparece no chat quando a aventura termina)
+	Nessa tarefa o jogador precisa acessar um NPC e depois comer algo para concluir (uma mensagem aparece no chat quando a aventura termina)
   ]]
 
 -- Tabela de registros dessa tarefa
-aventuras.tarefas.place_node = {}
+aventuras.tarefas.npc_alimento = {}
 
 local S = aventuras.S
 
-
 -- Gerar um formspec de tarefa
-aventuras.tarefas.place_node.gerar_form = function(aventura, dados, npc, name)
+aventuras.tarefas.npc_alimento.gerar_form = function(aventura, dados, npc, name)
 	
 	local arte_npc = aventuras.recursos.npc.arte[npc]
 	
@@ -41,19 +40,20 @@ aventuras.tarefas.place_node.gerar_form = function(aventura, dados, npc, name)
 	return formspec
 end
 
+
 -- Adicionar tarefa à aventura
-aventuras.tarefas.place_node.adicionar = function(aventura, def)
+aventuras.tarefas.npc_alimento.adicionar = function(aventura, def)
 
 	-- Prepara tabela registros da tarefa
 	local reg = {
 		mod = def.mod,
 		titulo = def.titulo,
-		tipo = "place_node",
+		tipo = "npc_alimento",
 		
 		aven_req = def.dados.aven_req or {},
 		
-		item = def.dados.node,
-		img_node = def.dados.img_node,
+		item = def.dados.item,
+		img_node = def.dados.img_item,
 		
 		msg = def.dados.msg,
 		msg_fim = def.dados.msg_fim,
@@ -78,16 +78,16 @@ aventuras.tarefas.place_node.adicionar = function(aventura, def)
 end
 
 -- Interface com entidades/npcs
-aventuras.tarefas.place_node.npcs = {}
+aventuras.tarefas.npc_alimento.npcs = {}
 
 -- Receber chamada de 'on_rightclick' de algum dos npcs acessados
-aventuras.tarefas.place_node.npcs.on_rightclick = aventuras.comum.get_on_rightclick_npc("place_node")
+aventuras.tarefas.npc_alimento.npcs.on_rightclick = aventuras.comum.get_on_rightclick_npc("npc_alimento")
 
--- Verificar ao colocar node
-minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack, pointed_thing)
+-- Verificar ao npc_alimento algo
+minetest.register_on_item_eat(function(hp_change, replace_with_item, itemstack, user, pointed_thing)
 	
 	-- Realiza rotina padrão para itens aguardados por esse tipo de tarefa
-	aventuras.comum.verif_item_tarefa(placer:get_player_name(), "place_node", newnode.name)
+	aventuras.comum.verif_item_tarefa(user:get_player_name(), "npc_alimento", itemstack:get_name())
 	
 end)
 
@@ -95,9 +95,9 @@ end)
 -- Mantem a tabela temporaria de dados enquanto o jogador estiver online
 minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
-	if aventuras.bd.verif(name, "tarefa_place_node") == true then
-		if not aventuras.online[name].place_node then aventuras.online[name].place_node = {} end
-		aventuras.online[name].place_node.aven = aventuras.bd.pegar(name, "tarefa_place_node")
+	if aventuras.bd.verif("player_"..name, "tarefa_npc_alimento") == true then
+		if not aventuras.online[name].npc_alimento then aventuras.online[name].npc_alimento = {} end
+		aventuras.online[name].npc_alimento.aven = aventuras.bd.pegar("player_"..name, "tarefa_npc_alimento")
 	end
 end)
 
