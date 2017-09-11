@@ -22,7 +22,7 @@ end)
 
 -- Criar registros do livro
 local criar_registro = function(name)
-	local list = minetest.get_dir_list(minetest.get_worldpath().."/aventuras/"..name)
+	local list = minetest.get_dir_list(minetest.get_worldpath().."/aventuras/player_"..name)
 	
 	local reg = {}
 	

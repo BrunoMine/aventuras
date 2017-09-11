@@ -72,6 +72,7 @@ dofile(modpath.."/recursos/editor_schem.lua")
 
 -- Nodes
 dofile(modpath.."/nodes/bau_aventureiro_noob.lua")
+dofile(modpath.."/nodes/balao_aventureiro.lua")
 
 -- Tarefas
 dofile(modpath.."/tarefas/npc_troca.lua")

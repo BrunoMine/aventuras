@@ -32,6 +32,8 @@ API para mod Aventuras 0.3.0
 * `aventuras.comum.verif_tarefa(Aventura, Tarefa)` 
 	* Verifica se uma tarefa existe
 
+* `aventuras.registrar_lugar(Lugar, Definições de lugar)`
+	* Isso é usado pelo balao de aventureiro para que jogadores acessem lugares relacionados a aventuras
 
 
 ### Funções de registo de chamada global (callbacks)
@@ -209,11 +211,17 @@ Recursos
 	^ Opcional. Tabela de sons do NPC
 }
 
+### Definições de lugar
+{
+	pos = {x=0,y=0,z=0}, -- Coordenada para onde o jogador é teleportado quando for ao lugar
+	aven_req = {["uma_aventura"]=2,["outra_aventura"]=10}, -- OPICIONAL | Tarefas de aventuras exigidas para teleportar para o lugar
+}
+
 ### Sons de NPC
-	{
-		concluir = {name="aventuras_concluir",gain=1.0},
-		^ Nome do arquivo de audio de quando o jogador conclui uma tarefa no NPC
-	}
+{
+	concluir = {name="aventuras_concluir",gain=1.0},
+	^ Nome do arquivo de audio de quando o jogador conclui uma tarefa no NPC
+}
 
 Banco de Dados
 --------------
