@@ -27,6 +27,9 @@ aventuras.S = dofile(modpath.."/lib/intllib.lua")
 -- Item de troca por itens de aventuras estraviados
 aventuras.moeda_bau_noob = minetest.setting_get("aventuras_moeda_bau_noob") or "default:gold_ingot"
 
+-- Setup automatico de estruturas
+aventuras.autosetup_estruturas = minetest.setting_getbool("aventuras_autosetup_estruturas") or true
+
 -- Tabela de Recursos
 aventuras.recursos = {}
 

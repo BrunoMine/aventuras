@@ -10,5 +10,9 @@ aventuras_editor_mode (Modo Editor | Editor Mode) bool false
 # to retrieve an item he lost in the adventure.
 aventuras_moeda_bau_noob (Moeda de trocas para item de noob) string "default:gold_ingot"
 
+# Monta e verifica as estruturas automaticamente ao iniciar o mundo
+# Builds and verifies structures automatically when the world starts
+aventuras_autosetup_estruturas (Auto setup de estruturas) bool true
+
 
 

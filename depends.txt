@@ -3,3 +3,4 @@ wool
 sfinv
 intllib?
 mobs?
+areas

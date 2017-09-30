@@ -32,15 +32,49 @@ API para mod Aventuras 0.3.0
 * `aventuras.comum.verif_tarefa(Aventura, Tarefa)` 
 	* Verifica se uma tarefa existe
 
+* `avesturas.registrar_estrutura(Estrutura, Definições de estrutura)`
+	* Registra uma estrutura para ser construida no mundo
+	* `Estrutura` é o nome da estrutura (exemplo: "modname:castelo")
+
 * `aventuras.registrar_lugar(Lugar, Definições de lugar)`
 	* Isso é usado pelo balao de aventureiro para que jogadores acessem lugares relacionados a aventuras
-
 
 ### Funções de registo de chamada global (callbacks)
 
 * `aventuras.callbacks.registrar_ao_concluir(function(NomeJogador, Aventura, Tarefa))`
 	* Chamada quando um jogador conclui uma tarefa
 
+## Definições de estrutura
+{
+	titulo = "Castelo Real", -- Titulo exibido ao jogador
+	
+	versao = "1", --[[ 
+	^ Versao da estrutura 
+	^ Quando uma estrutura é montada no mundo, a versao é gravada
+	^ Isso é usado apenas como string
+	^ Quando for diferente da versao gravada a estrutura é remontada no mesmo local ]]
+	
+	altura = 10, -- Altura da estrutura
+	
+	largura = 21, -- Largura da estrutura
+	
+	filepath = minetest.get_modpath(minetest.get_current_modname()).."/schems/castelo.mts", --[[
+	^ Caminho do arquivo no formato schematic de minetest onde a estrutura está armazenada ]]
+	
+	mapgen = { -- Dados para definir como a estrutura será gerada no mundo
+	
+		tipo = "tipo", --[[ 
+		^ Tipo de posicionamento da estrutura no mapa gerado
+		^ No tipo "suspenso" a estrutura será colocada 3 blocos acima do bloco mais 
+		  alto numa area gerada aleatoriamente no mapa
+		  ^ em bioma "floresta" a estrutura aparece acima de arvores comuns
+		  ^ em bioma "campo" a estrutura aparece acima de uma area plana de terra com grama ]]
+		
+		bioma = "bioma", --[[ 
+		^ Bioma da area onde a estrutura é montada
+		^ Para detalhes dos biomas, verifique o `tipo` utilizado na mapgen da estrutura utilizado ]]
+	},
+}
 
 ### Definições do item noob (`registrar_item_bau_noob`)
 {
@@ -213,6 +247,7 @@ Recursos
 
 ### Definições de lugar
 {
+	titulo = "Castelo Real", -- Titulo exibido ao jogador
 	pos = {x=0,y=0,z=0}, -- Coordenada para onde o jogador é teleportado quando for ao lugar
 	aven_req = {["uma_aventura"]=2,["outra_aventura"]=10}, -- OPICIONAL | Tarefas de aventuras exigidas para teleportar para o lugar
 }

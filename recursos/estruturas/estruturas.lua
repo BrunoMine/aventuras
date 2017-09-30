@@ -59,8 +59,10 @@ aventuras.registrar_estrutura = function(name, def)
 	r.filepath = def.filepath
 	r.aven_req = def.aven_req
 	
-	-- MapGen para montagem (não pode ser reescrito)
-	r.mapgen = r.mapgen or def.mapgen
+	-- MapGen para montagem
+	r.mapgen = def.mapgen
+	
+	aventuras.bd.salvar("estruturas", "estruturas_registradas", aventuras.estruturas.registradas)
 end
 
 
@@ -84,17 +86,44 @@ local verif_area_carregada = function(minp, maxp)
 	return true
 end
 
+-- Verificar se uma area tem proteção alguma (retorna true se tem proteção)
+local verif_area_protegida = function(minp, maxp)
+	for x=minp.x , maxp.x , 7 do
+		for y=minp.y , maxp.y , 7 do
+			for z=minp.z , maxp.z , 7 do
+				if minetest.is_protected({x=x, y=y, z=z}, "") then return true end
+			end
+		end
+	end
+	return false
+end
+
 -- Montagem de estruturas em mapgens especificos
 local montar = {}
 montar["suspenso"] = dofile(minetest.get_modpath("aventuras").."/recursos/estruturas/mapgen_suspenso.lua")
+
+
+-- Informar jogadores online
+local informe_geral = function(text)
+	for _,player in ipairs(minetest.get_connected_players()) do
+		-- Cobre a tela com formspec de carregamento
+		minetest.show_formspec(player:get_player_name(), "aventuras:estruturas_load", "size[8,2]"
+			.."bgcolor[#000000FF;true]"
+			.."image[0,0;2,2;default_acacia_bush_sapling.png]"
+			.."label[2,0;Preparando estruturas de aventuras\nIsso pode demorar algum tempo...\n\n"..text.."]")
+	end
+end
 
 
 -- Montar e atualizar lugares
 local processo = nil
 aventuras.estruturas.preparar_tudo = function(name)
 	
+	
 	-- Dados do processo
 	if not processo then
+		minetest.log("action", "[Aventuras] Iniciando montagem de estruturas no mapa")
+		informe_geral("Iniciando procedimentos")
 		processo = {
 			-- Estruturas já processadas
 			processadas = {},
@@ -103,6 +132,7 @@ aventuras.estruturas.preparar_tudo = function(name)
 			em_curso = {},
 		}
 	end
+	
 	
 	for estrut,dados in pairs(aventuras.estruturas.registradas) do
 		
@@ -121,17 +151,40 @@ aventuras.estruturas.preparar_tudo = function(name)
 					proc.pos = {x=math.random(-limite,limite), y=1, z=math.random(-limite,limite)}
 				end
 				local pos = proc.pos
-	
+				
 				-- Coordenadas limitrofes
 				local minp = {x=pos.x-dist_area, y=-60, z=pos.z-dist_area}
 				local maxp = {x=pos.x+dist_area, y=150, z=pos.z+dist_area}
-	
+				
+				-- Verifica area protegida
+				if not proc.prot_ok then
+					informe_geral("Montando \""..dados_lugar.titulo.."\"\nTentativa "..((proc.tentativas or 0) + 1).."\nVerificando area protegida ...")
+					if verif_area_protegida({x=minp.x-200,y=minp.y-100,z=minp.z-200}, 
+						{x=maxp.x+200,y=maxp.y+200,z=maxp.z+200}) == true
+					then
+						proc.pos = nil
+						proc.prot_ok = nil
+						proc.tentativas = (proc.tentativas or 0) + 1
+						minetest.log("action", "[Aventuras] Regiao ja protegida (tentativa "..((proc.tentativas or 0) + 1)..")")
+						minetest.after(0.1, aventuras.estruturas.preparar_tudo, name)
+						return
+					else
+						proc.prot_ok = true
+					end
+				end
+				
 				-- Verifica se mapa foi completamente gerado e carregado nessa coordenada
 				if verif_area_carregada(minp, maxp) == false then
-					minetest.emerge_area(minp, maxp)
-					minetest.log("action", "Gerando e/ou carregando mapa ...")
-					minetest.after(4, aventuras.estruturas.preparar_tudo, name)
+					if proc.gerando ~= true then
+						proc.gerando = true
+						minetest.emerge_area(minp, maxp)
+						minetest.log("action", "[Aventuras] Gerando e/ou carregando mapa ...")
+					end
+					informe_geral("Montando \""..dados_lugar.titulo.."\"\nTentativa "..((proc.tentativas or 0) + 1).."\nGerando mapa ...")
+					minetest.after(2, aventuras.estruturas.preparar_tudo, name)
 					return
+				else
+					proc.gerando = false
 				end
 				
 				-- Tenta montar estrutura
@@ -155,17 +208,23 @@ aventuras.estruturas.preparar_tudo = function(name)
 						versao = dados_lugar.versao,
 					}
 					
+					-- Cria area protegida
+					local p = pos_montagem
+					areas:add("Aventuras:Tomas", dados_lugar.titulo, {x=p.x-200, y=p.y-100, z=p.z-200}, {x=p.x+200, y=p.y+15000, z=p.z+200}, nil)
+					
 					-- estrutura criada
 					processo.processadas[estrut] = 1
 					
-					minetest.after(0.1, aventuras.estruturas.preparar_tudo, name)
+					minetest.log("action", "[Aventuras] Estrutura "..estrut.." montada em "..pos_montagem.x.." "..pos_montagem.y.." "..pos_montagem.z)
+					informe_geral("Estrutura \""..dados_lugar.titulo.."\" construida")
+					minetest.after(0.5, aventuras.estruturas.preparar_tudo, name)
 					return
 				else
 					-- Falha na tentativa de montagem, reiniciar
-					minetest.get_player_by_name(name):setpos(proc.pos)
 					proc.pos = nil
+					proc.prot_ok = nil
 					proc.tentativas = (proc.tentativas or 0) + 1
-					minetest.log("action", "Regiao inapropriada para "..estrut.." (tentativa "..proc.tentativas..")")
+					minetest.log("action", "[Aventuras] Regiao inapropriada para "..estrut.." (tentativa "..((proc.tentativas or 0) + 1)..")")
 					minetest.after(0.1, aventuras.estruturas.preparar_tudo, name)
 					return
 				end
@@ -200,32 +259,104 @@ aventuras.estruturas.preparar_tudo = function(name)
 				
 				-- Atualiza versao
 				aventuras.estruturas.montadas[estrut].versao = dados_lugar.versao
+				aventuras.bd.salvar("estruturas", "estruturas_montadas", aventuras.estruturas.montadas) -- Salva mudanças
 				
 				-- Estrutura atualizada
 				processo.processadas[estrut] = 2
 				
-				minetest.after(0.1, aventuras.estruturas.preparar_tudo, name)
+				informe_geral("Estrutura \""..dados_lugar.titulo.."\" atualizada")
+				minetest.after(0.5, aventuras.estruturas.preparar_tudo, name)
 				return
 			else
 				
 				-- Estrutura verificada
 				processo.processadas[estrut] = 3
 				
-				minetest.after(0.1, aventuras.estruturas.preparar_tudo, name)
+				informe_geral("Estrutura \""..aventuras.estruturas.registradas[estrut].titulo.."\" verificada")
+				minetest.after(0.5, aventuras.estruturas.preparar_tudo, name)
 				return
 			end
 		end
 	end
 	
+	
+	-- Calculo de estatisticas
+	local est = {}
+	est.montadas = 0 -- Estruturas Montadas
+	est.atualizadas = 0 -- Estruturas Atualizadas
+	est.verificadas = 0 -- Estruturas verificadas mas que nao precisaram de alterações
+	est.erros = 0 -- Estruturas que tiveram erros
+	est.total = 0 -- Todas de estruturas
+	for estrut,dados in pairs(aventuras.estruturas.registradas) do
+		if processo.processadas[estrut] then
+			if processo.processadas[estrut] == 1 then
+				est.montadas = est.montadas + 1
+			elseif processo.processadas[estrut] == 2 then
+				est.atualizadas = est.atualizadas + 1
+			elseif processo.processadas[estrut] == 3 then
+				est.verificadas = est.verificadas + 1
+			else
+				est.erros = est.erros + 1
+			end
+		else
+			est.erros = est.erros + 1
+		end
+		est.total = est.total + 1
+	end
+	
 	-- Finalizando
-	minetest.log("action", "Montagem de estruturas concluida")
-	if name then minetest.chat_send_player(name, "Concluido") end
+	minetest.log("action", "[Aventuras] Montagem de estruturas concluida")
+	minetest.log("action", "[Aventuras] Montadas: "..est.montadas)
+	minetest.log("action", "[Aventuras] Atualizadas: "..est.atualizadas)
+	minetest.log("action", "[Aventuras] Verificadas: "..est.verificadas)
+	minetest.log("action", "[Aventuras] Erros: "..est.erros)
+	minetest.log("action", "[Aventuras] Total: "..est.total)
+	
+	if name then 
+		minetest.chat_send_player(name, "Montagem de estruturas concluida")
+		minetest.chat_send_player(name, "Montadas: "..est.montadas)
+		minetest.chat_send_player(name, "Atualizadas: "..est.atualizadas)
+		minetest.chat_send_player(name, "Verificadas: "..est.verificadas)
+		minetest.chat_send_player(name, "Erros: "..est.erros)
+		minetest.chat_send_player(name, "Total: "..est.total)
+	end
+	
+	-- Fecha formspec de carregamento
+	for _,player in ipairs(minetest.get_connected_players()) do
+		
+		local pn = player:get_player_name()
+		-- Cobre a tela com formspec de carregamento
+		minetest.after(1, minetest.close_formspec, pn, "aventuras:estruturas_load")
+		
+	end
+	
 	processo = nil
 	
 end
 
+
+-- Evita que novos jogadores conectem ao servidor enquanto monta estruturas
+if minetest.is_singleplayer() == false then
+	minetest.register_on_prejoinplayer(function(name)
+		if processo -- Em processo
+			and name ~= minetest.setting_get("name") -- Não é o cliente inicial
+		then
+			return "Servidor em processo de montagem. Retorne em instantes"
+		end
+	end)
+else
+	minetest.register_on_prejoinplayer(function(name)
+		if processo -- Em processo
+			and name ~= "singleplayer" -- Não é o singleplayer
+		then
+			return "Servidor em processo de montagem. Retorne em instantes"
+		end
+	end)
+end
+
+
 -- Comandos para iniciar montagem de lugares
-minetest.register_chatcommand("aventuras_lugares", {
+minetest.register_chatcommand("aventuras_setup_estrut", {
 	params = "",
 	description = "Inicia montagem e atualização de lugares",
 	privs = {server = true},
@@ -235,5 +366,10 @@ minetest.register_chatcommand("aventuras_lugares", {
 	end,
 })
 
+
+-- Autosetup estruturas
+if aventuras.autosetup_estruturas == true then
+	minetest.after(0.1, aventuras.estruturas.preparar_tudo)
+end
 
 

@@ -46,7 +46,10 @@ aventuras.estruturas.ajustar_nodes = function(minp, maxp)
 			local node_replicado = minetest.get_node({x=pos.x,y=pos.y+1,z=pos.z})
 			minetest.set_node(pos, node_replicado) -- Coloca no proprio lugar
 			local y = pos.y - 1
-			while minetest.get_node({x=pos.x,y=y,z=pos.z}).name == "air" do
+			while minetest.get_node({x=pos.x,y=y,z=pos.z}).name == "air"
+				or minetest.registered_nodes[minetest.get_node({x=pos.x,y=y,z=pos.z}).name].groups.leaves
+				or minetest.registered_nodes[minetest.get_node({x=pos.x,y=y,z=pos.z}).name].groups.tree
+				or minetest.registered_nodes[minetest.get_node({x=pos.x,y=y,z=pos.z}).name].groups.flora do
 				minetest.set_node({x=pos.x,y=y,z=pos.z}, node_replicado)
 				y = y - 1
 			end

@@ -39,6 +39,15 @@ local function pegar_solo(pos, ymin, ymax)
 	return r
 end
 
+-- Verificar proteção em uma coluna (retorna true se estiver protegida)
+local verir_coluna_protegida = function(pos, ymin, ymax)
+	for y=ymin, ymax do
+		if minetest.is_protected({x=pos.x, y=pos.y, z=pos.z}, "") then
+			return true
+		end
+	end
+	return false
+end
 
 -- Verifica se um ponto existe na malha
 local function verificar_ponto(x, z, lim)
@@ -153,18 +162,22 @@ return function(minp, maxp, def)
 			if po.var == nil then
 				rel.nul = rel.nul + 1
 				
+			-- Descarta pontos protegidos
+			elseif po.p and verir_coluna_protegida(po.p, minp.y, maxp.y) == true then
+				rel.nul = rel.nul + 1
+			
 			-- Descartas pontos proximos dos limites
 			elseif x <= dist_pts or x >= (lim_malha-dist_pts) 
 				or z <= dist_pts or z >= (lim_malha-dist_pts) then
 				rel.nul = rel.nul + 1
 				
 			-- Descartas pontos proximos de arvores para campos
-			elseif def.mapgen.solo == "campo" and po.p 
+			elseif def.mapgen.bioma == "campo" and po.p 
 				and minetest.find_node_near(po.p, 4, {"group:tree"}) then
 				rel.nul = rel.nul + 1
 			
 			-- Certifica que tenha arvores
-			elseif def.mapgen.solo == "floresta" and po.p 
+			elseif def.mapgen.bioma == "floresta" and po.p 
 				and not minetest.find_node_near(po.p, 4, {"default:leaves"}) then
 				rel.nul = rel.nul + 1
 				
@@ -173,6 +186,7 @@ return function(minp, maxp, def)
 				
 				rel.ruim = rel.ruim + 1
 			
+			-- Passou por todos os filtros
 			else
 			
 				rel.bom = rel.bom + 1
@@ -247,5 +261,4 @@ return function(minp, maxp, def)
 	
 	return true, {x=pos.x, y=y+3, z=pos.z}
 end
-
 
