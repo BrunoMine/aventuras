@@ -14,9 +14,21 @@ local S = aventuras.S
 -- Tabela de viagens
 aventuras.lugares = {}
 
+-- Recupera dados de lugares registrados
+if aventuras.bd.verif("lugares", "lugares_registrados") == true then
+	aventuras.lugares = aventuras.bd.pegar("lugares", "lugares_registrados")
+end
+
+-- Salva lugares registrados
+minetest.register_on_shutdown(function()
+	aventuras.bd.salvar("lugares", "lugares_registrados", aventuras.lugares)
+end)
+
+
 -- Registrar um lugar
 aventuras.registrar_lugar = function(nome, def)
 	aventuras.lugares[nome] = {
+		titulo = def.titulo,
 		aven_req = def.aven_req,
 		pos = def.pos,
 	}
@@ -45,7 +57,7 @@ local show_formspec = function(name)
 			if s ~= "" then s = s .. "," end
 	
 			table.insert(acesso.menu, n)
-			s = s .. n
+			s = s .. d.titulo
 		end
 	end
 	
@@ -57,7 +69,7 @@ local show_formspec = function(name)
 	
 	-- Coloca botao para viajar
 	if acesso.lugar then
-		formspec = formspec .. "button_exit[0,4.3;7,1;viajar;Viajar para "..acesso.lugar.."]"
+		formspec = formspec .. "button_exit[0,4.3;7,1;viajar;Viajar para "..aventuras.lugares[acesso.lugar].titulo.."]"
 	end
 	
 	minetest.show_formspec(name, "aventuras:caixa_balao_aventureiro", formspec)
