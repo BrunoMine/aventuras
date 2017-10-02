@@ -51,6 +51,13 @@ local show_formspec = function(name)
 	end
 	local acesso = aventuras.online[name].balao_aventureiro
 	
+	-- Adiciona propria casa na lista
+	if aventuras.bd.verif("balao_aventureiro", name) == true then
+		table.insert(acesso.menu, "aventuras:casa")
+		s = "Minha Casa"
+	end
+	
+	-- Adiciona lugares na lista
 	for n,d in pairs(aventuras.lugares) do
 		
 		-- Verifica aventuras requeridas
@@ -70,10 +77,29 @@ local show_formspec = function(name)
 	
 	-- Coloca botao para viajar
 	if acesso.lugar then
-		formspec = formspec .. "button_exit[0,4.3;7,1;viajar;Viajar para "..aventuras.lugares[acesso.lugar].titulo.."]"
+		local titulo = ""
+		
+		if acesso.lugar == "aventuras:casa" then 
+			titulo = "Minha Casa"
+		else
+			titulo = aventuras.lugares[acesso.lugar].titulo
+		end
+		
+		formspec = formspec .. "button_exit[0,4.3;7,1;viajar;Viajar para "..titulo.."]"
 	end
 	
 	minetest.show_formspec(name, "aventuras:caixa_balao_aventureiro", formspec)
+end
+
+
+-- Pegar node distante nao carregado
+local function pegar_node(pos)
+	local node = minetest.get_node(pos)
+	if node.name == "ignore" then
+		minetest.get_voxel_manip():read_from_map(pos, pos)
+		node = minetest.get_node(pos)
+	end
+	return node
 end
 
 
@@ -92,9 +118,68 @@ minetest.register_node("aventuras:caixa_balao_aventureiro", {
 	is_ground_content = false,
 	groups = {tree=1,choppy=2,oddly_breakable_by_hand=1,flammable=2},
 	sounds = default.node_sound_wood_defaults(),
+	
+	on_place = function(itemstack, placer, pointed_thing)
+		if pointed_thing.type ~= "node" then
+			return
+		end
+		
+		local name = placer:get_player_name()
+		
+		local pos = pointed_thing.above
+		
+		local node = minetest.get_node(pointed_thing.under)
+		local def = minetest.registered_nodes[node.name]
+		if def and def.on_rightclick and
+			((not placer) or (placer and not placer:get_player_control().sneak)) then
+			return def.on_rightclick(pointed_thing.under, node, placer, itemstack,
+				pointed_thing) or itemstack
+		end
+		
+		-- Confere altitude minima
+		if pos.y < 20 then 
+			minetest.chat_send_player(name, "Precisa estar num lugar mais alto")
+			return 
+		end
+		
+		for y=pos.y, pos.y+25 do
+			if pegar_node({x=pos.x, y=y, z=pos.z}).name ~= "air" then
+				minetest.chat_send_player(name, "Precisa estar num lugar aberto para cima")
+				return
+			end
+		end
+		
+		minetest.item_place(itemstack, placer, pointed_thing)
+		
+		-- Remove antigo balao
+		if aventuras.bd.verif("balao_aventureiro", name) == true then
+			minetest.remove_node(aventuras.bd.pegar("balao_aventureiro", name))
+		end
+		
+		-- Salva novo dono
+		local meta = minetest.get_meta(pos)
+		meta:set_string("dono", name)
+		aventuras.bd.salvar("balao_aventureiro", name, pos)
+		
+		return itemstack
+	end,
+	
+	can_dig = function(pos, player)
+		return (player == nil) or (player:get_player_name() == minetest.get_meta(pos):get_string("dono"))
+	end,
+	
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("infotext", S("Balao de Aventuras"))
+	end,
+	
+	on_destruct = function(pos)
+		local meta = minetest.get_meta(pos)
+		if meta:get_string("dono") ~= "" and aventuras.bd.verif("balao_aventureiro", meta:get_string("dono")) == true
+			and minetest.serialize(aventuras.bd.pegar("balao_aventureiro", meta:get_string("dono"))) == minetest.serialize(pos) 
+		then
+			aventuras.bd.remover("balao_aventureiro", meta:get_string("dono"))
+		end
 	end,
 	
 	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
@@ -116,7 +201,21 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		
 		elseif fields.viajar then
 			
-			player:setpos(aventuras.lugares[acesso.lugar].pos)
+			local pos = {x=0,y=0,z=0}
+			
+			if acesso.lugar == "aventuras:casa" then
+				if aventuras.bd.verif("balao_aventureiro", name) ~= true then
+					acesso.lugar = nil
+					show_formspec(name)
+					return
+				end 
+				pos = aventuras.bd.pegar("balao_aventureiro", name)
+				pos = {x=pos.x, y=pos.y+3, z=pos.z}
+			else
+				pos = aventuras.lugares[acesso.lugar].pos
+			end
+			
+			player:setpos(pos)
 			acesso.lugar = nil
 			
 		end
@@ -129,17 +228,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 	end
 end)
-
-
--- Pegar node distante nao carregado
-local function pegar_node(pos)
-	local node = minetest.get_node(pos)
-	if node.name == "ignore" then
-		minetest.get_voxel_manip():read_from_map(pos, pos)
-		node = minetest.get_node(pos)
-	end
-	return node
-end
 
 
 -- Registro da entidade
@@ -300,7 +388,7 @@ minetest.register_abm{
 	action = function(pos)
 		
 		-- Verifica balao
-		for  _,obj in ipairs(minetest.get_objects_inside_radius(pos, 30)) do
+		for  _,obj in ipairs(minetest.get_objects_inside_radius({x=pos.x, y=pos.y+23, z=pos.z}, 15)) do
 			local ent = obj:get_luaentity() or {}
 			-- Verifica se eh o balao
 			if ent and ent.name == "aventuras:balao" then
@@ -312,3 +400,13 @@ minetest.register_abm{
 		
 	end,
 }
+
+-- Receita do balao aventureiro
+minetest.register_craft({
+	output = "aventuras:caixa_balao_aventureiro",
+	recipe = {
+		{"", "group:wool", ""},
+		{"group:wool", "default:book", "group:wool"},
+		{"", "default:chest", ""}
+	}
+})
