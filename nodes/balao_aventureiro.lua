@@ -120,14 +120,12 @@ minetest.register_node("aventuras:caixa_balao_aventureiro", {
 	sounds = default.node_sound_wood_defaults(),
 	
 	on_place = function(itemstack, placer, pointed_thing)
-		if pointed_thing.type ~= "node" then
-			return
-		end
+		if pointed_thing.type ~= "node" then return end
 		
 		local name = placer:get_player_name()
-		
 		local pos = pointed_thing.above
 		
+		-- Verifica se esta apenas acessando um outro node
 		local node = minetest.get_node(pointed_thing.under)
 		local def = minetest.registered_nodes[node.name]
 		if def and def.on_rightclick and
@@ -136,12 +134,13 @@ minetest.register_node("aventuras:caixa_balao_aventureiro", {
 				pointed_thing) or itemstack
 		end
 		
-		-- Confere altitude minima
+		-- Verifica altitude minima
 		if pos.y < 20 then 
 			minetest.chat_send_player(name, "Precisa estar num lugar mais alto")
 			return 
 		end
 		
+		-- Verifica local aberto
 		for y=pos.y, pos.y+25 do
 			if pegar_node({x=pos.x, y=y, z=pos.z}).name ~= "air" then
 				minetest.chat_send_player(name, "Precisa estar num lugar aberto para cima")
@@ -149,6 +148,7 @@ minetest.register_node("aventuras:caixa_balao_aventureiro", {
 			end
 		end
 		
+		-- Coloca node
 		minetest.item_place(itemstack, placer, pointed_thing)
 		
 		-- Remove antigo balao
@@ -159,29 +159,41 @@ minetest.register_node("aventuras:caixa_balao_aventureiro", {
 		-- Salva novo dono
 		local meta = minetest.get_meta(pos)
 		meta:set_string("dono", name)
+		
+		-- Atualiza banco de dados
 		aventuras.bd.salvar("balao_aventureiro", name, pos)
 		
 		return itemstack
 	end,
 	
+	-- Apenas dono remove
 	can_dig = function(pos, player)
 		return (player == nil) or (player:get_player_name() == minetest.get_meta(pos):get_string("dono"))
 	end,
 	
+	-- Infotext
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("infotext", S("Balao de Aventuras"))
 	end,
 	
+	-- Remove do banco de dados
 	on_destruct = function(pos)
 		local meta = minetest.get_meta(pos)
-		if meta:get_string("dono") ~= "" and aventuras.bd.verif("balao_aventureiro", meta:get_string("dono")) == true
+		
+		-- Verifica se é um balao ativo
+		if meta:get_string("dono") ~= "" -- Tem dono?
+			-- Tem informação desse dono no banco de dados?
+			and aventuras.bd.verif("balao_aventureiro", meta:get_string("dono")) == true 
+			-- A informação do banco de dados é referente a esse balao?
 			and minetest.serialize(aventuras.bd.pegar("balao_aventureiro", meta:get_string("dono"))) == minetest.serialize(pos) 
 		then
+			-- Remove do banco de dados
 			aventuras.bd.remover("balao_aventureiro", meta:get_string("dono"))
 		end
 	end,
 	
+	-- Acessa interface
 	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		show_formspec(player:get_player_name())
 	end,
@@ -239,7 +251,7 @@ minetest.register_entity("aventuras:balao", {
 	visual = "mesh",
 	visual_size = {x=5, y=5},
 	mesh = "aventuras_balao.b3d",
-	textures = {"aventuras_balao.png"}, -- number of required textures depends on visual
+	textures = {"aventuras_balao.png"},
 	spritediv = {x=1, y=1},
 	initial_sprite_basepos = {x=0, y=0},
 	is_visible = true,
@@ -325,7 +337,7 @@ end
 -- Variavel que impede que cordas sejam colocadas (ativa as verificações da fisica das cordas)
 cordas_f = true
 
--- Node
+-- Node da corda
 minetest.register_node("aventuras:corda_balao", {
 	description = "Corda de Balao",
 	drawtype = "torchlike",
@@ -340,7 +352,6 @@ minetest.register_node("aventuras:corda_balao", {
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	drop = "",
 	
-	-- Ao ser removido de uma pos
 	after_destruct = function(pos)
 		-- Remove corda abaixo
 		if cordas_f == true and minetest.get_node({x=pos.x,y=pos.y-1,z=pos.z}).name == "aventuras:corda_balao" then
@@ -348,7 +359,6 @@ minetest.register_node("aventuras:corda_balao", {
 		end
 	end,
 	
-	-- Ao ser colocado de uma pos
 	on_construct = function(pos)
 		-- Remove caso nao tenha corda em cima
 		if cordas_f == true and minetest.get_node({x=pos.x,y=pos.y+1,z=pos.z}).name ~= "aventuras:corda_balao" then
@@ -357,30 +367,8 @@ minetest.register_node("aventuras:corda_balao", {
 	end,
 })
 
--- Criar balao e cordas para um bau de balao (ignora verificações)
-montar_balao = function(pos)
-	
-	-- Colocar cordas
-	do
-		-- Desativa as verificações das cordas
-		cordas_f = false
-		
-		local y = 1
-		while y <= 24 do
-			minetest.set_node({x=pos.x, y=pos.y+y, z=pos.z}, {name="aventuras:corda_balao"})
-			y = y + 1
-		end
-		
-		-- Reativa as verificações das cordas
-		cordas_f = true
-	end
-	
-	-- Colocar balao
-	criar_balao({x=pos.x, y=pos.y+23, z=pos.z})
-	
-end
 
--- Atualização constante do balão
+-- Atualização constante da caixa do balao aventureiro
 minetest.register_abm{
 	nodenames = {"aventuras:caixa_balao_aventureiro"},
 	interval = 2,
@@ -396,7 +384,25 @@ minetest.register_abm{
 			end
 		end
 		
-		montar_balao(pos)
+		-- Montar balao
+		
+		-- Colocar cordas
+		do
+			-- Desativa as verificações das cordas
+			cordas_f = false
+		
+			local y = 1
+			while y <= 24 do
+				minetest.set_node({x=pos.x, y=pos.y+y, z=pos.z}, {name="aventuras:corda_balao"})
+				y = y + 1
+			end
+		
+			-- Reativa as verificações das cordas
+			cordas_f = true
+		end
+	
+		-- Colocar balao
+		criar_balao({x=pos.x, y=pos.y+23, z=pos.z})
 		
 	end,
 }

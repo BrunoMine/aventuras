@@ -1,0 +1,14 @@
+# Esse arquivo contem configurações do Mod Aventuras que podem ser a mudadas em minetest.conf
+# This file contains settings of Aventuras Mod that can be changed in minetest.conf
+
+# Habilita o modo de editor de aventuras
+# Enable adventures editor mode
+#aventuras_editor_mode = false
+
+# Itemstring do item usado como moeda de troca para o jogador recuperar um item que perdeu na aventura
+# Itemstring of a item used as an exchange currency for the player to retrieve an item he lost in the adventure
+#aventuras_moeda_bau_noob = default:gold_ingot
+
+# Monta e verifica as estruturas automaticamente ao iniciar o mundo
+# Builds and verifies structures automatically when the world starts
+#aventuras_autosetup_estruturas = true
