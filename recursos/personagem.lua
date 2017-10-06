@@ -10,15 +10,15 @@
   ]]
 
 
--- Verificador do Bau de Sovagxas
--- Tempo (em segundos) que demora para um bau verificar se tem um sovagxa dele por perto
-local tempo_verif_npc = 60
--- Distancia (om blocos) que um bau verifica em sua volta para encontrar seu proprio npc
+-- Verificador do Bau
+-- Tempo (em segundos) que demora para um bau verificar se tem um npc dele por perto
+local tempo_verif_npc = 6
+-- Distancia (em blocos) que um bau verifica em sua volta para encontrar seu proprio npc
 local dist_verif_npc = 100
 
 -- Tempo para verificar se tem outro npc igual por perto
 local tempo_verif_duplicado = 8
--- Verificador do npc sovagxa
+-- Verificador do npc
 -- Tempo (em segundos) que um npc demora para verificar se esta perto da pos de seu bau
 local tempo_verif_bau = 20
 
@@ -147,7 +147,7 @@ aventuras.registrar_personagem = function(charname, def)
 					if self.temp >= tempo_verif_bau then
 						self.temp = 0
 			
-						-- Verificar se os dados ianda existem 
+						-- Verificar se os dados ainda existem 
 						if not self.pos_bau then
 							self.object:remove()
 							return
@@ -159,11 +159,19 @@ aventuras.registrar_personagem = function(charname, def)
 							return
 						end
 			
-						-- Verifica o se o bau de origem ainda existe
+						-- Verifica se o bau de origem ainda existe
 						local node = minetest.get_node(self.pos_bau)
-						if node.name ~= charname then
-							self.object:remove()
-							return
+						do
+							local achou = false
+							for nn,d in pairs(def.spawner_node) do
+								if node.name == nn then
+									achou = true
+								end
+							end
+							if achou == false then
+								self.object:remove()
+								return
+							end
 						end
 					end
 				

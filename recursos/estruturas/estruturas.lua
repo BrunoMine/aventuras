@@ -178,7 +178,7 @@ aventuras.estruturas.preparar_tudo = function(name)
 					if proc.gerando ~= true then
 						proc.gerando = true
 						minetest.emerge_area(minp, maxp)
-						minetest.log("action", "[Aventuras] Gerando e/ou carregando mapa ...")
+						minetest.log("action", "[Aventuras] Gerando e/ou carregando mapa ("..minetest.pos_to_string(minp).." a "..minetest.pos_to_string(maxp)..")...")
 					end
 					informe_geral("Montando \""..dados_lugar.titulo.."\"\nTentativa "..((proc.tentativas or 0) + 1).."\nGerando mapa ...")
 					minetest.after(2, aventuras.estruturas.preparar_tudo, name)

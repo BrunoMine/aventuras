@@ -112,7 +112,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	
 			-- Estado atual
 			local estado = ultima_tarefa.."/"..table.maxn(aventuras.tb[aventura].tarefas)
-			if ultima_tarefa == table.maxn(aventuras.tb[aventura].tarefas) then estado = estado .. core.colorize("#00FF00", " ("..SS(lang, "Finalizado")..")") end
+			if ultima_tarefa == table.maxn(aventuras.tb[aventura].tarefas) then estado = estado .. core.colorize("#00FF00", " ("..S("Finalizado")..")") end
 			
 			
 			local formspec = "size[6,7.2]"

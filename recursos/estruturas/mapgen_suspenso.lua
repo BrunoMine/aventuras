@@ -21,10 +21,6 @@ end
 
 
 -- Encontrar solo
---[[
-	Verifica 80 blocos de uma coluna.
-	Feita para verificar MapBlocks (blocos de mapa)
-  ]]
 local function pegar_solo(pos, ymin, ymax)
 	local y = ymax
 	local r = nil
