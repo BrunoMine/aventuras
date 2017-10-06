@@ -116,7 +116,7 @@ minetest.register_node("aventuras:caixa_balao_aventureiro", {
 	},
 	paramtype2 = "facedir",
 	is_ground_content = false,
-	groups = {tree=1,choppy=2,oddly_breakable_by_hand=1,flammable=2},
+	groups = {choppy=2,oddly_breakable_by_hand=1,flammable=2},
 	sounds = default.node_sound_wood_defaults(),
 	
 	on_place = function(itemstack, placer, pointed_thing)
@@ -290,17 +290,6 @@ minetest.register_entity("aventuras:balao", {
 			end
 		end
 	end,
-	
-	on_activate = function(self, staticdata)
-		if staticdata ~= "" then
-			self.dono = minetest.serialize({dono=self.dono,name=self.name}).dono
-			self.name = minetest.serialize({dono=self.dono,name=self.name}).name
-		end
-	end,
-	
-	get_staticdata = function(self)
-		return minetest.serialize({dono=self.dono,name=self.name})
-	end,
 })
 
 -- Criar um balao
@@ -323,9 +312,6 @@ local criar_balao = function(pos)
 	
 	-- Cria o temporizador
 	ent.timer = 0
-	
-	-- Salva o nome do dono
-	ent.dono = name
 	
 	-- Salva nome da entidade
 	ent.name = "aventuras:balao"

@@ -67,8 +67,12 @@ end
 
 
 -- Limite do mapa para tentar montar
-local map_limit = 25000
+local map_limit = tonumber(minetest.setting_get("mapgen_limit") or "31000")
 
+-- Verifica se o limit de mapa é aceitavel
+if map_limit < 25000 then
+	minetest.log("error", "[Aventuras] Limite de mapa muito pequeno ("..map_limit.."). Pode causar problemas na montagem de estruturas.")
+end
 
 -- Verificar area gerada e carregada
 local verif_area_carregada = function(minp, maxp)
@@ -114,6 +118,14 @@ local informe_geral = function(text)
 	end
 end
 
+-- Informa depurador
+local act_log = function(text)
+	minetest.log("action", "[Aventuras] "..text)
+end
+
+
+-- Converter coordenada em string
+local Spos = minetest.pos_to_string
 
 -- Montar e atualizar lugares
 local processo = nil
@@ -145,10 +157,15 @@ aventuras.estruturas.preparar_tudo = function(name)
 				local largura_area = dados_lugar.largura * 15
 				local limite = map_limit - largura_area - 100
 				local dist_area = largura_area/2
-	
-				-- Verifica se ja está tentando montar em algum lugar
+				
+				if largura_area+200 > map_limit*2 then
+					minetest.log("error", "[Aventuras] Estrutura nao cabe no mapa (Largura do mapa = "..(map_limit*2).." | Largura da area necessaria = "..largura_area..")")
+				end
+				
+				-- Escolhe uma coordenada de centro aleatoriamente
 				if not proc.pos then
 					proc.pos = {x=math.random(-limite,limite), y=1, z=math.random(-limite,limite)}
+					proc.tentativas = 1
 				end
 				local pos = proc.pos
 				
@@ -158,14 +175,20 @@ aventuras.estruturas.preparar_tudo = function(name)
 				
 				-- Verifica area protegida
 				if not proc.prot_ok then
-					informe_geral("Montando \""..dados_lugar.titulo.."\"\nTentativa "..((proc.tentativas or 0) + 1).."\nVerificando area protegida ...")
+				
+					informe_geral("Montando \""..dados_lugar.titulo.."\""
+						.."\nTentativa "..proc.tentativas
+						.."\nVerificando area protegida ...")
+					
+					act_log("Verificando area protegida ("..Spos(minp).." a "..Spos(maxp)..")")
+					
 					if verif_area_protegida({x=minp.x-200,y=minp.y-100,z=minp.z-200}, 
 						{x=maxp.x+200,y=maxp.y+200,z=maxp.z+200}) == true
 					then
 						proc.pos = nil
 						proc.prot_ok = nil
-						proc.tentativas = (proc.tentativas or 0) + 1
-						minetest.log("action", "[Aventuras] Regiao ja protegida (tentativa "..((proc.tentativas or 0) + 1)..")")
+						proc.tentativas = proc.tentativas + 1
+						act_log("Regiao ja protegida ("..Spos(minp).." a "..Spos(maxp)..")")
 						minetest.after(0.1, aventuras.estruturas.preparar_tudo, name)
 						return
 					else
@@ -178,9 +201,13 @@ aventuras.estruturas.preparar_tudo = function(name)
 					if proc.gerando ~= true then
 						proc.gerando = true
 						minetest.emerge_area(minp, maxp)
-						minetest.log("action", "[Aventuras] Gerando e/ou carregando mapa ("..minetest.pos_to_string(minp).." a "..minetest.pos_to_string(maxp)..")...")
+						act_log("Gerando e/ou carregando mapa ("..Spos(minp).." a "..Spos(maxp)..")...")
 					end
-					informe_geral("Montando \""..dados_lugar.titulo.."\"\nTentativa "..((proc.tentativas or 0) + 1).."\nGerando mapa ...")
+					
+					informe_geral("Montando \""..dados_lugar.titulo.."\""
+						.."\nTentativa "..proc.tentativas
+						.."\nGerando mapa ...")
+						
 					minetest.after(2, aventuras.estruturas.preparar_tudo, name)
 					return
 				else
@@ -215,7 +242,7 @@ aventuras.estruturas.preparar_tudo = function(name)
 					-- estrutura criada
 					processo.processadas[estrut] = 1
 					
-					minetest.log("action", "[Aventuras] Estrutura "..estrut.." montada em "..pos_montagem.x.." "..pos_montagem.y.." "..pos_montagem.z)
+					act_log("Estrutura "..estrut.." montada em "..pos_montagem.x.." "..pos_montagem.y.." "..pos_montagem.z)
 					informe_geral("Estrutura \""..dados_lugar.titulo.."\" construida")
 					minetest.after(0.5, aventuras.estruturas.preparar_tudo, name)
 					return
@@ -224,7 +251,7 @@ aventuras.estruturas.preparar_tudo = function(name)
 					proc.pos = nil
 					proc.prot_ok = nil
 					proc.tentativas = (proc.tentativas or 0) + 1
-					minetest.log("action", "[Aventuras] Regiao inapropriada para "..estrut.." (tentativa "..((proc.tentativas or 0) + 1)..")")
+					act_log("Regiao inapropriada para "..estrut.." (tentativa "..proc.tentativas..")")
 					minetest.after(0.1, aventuras.estruturas.preparar_tudo, name)
 					return
 				end
@@ -305,12 +332,12 @@ aventuras.estruturas.preparar_tudo = function(name)
 	end
 	
 	-- Finalizando
-	minetest.log("action", "[Aventuras] Montagem de estruturas concluida")
-	minetest.log("action", "[Aventuras] Montadas: "..est.montadas)
-	minetest.log("action", "[Aventuras] Atualizadas: "..est.atualizadas)
-	minetest.log("action", "[Aventuras] Verificadas: "..est.verificadas)
-	minetest.log("action", "[Aventuras] Erros: "..est.erros)
-	minetest.log("action", "[Aventuras] Total: "..est.total)
+	act_log("Montagem de estruturas concluida")
+	act_log("Montadas: "..est.montadas)
+	act_log("Atualizadas: "..est.atualizadas)
+	act_log("Verificadas: "..est.verificadas)
+	act_log("Erros: "..est.erros)
+	act_log("Total: "..est.total)
 	
 	if name then 
 		minetest.chat_send_player(name, "Montagem de estruturas concluida")

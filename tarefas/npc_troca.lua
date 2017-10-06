@@ -156,7 +156,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			-- Tenta realizar a troca
 			if dados.item_rem or dados.item_add then
 				if aventuras.comum.trocar_itens(player, dados.item_rem, dados.item_add) == false then
-					aventuras.comum.exibir_alerta(name, S("Precisa dos itens para a troca"))
+					aventuras.comum.exibir_alerta(name, S("Precisa dos itens para continuar"))
 					return
 				end
 			end
