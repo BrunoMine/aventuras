@@ -22,7 +22,11 @@ local modpath = minetest.get_modpath("aventuras")
 aventuras = {}
 
 -- Algoritimo da propria API
-aventuras.S = dofile(modpath.."/lib/intllib.lua")
+aventuras.S = minetest.get_translator()
+
+if not aventuras.S then
+	aventuras.S = dofile(modpath.."/lib/intllib.lua")
+end
 
 -- Item de troca por itens de aventuras estraviados
 aventuras.moeda_bau_noob = minetest.setting_get("aventuras_moeda_bau_noob") or "default:gold_ingot"

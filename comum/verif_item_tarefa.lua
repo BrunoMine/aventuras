@@ -41,7 +41,7 @@ aventuras.comum.verif_item_tarefa = function(name, tipo_tarefa, item)
 			aventuras.callbacks.concluiu(name, aventura, tarefa)
 			
 			-- Envia mensagem final da tarefa
-			minetest.chat_send_player(name, dados.msg_fim)
+			minetest.chat_send_player(name, S(dados.msg_fim))
 			
 			-- Remove aventura pendente da tabela
 			aventuras.online[name][tipo_tarefa].aven[item][aventura] = nil

@@ -1,0 +1,41 @@
+
+
+#: craftitens/livro_de_aventuras.lua
+Livro de Aventuras=Livro de Aventuras
+
+#: craftitens/livro_de_aventuras.lua
+Nenhuma aventura descoberta ainda=Nenhuma aventura descoberta ainda
+
+#: craftitens/livro_de_aventuras.lua
+Finalizado=Finalizado
+
+#: craftitens/livro_de_aventuras.lua
+Estado atual=Estado atual
+
+#: craftitens/livro_de_aventuras.lua
+Voltar=Voltar
+
+#: tarefas/comer.lua tarefas/craftar.lua tarefas/dig_node.lua
+#: tarefas/place_node.lua
+Entendido=Entendido
+
+#: tarefas/info_npc.lua tarefas/troca_npc.lua
+Concluir=Concluir
+
+#: tarefas/troca_npc.lua
+Requisitos=Requisitos
+
+#: tarefas/troca_npc.lua
+Recompensas=Recompensas
+
+#: tarefas/troca_npc.lua
+Precisa dos itens para continuar=Precisa dos itens para continuar
+
+#: recursos/npc.lua
+Escolha uma aventura=Escolha uma aventura
+
+#: recursos/npc.lua
+Nenhuma interacao disponivel=Nenhuma interacao disponivel
+
+#: recursos/npc.lua
+Tarefa invalida=Tarefa invalida"

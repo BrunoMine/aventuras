@@ -55,7 +55,7 @@ msgid "Recompensas"
 msgstr ""
 
 #: tarefas/troca_npc.lua
-msgid "Precisa dos itens para a troca"
+msgid "Precisa dos itens para continuar"
 msgstr ""
 
 #: recursos/npc.lua

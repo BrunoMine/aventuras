@@ -253,7 +253,7 @@ return function(minp, maxp, def)
 			def.filepath, 0, nil, true)
 			
 	-- Executa ajustes dos blocos especiais
-	aventuras.estruturas.ajustar_nodes(minp, maxp)
+	aventuras.estruturas.ajustar_nodes({x=pos.x-dist, y=y+3, z=pos.z-dist}, {x=pos.x+dist, y=y+3+def.altura, z=pos.z+dist})
 	
 	return true, {x=pos.x, y=y+3, z=pos.z}
 end

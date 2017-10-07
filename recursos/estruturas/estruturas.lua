@@ -74,19 +74,31 @@ if map_limit < 25000 then
 	minetest.log("error", "[Aventuras] Limite de mapa muito pequeno ("..map_limit.."). Pode causar problemas na montagem de estruturas.")
 end
 
+-- Pega ignore apenas se bloco nao foi gerado
+local function pegar_node(pos)
+	local node = minetest.get_node(pos)
+	if node.name == "ignore" then
+		minetest.get_voxel_manip():read_from_map(pos, pos)
+		node = minetest.get_node(pos)
+	end
+	return node
+end
+
+
 -- Verificar area gerada e carregada
 local verif_area_carregada = function(minp, maxp)
-	if minetest.get_node({x=minp.x, y=minp.y, z=minp.z}).name == "ignore" 
-		or minetest.get_node({x=minp.x, y=minp.y, z=maxp.z}).name == "ignore" 
-		or minetest.get_node({x=maxp.x, y=minp.y, z=maxp.z}).name == "ignore" 
-		or minetest.get_node({x=maxp.x, y=minp.y, z=minp.z}).name == "ignore" 
-		or minetest.get_node({x=minp.x, y=maxp.y, z=minp.z}).name == "ignore" 
-		or minetest.get_node({x=minp.x, y=maxp.y, z=maxp.z}).name == "ignore" 
-		or minetest.get_node({x=maxp.x, y=maxp.y, z=maxp.z}).name == "ignore" 
-		or minetest.get_node({x=maxp.x, y=maxp.y, z=minp.z}).name == "ignore" 
+	if pegar_node({x=minp.x, y=minp.y, z=minp.z}).name == "ignore" 
+		or pegar_node({x=minp.x, y=minp.y, z=maxp.z}).name == "ignore" 
+		or pegar_node({x=maxp.x, y=minp.y, z=maxp.z}).name == "ignore" 
+		or pegar_node({x=maxp.x, y=minp.y, z=minp.z}).name == "ignore" 
+		or pegar_node({x=minp.x, y=maxp.y, z=minp.z}).name == "ignore" 
+		or pegar_node({x=minp.x, y=maxp.y, z=maxp.z}).name == "ignore" 
+		or pegar_node({x=maxp.x, y=maxp.y, z=maxp.z}).name == "ignore" 
+		or pegar_node({x=maxp.x, y=maxp.y, z=minp.z}).name == "ignore" 
 	then
 		return false
 	end
+	minetest.get_voxel_manip():read_from_map(minp, maxp)
 	return true
 end
 
@@ -207,7 +219,7 @@ aventuras.estruturas.preparar_tudo = function(name)
 					informe_geral("Montando \""..dados_lugar.titulo.."\""
 						.."\nTentativa "..proc.tentativas
 						.."\nGerando mapa ...")
-						
+					
 					minetest.after(2, aventuras.estruturas.preparar_tudo, name)
 					return
 				else
@@ -218,9 +230,13 @@ aventuras.estruturas.preparar_tudo = function(name)
 				local r_montagem, pos_montagem = montar[dados_lugar.mapgen.tipo](minp, maxp, dados_lugar)
 				if r_montagem == true then
 					
+					local dist = dados_lugar.largura/2
+					local estrut_minp = {x=pos_montagem.x-dist, y=pos_montagem.y, z=pos_montagem.z-dist}
+					local estrut_maxp = {x=pos_montagem.x+dist, y=pos_montagem.y+dados_lugar.altura, z=pos_montagem.z+dist}
+					
 					-- Registra o lugar para teleporte
-					if table.maxn(minetest.find_nodes_in_area(minp, maxp, {"aventuras:caixa_balao_aventureiro"})) > 0 then
-						local tp_pos = minetest.find_nodes_in_area(minp, maxp, {"aventuras:caixa_balao_aventureiro"})[1]
+					if table.maxn(minetest.find_nodes_in_area(estrut_minp, estrut_maxp, {"aventuras:caixa_balao_aventureiro"})) > 0 then
+						local tp_pos = minetest.find_nodes_in_area(estrut_minp, estrut_maxp, {"aventuras:caixa_balao_aventureiro"})[1]
 						tp_pos.y = tp_pos.y + 3
 						aventuras.registrar_lugar(estrut, {
 							titulo = dados_lugar.titulo,
