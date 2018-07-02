@@ -1,41 +1,18 @@
-
-
-#: craftitens/livro_de_aventuras.lua
-Livro de Aventuras=Livro de Aventuras
-
-#: craftitens/livro_de_aventuras.lua
-Nenhuma aventura descoberta ainda=Nenhuma aventura descoberta ainda
-
-#: craftitens/livro_de_aventuras.lua
-Finalizado=Finalizado
-
-#: craftitens/livro_de_aventuras.lua
-Estado atual=Estado atual
-
-#: craftitens/livro_de_aventuras.lua
-Voltar=Voltar
-
-#: tarefas/comer.lua tarefas/craftar.lua tarefas/dig_node.lua
-#: tarefas/place_node.lua
-Entendido=Entendido
-
-#: tarefas/info_npc.lua tarefas/troca_npc.lua
-Concluir=Concluir
-
-#: tarefas/troca_npc.lua
-Requisitos=Requisitos
-
-#: tarefas/troca_npc.lua
-Recompensas=Recompensas
-
-#: tarefas/troca_npc.lua
-Precisa dos itens para continuar=Precisa dos itens para continuar
-
-#: recursos/npc.lua
-Escolha uma aventura=Escolha uma aventura
-
-#: recursos/npc.lua
-Nenhuma interacao disponivel=Nenhuma interacao disponivel
-
-#: recursos/npc.lua
-Tarefa invalida=Tarefa invalida"
+### Arquivo gerado por aventuras apartir de pt.po
+# textdomain: aventuras
+Current status=Estado atual
+Understood=Entendido
+Adventure Balloon Box=Caixa de Balao de Aventuras
+Adventure's Book=Balao de Aventuras
+No interaction available=Nenhuma interacao disponivel
+Rewards=Recompensas
+No item available=Nenhum item disponivel
+No known destination=Nenhum destino conhecido
+Choose an adventure=Escolha uma aventura
+You need the items for to continue=Precisa dos itens para continuar
+Adventure Noob checkpoint Items=Bau do Aventureiro Noob
+Completed=Finalizado
+Return=Voltar
+No adventure discovered yet=Nenhuma aventura descoberta ainda
+Conclude=Concluir
+Requirements=Requisitos

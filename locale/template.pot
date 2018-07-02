@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-29 12:26-0300\n"
+"POT-Creation-Date: 2018-07-02 18:38-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,34 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: nodes/balao_aventureiro.lua
+msgid "Nenhum destino conhecido"
+msgstr ""
+
+#: nodes/balao_aventureiro.lua
+msgid "Caixa de Balao de Aventuras"
+msgstr ""
+
+#: nodes/balao_aventureiro.lua
+msgid "Balao de Aventuras"
+msgstr ""
+
+#: nodes/bau_aventureiro_noob.lua
+msgid "Nenhum item disponivel"
+msgstr ""
+
+#: nodes/bau_aventureiro_noob.lua
+msgid "Bau do Aventureiro Noob"
+msgstr ""
+
+#: recursos/acesso_npc.lua
+msgid "Escolha uma aventura"
+msgstr ""
+
+#: recursos/acesso_npc.lua
+msgid "Nenhuma interacao disponivel"
+msgstr ""
 
 #: craftitens/livro_de_aventuras.lua
 msgid "Livro de Aventuras"
@@ -37,35 +65,23 @@ msgstr ""
 msgid "Voltar"
 msgstr ""
 
-#: tarefas/comer.lua tarefas/craftar.lua tarefas/dig_node.lua
-#: tarefas/place_node.lua
+#: tarefas/npc_alimento.lua tarefas/npc_craft.lua tarefas/npc_dignode.lua
+#: tarefas/npc_placenode.lua
 msgid "Entendido"
 msgstr ""
 
-#: tarefas/info_npc.lua tarefas/troca_npc.lua
+#: tarefas/npc_info.lua tarefas/npc_troca.lua
 msgid "Concluir"
 msgstr ""
 
-#: tarefas/troca_npc.lua
+#: tarefas/npc_troca.lua
 msgid "Requisitos"
 msgstr ""
 
-#: tarefas/troca_npc.lua
+#: tarefas/npc_troca.lua
 msgid "Recompensas"
 msgstr ""
 
-#: tarefas/troca_npc.lua
+#: tarefas/npc_troca.lua
 msgid "Precisa dos itens para continuar"
-msgstr ""
-
-#: recursos/npc.lua
-msgid "Escolha uma aventura"
-msgstr ""
-
-#: recursos/npc.lua
-msgid "Nenhuma interacao disponivel"
-msgstr ""
-
-#: recursos/npc.lua
-msgid "Tarefa invalida"
 msgstr ""
