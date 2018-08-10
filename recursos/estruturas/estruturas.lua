@@ -169,7 +169,6 @@ aventuras.estruturas.preparar_tudo = function(name)
 				local largura_area = dados_lugar.largura * 15
 				local limite = map_limit - largura_area - 100
 				local dist_area = largura_area/2
-				
 				if largura_area+200 > map_limit*2 then
 					minetest.log("error", "[Aventuras] Estrutura nao cabe no mapa (Largura do mapa = "..(map_limit*2).." | Largura da area necessaria = "..largura_area..")")
 				end

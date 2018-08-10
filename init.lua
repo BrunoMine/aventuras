@@ -81,6 +81,9 @@ dofile(modpath.."/recursos/estruturas/estruturas.lua")
 dofile(modpath.."/nodes/bau_aventureiro_noob.lua")
 dofile(modpath.."/nodes/balao_aventureiro.lua")
 
+-- Checkpoint
+dofile(modpath.."/checkpoint.lua")
+
 -- Tarefas
 dofile(modpath.."/tarefas/npc_troca.lua")
 dofile(modpath.."/tarefas/npc_info.lua")

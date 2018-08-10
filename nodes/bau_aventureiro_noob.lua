@@ -98,12 +98,12 @@ end
 minetest.register_node("aventuras:bau_aventureiro_noob", {
 	description = S("Bau do Aventureiro Noob"),
 	tiles = {
-		"default_chest_top.png", 
-		"default_chest_top.png", 
-		"default_chest_side.png",
-		"default_chest_side.png", 
-		"default_chest_side.png", 
-		"default_chest_front.png"
+		"aventuras_item_checkpoint_top.png", 
+		"aventuras_item_checkpoint_top.png", 
+		"aventuras_item_checkpoint_side.png",
+		"aventuras_item_checkpoint_side.png", 
+		"aventuras_item_checkpoint_side.png", 
+		"aventuras_item_checkpoint_front.png"
 	},
 	paramtype2 = "facedir",
 	is_ground_content = false,
@@ -158,19 +158,3 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 end)
 
--- Casa do Tomas
-aventuras.registrar_estrutura("aventuras:checkpoint", {
-	
-	titulo = S("Checkpoint"),
-	versao = "1",
-	
-	altura = 16,
-	largura = 14,
-	filepath = minetest.get_modpath("aventuras").."/schems/checkpoint.mts",
-	
-	mapgen = {
-		tipo = "suspenso",
-		bioma = "floresta",
-	},
-	
-})
