@@ -157,3 +157,20 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 	end
 end)
+
+-- Casa do Tomas
+aventuras.registrar_estrutura("aventuras:checkpoint", {
+	
+	titulo = S("Checkpoint"),
+	versao = "1",
+	
+	altura = 16,
+	largura = 14,
+	filepath = minetest.get_modpath("aventuras").."/schems/checkpoint.mts",
+	
+	mapgen = {
+		tipo = "suspenso",
+		bioma = "floresta",
+	},
+	
+})

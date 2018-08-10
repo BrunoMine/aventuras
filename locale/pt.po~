@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-02 18:28-0300\n"
-"PO-Revision-Date: 2018-07-02 18:36-0300\n"
+"POT-Creation-Date: 2018-08-10 11:48-0300\n"
+"PO-Revision-Date: 2018-08-10 11:48-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -66,20 +66,34 @@ msgstr "Estado atual"
 msgid "Voltar"
 msgstr "Voltar"
 
-#~ msgid "Entendido"
-#~ msgstr "Entendido"
+#: tarefas/npc_alimento.lua tarefas/npc_craft.lua tarefas/npc_dignode.lua
+#: tarefas/npc_placenode.lua
+msgid "Entendido"
+msgstr "Entendido"
 
-#~ msgid "Concluir"
-#~ msgstr "Concluir"
+#: tarefas/npc_info.lua tarefas/npc_troca.lua
+msgid "Concluir"
+msgstr "Concluir"
 
-#~ msgid "Requisitos"
-#~ msgstr "Requisitos"
+#: tarefas/npc_troca.lua
+msgid "Requisitos"
+msgstr "Requisitos"
 
-#~ msgid "Recompensas"
-#~ msgstr "Recompensas"
+#: tarefas/npc_troca.lua
+msgid "Recompensas"
+msgstr "Recompensas"
 
-#~ msgid "Precisa dos itens para continuar"
-#~ msgstr "Precisa dos itens para continuar"
+#: tarefas/npc_troca.lua
+msgid "Precisa dos itens para continuar"
+msgstr "Precisa dos itens para continuar"
+
+#: estatisticas.lua
+msgid "terminada @1 vezes"
+msgstr "terminada @1 vezes"
+
+#: estatisticas.lua
+msgid "Estatisticas das aventuras"
+msgstr "Estatisticas das aventuras"
 
 #~ msgid "Tarefa invalida"
 #~ msgstr "Tarefa invalida"

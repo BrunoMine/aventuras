@@ -8,15 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-02 18:28-0300\n"
-"PO-Revision-Date: 2018-07-02 18:30-0300\n"
+"POT-Creation-Date: 2018-08-10 11:48-0300\n"
+"PO-Revision-Date: 2018-07-02 18:38-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.6\n"
-"Last-Translator: \n"
-"Language-Team: \n"
 
 #: nodes/balao_aventureiro.lua
 msgid "Nenhum destino conhecido"
@@ -66,20 +66,35 @@ msgstr "Current status"
 msgid "Voltar"
 msgstr "Return"
 
-#~ msgid "Entendido"
-#~ msgstr "Understood"
+#: tarefas/npc_alimento.lua tarefas/npc_craft.lua tarefas/npc_dignode.lua
+#: tarefas/npc_placenode.lua
+msgid "Entendido"
+msgstr "Understood"
 
-#~ msgid "Concluir"
-#~ msgstr "Conclude"
+#: tarefas/npc_info.lua tarefas/npc_troca.lua
+msgid "Concluir"
+msgstr "Conclude"
 
-#~ msgid "Requisitos"
-#~ msgstr "Requirements"
+#: tarefas/npc_troca.lua
+msgid "Requisitos"
+msgstr "Requirements"
 
-#~ msgid "Recompensas"
-#~ msgstr "Rewards"
+#: tarefas/npc_troca.lua
+msgid "Recompensas"
+msgstr "Rewards"
 
-#~ msgid "Precisa dos itens para continuar"
-#~ msgstr "You need the items for to continue"
+#: tarefas/npc_troca.lua
+msgid "Precisa dos itens para continuar"
+msgstr "You need the items for to continue"
+
+#: estatisticas.lua
+msgid "terminada @1 vezes"
+msgstr ""
+
+#: estatisticas.lua
+#, fuzzy
+msgid "Estatisticas das aventuras"
+msgstr "Choose an adventure"
 
 #~ msgid "Tarefa invalida"
 #~ msgstr "Invalid task"

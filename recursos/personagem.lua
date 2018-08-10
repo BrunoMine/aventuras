@@ -88,9 +88,9 @@ aventuras.registrar_personagem = function(charname, def)
 		
 		-- Configurações pré-feitas
 		if def.npc_preset == "human" then -- Humano
-			def.npc.collisionbox = {-0.35,-1.0,-0.35, 0.35,0.8,0.35}
+			def.npc.collisionbox = {-0.35,0,-0.35, 0.35,1.8,0.35}
 			def.npc.visual = "mesh"
-			def.npc.mesh = "character.b3d"
+			def.npc.mesh = "aventuras_character.b3d"
 			def.npc.animation = {
 				speed_normal = 30,
 				speed_run = 30,

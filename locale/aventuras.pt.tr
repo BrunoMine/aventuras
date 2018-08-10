@@ -1,18 +1,21 @@
 ### Arquivo gerado por aventuras apartir de pt.po
 # textdomain: aventuras
 Current status=Estado atual
-Understood=Entendido
+No adventure discovered yet=Nenhuma aventura descoberta ainda
 Adventure Balloon Box=Caixa de Balao de Aventuras
-Adventure's Book=Balao de Aventuras
-No interaction available=Nenhuma interacao disponivel
-Rewards=Recompensas
 No item available=Nenhum item disponivel
-No known destination=Nenhum destino conhecido
+Requirements=Requisitos
+completed @1 times=terminada @1 vezes
+Advent statistics=Estatisticas das aventuras
 Choose an adventure=Escolha uma aventura
 You need the items for to continue=Precisa dos itens para continuar
+View advent statistics=Ver estatisticas de aventuras
 Adventure Noob checkpoint Items=Bau do Aventureiro Noob
-Completed=Finalizado
 Return=Voltar
-No adventure discovered yet=Nenhuma aventura descoberta ainda
+No interaction available=Nenhuma interacao disponivel
+Rewards=Recompensas
+Completed=Finalizado
+Adventure's Book=Balao de Aventuras
+Understood=Entendido
 Conclude=Concluir
-Requirements=Requisitos
+No known destination=Nenhum destino conhecido

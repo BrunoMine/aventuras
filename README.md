@@ -36,6 +36,9 @@ Autores de mídias (texturas, modelos and sons)
 Todos que não estão listados aqui:
 BrunoMine, Bruno Borges <borgesdossantosbruno@gmail.com> (CC BY-SA 3.0)
 
+stujones11 (CC BY-SA 3.0):
+  aventuras_character.b3d -- Derivado de um modelo de MirceaKitsune (CC BY-SA 3.0)
+
 Zeg'9 (CC BY-SA 3.0)
 	aventuras_balao.png (tecidos)
 

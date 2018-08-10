@@ -1,18 +1,21 @@
 ### Arquivo gerado por aventuras apartir de en.po
 # textdomain: aventuras
 Current status=Current status
-Understood=Understood
+No adventure discovered yet=No adventure discovered yet
 Adventure Balloon Box=Adventure Balloon Box
-Adventure's Book=Adventure's Book
-No interaction available=No interaction available
-Rewards=Rewards
 No item available=No item available
-No known destination=No known destination
+Requirements=Requirements
+completed @1 times=completed @1 times
+Advent statistics=Advent statistics
 Choose an adventure=Choose an adventure
 You need the items for to continue=You need the items for to continue
+View advent statistics=View advent statistics
 Adventure Noob checkpoint Items=Adventure Noob checkpoint Items
-Completed=Completed
 Return=Return
-No adventure discovered yet=No adventure discovered yet
+No interaction available=No interaction available
+Rewards=Rewards
+Completed=Completed
+Adventure's Book=Adventure's Book
+Understood=Understood
 Conclude=Conclude
-Requirements=Requirements
+No known destination=No known destination
