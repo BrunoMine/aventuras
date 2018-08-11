@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-08-10 11:48-0300\n"
-"PO-Revision-Date: 2018-07-02 18:38-0300\n"
+"PO-Revision-Date: 2018-08-10 11:51-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -88,13 +88,16 @@ msgid "Precisa dos itens para continuar"
 msgstr "You need the items for to continue"
 
 #: estatisticas.lua
-msgid "terminada @1 vezes"
-msgstr ""
+msgid "Ver estatisticas de aventuras"
+msgstr "View advent statistics"
 
 #: estatisticas.lua
-#, fuzzy
+msgid "terminada @1 vezes"
+msgstr "completed @1 times"
+
+#: estatisticas.lua
 msgid "Estatisticas das aventuras"
-msgstr "Choose an adventure"
+msgstr "Advent statistics"
 
 #~ msgid "Tarefa invalida"
 #~ msgstr "Invalid task"

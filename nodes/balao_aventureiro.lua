@@ -54,7 +54,7 @@ local show_formspec = function(name)
 	-- Adiciona propria casa na lista
 	if aventuras.bd.verif("balao_aventureiro", name) == true then
 		table.insert(acesso.menu, "aventuras:casa")
-		s = "Minha Casa"
+		s = S("Minha Casa")
 	end
 	
 	-- Adiciona lugares na lista
@@ -80,7 +80,7 @@ local show_formspec = function(name)
 		local titulo = ""
 		
 		if acesso.lugar == "aventuras:casa" then 
-			titulo = "Minha Casa"
+			titulo = S("Minha Casa")
 		else
 			titulo = aventuras.lugares[acesso.lugar].titulo
 		end
@@ -397,8 +397,8 @@ minetest.register_abm{
 minetest.register_craft({
 	output = "aventuras:caixa_balao_aventureiro",
 	recipe = {
-		{"", "group:wool", ""},
-		{"group:wool", "default:book", "group:wool"},
-		{"", "default:chest", ""}
+		{"farming:string", "group:wool", "farming:string"},
+		{"group:wool", "default:stick", "group:wool"},
+		{"default:paper", "default:chest", "group:wood"}
 	}
 })

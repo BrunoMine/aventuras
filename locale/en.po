@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-10 11:48-0300\n"
-"PO-Revision-Date: 2018-08-10 11:51-0300\n"
+"POT-Creation-Date: 2018-08-11 13:23-0300\n"
+"PO-Revision-Date: 2018-08-11 13:24-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.6\n"
+
+#: nodes/balao_aventureiro.lua
+msgid "Minha Casa"
+msgstr "My House"
 
 #: nodes/balao_aventureiro.lua
 msgid "Nenhum destino conhecido"
