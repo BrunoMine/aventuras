@@ -230,8 +230,8 @@ aventuras.estruturas.preparar_tudo = function(name)
 				if r_montagem == true then
 					
 					local dist = dados_lugar.largura/2
-					local estrut_minp = {x=pos_montagem.x-dist, y=pos_montagem.y, z=pos_montagem.z-dist}
-					local estrut_maxp = {x=pos_montagem.x+dist, y=pos_montagem.y+dados_lugar.altura, z=pos_montagem.z+dist}
+					local estrut_minp = {x=pos_montagem.x, y=pos_montagem.y, z=pos_montagem.z}
+					local estrut_maxp = {x=pos_montagem.x+dados_lugar.largura, y=pos_montagem.y+dados_lugar.altura, z=pos_montagem.z+dados_lugar.largura}
 					
 					-- Registra o lugar para teleporte
 					if table.maxn(minetest.find_nodes_in_area(estrut_minp, estrut_maxp, {"aventuras:caixa_balao_aventureiro"})) > 0 then
@@ -276,8 +276,8 @@ aventuras.estruturas.preparar_tudo = function(name)
 				local dados_lugar = aventuras.estruturas.registradas[estrut]
 				local dist = dados_lugar.largura/2
 				local pos = aventuras.estruturas.montadas[estrut].pos
-				local minp = {x=pos.x-dist, y=pos.y, z=pos.z-dist}
-				local maxp = {x=pos.x+dist, y=pos.y+dados_lugar.altura, z=pos.z+dist}
+				local minp = {x=pos.x, y=pos.y, z=pos.z}
+				local maxp = {x=pos.x+dados_lugar.largura, y=pos.y+dados_lugar.altura, z=pos.z+dados_lugar.largura}
 				
 				
 				-- Recoloca estrutura no mapa
