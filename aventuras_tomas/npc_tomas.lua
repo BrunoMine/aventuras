@@ -24,7 +24,7 @@ minetest.register_node("aventuras_tomas:bau", {
 	},
 	paramtype2 = "facedir",
 	is_ground_content = false,
-	groups = {tree=1,choppy=2,oddly_breakable_by_hand=1,flammable=2,not_in_creative_inventory=1},
+	groups = {choppy=2,oddly_breakable_by_hand=1,not_in_creative_inventory=1},
 	sounds = default.node_sound_wood_defaults(),
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
