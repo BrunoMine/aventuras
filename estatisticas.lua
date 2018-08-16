@@ -28,7 +28,7 @@ end)
 
 -- Comando para ver estatisticas
 minetest.register_chatcommand("aventuras_estatisticas", {
-	description = S("Ver estatisticas de aventuras"),
+	description = S("Ver estatísticas de aventuras"),
 	privs = {server = true},
 	func = function(name, param)
 		local formspec = "size[10,6]"
@@ -51,7 +51,7 @@ minetest.register_chatcommand("aventuras_estatisticas", {
 		end
 		
 		formspec = formspec
-			.."label[0,0;"..S("Estatisticas das aventuras").."]"
+			.."label[0,0;"..S("Estatísticas das aventuras").."]"
 			.."textlist[0,0.6;9.8,5.6;menu;"..s..";;true]"
 		
 		minetest.show_formspec(name, "aventuras:estatisticas", formspec)

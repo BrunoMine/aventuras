@@ -33,6 +33,8 @@ local verif_dist_pos = function(pos1, pos2)
 	return x or y or z
 end
 
+-- Tabela de NPCs ativos
+local ativos = {}
 
 -- Verifica se o npc está perto do spawner
 local check_spawner_node = function(charname, pos)
@@ -67,6 +69,7 @@ local check_spawner_node = function(charname, pos)
 		ent.spawn_type = 1 -- Spawnou pelo spawner
 		ent.temp = 0 -- Temporizador
 		ent.pos_bau = pos -- Pos do bau
+		ativos[minetest.pos_to_string(pos)] = ent.object -- linkar entidade
 	end
 	
 end
@@ -142,6 +145,17 @@ aventuras.registrar_personagem = function(charname, def)
 				-- Caso seja um npc perto do spawner
 				if self.spawn_type == 1 then
 					self.temp = self.temp + dtime -- conta temporizador do loop
+					
+					-- Verifica se é o npc titular do bau
+					local pst = minetest.pos_to_string(self.pos_bau)
+					if ativos[pst] == nil then
+						ativos[pst] = self.object
+					else
+						if tostring(ativos[pst]) ~= tostring(self.object) then
+							self.object:remove()
+							return
+						end
+					end
 					
 					-- Verifica se esta perto do bau de origem
 					if self.temp >= tempo_verif_bau then

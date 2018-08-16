@@ -58,6 +58,9 @@ API para mod Aventuras 0.3.0
 	
 	largura = 21, -- Largura da estrutura
 	
+	aven_req = {["uma_aventura"]=2,["outra_aventura"]=10}, -- OPICIONAL | Tarefas de aventuras exigidas para teleportar para o lugar
+	req_exato = false, -- OPICIONAL | se true exige que a aventura requerida esteja na exata tarefa concluida para ir para esse lugar
+	
 	filepath = minetest.get_modpath(minetest.get_current_modname()).."/schems/castelo.mts", --[[
 	^ Caminho do arquivo no formato schematic de minetest onde a estrutura está armazenada ]]
 	
@@ -167,7 +170,7 @@ API para mod Aventuras 0.3.0
 	^ "npc_troca" o jogador deve trocar itens com um NPC
 	^ "npc_place_node" o jogador deve colocar um node após falar com um NPC
 	^ "npc_dig_node" o jogador deve quebrar um node após falar com um NPC 
-	^ "npc_comida" o jogador deve comer algo apos falar com um NPC 
+	^ "npc_alimento" o jogador deve comer algo apos falar com um NPC 
 	^ "npc_craft" o jogador deve craftar algo apos falar com um NPC ]]
 	
 	dados = { -- Tabela de dados que o referido tipo de tarefa designar
@@ -250,6 +253,7 @@ Recursos
 	titulo = "Castelo Real", -- Titulo exibido ao jogador
 	pos = {x=0,y=0,z=0}, -- Coordenada para onde o jogador é teleportado quando for ao lugar
 	aven_req = {["uma_aventura"]=2,["outra_aventura"]=10}, -- OPICIONAL | Tarefas de aventuras exigidas para teleportar para o lugar
+	req_exato = false, -- OPICIONAL | se true exige que a aventura requerida esteja na exata tarefa concluida para ir para esse lugar
 }
 
 ### Sons de NPC

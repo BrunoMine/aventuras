@@ -11,11 +11,12 @@
   ]]
 
 -- Verificar aventuras requeridas
-aventuras.comum.check_aven_req = function(name, aven_req_tb)
-	
+aventuras.comum.check_aven_req = function(name, aven_req_tb, req_exato)
+
 	for aven,tarefa in pairs(aven_req_tb) do
 		if aventuras.bd.verif("player_"..name, "aventura_"..aven) ~= true
-			or aventuras.bd.pegar("player_"..name, "aventura_"..aven) < tarefa 
+			or (req_exato == true and aventuras.bd.pegar("player_"..name, "aventura_"..aven) ~= tarefa)
+			or aventuras.bd.pegar("player_"..name, "aventura_"..aven) < tarefa
 		then
 			return false
 		end

@@ -12,13 +12,6 @@
 local S = aventuras.S
 
 
--- Deletar Registros do livro
-aventuras.callbacks.registrar_ao_concluir(function(name)
-	if aventuras.bd.verif("player_"..name, "livro_de_aventuras") == true then
-		aventuras.bd.remover("player_"..name, "livro_de_aventuras")
-	end
-end)
-
 
 -- Criar registros do livro
 local criar_registro = function(name)
@@ -38,6 +31,17 @@ local criar_registro = function(name)
 	end
 end
 
+
+-- Deletar Registros do livro
+aventuras.callbacks.registrar_ao_concluir(function(name)
+	if aventuras.bd.verif("player_"..name, "livro_de_aventuras") == true then
+		aventuras.bd.remover("player_"..name, "livro_de_aventuras")
+	end
+	-- Tenta criar uma lista do livro
+	if aventuras.bd.verif("player_"..name, "livro_de_aventuras") == false then
+		criar_registro(name)
+	end
+end)
 
 -- Livro de Aventuras
 minetest.register_craftitem("aventuras:livro_de_aventuras", {

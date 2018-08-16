@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-10 11:48-0300\n"
-"PO-Revision-Date: 2018-08-10 11:51-0300\n"
+"POT-Creation-Date: 2018-08-15 23:23-0300\n"
+"PO-Revision-Date: 2018-08-15 23:24-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -19,8 +19,20 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #: nodes/balao_aventureiro.lua
+msgid "Aqui podes viajar para alguns lugares"
+msgstr "Here you can travel to some places"
+
+#: nodes/balao_aventureiro.lua
+msgid "Minha Casa"
+msgstr "My House"
+
+#: nodes/balao_aventureiro.lua
 msgid "Nenhum destino conhecido"
 msgstr "No known destination"
+
+#: nodes/balao_aventureiro.lua
+msgid "Viajar para @1"
+msgstr "Travel to @1"
 
 #: nodes/balao_aventureiro.lua
 msgid "Caixa de Balao de Aventuras"
@@ -31,20 +43,42 @@ msgid "Balao de Aventuras"
 msgstr "Adventure's Book"
 
 #: nodes/bau_aventureiro_noob.lua
+msgid "Aqui podes recuperar itens perdidos"
+msgstr "Here you can recover lost items."
+
+#: nodes/bau_aventureiro_noob.lua
 msgid "Nenhum item disponivel"
+msgstr "No item available"
+
+#: nodes/bau_aventureiro_noob.lua
+msgid "Comprar"
+msgstr ""
+
+#: nodes/bau_aventureiro_noob.lua
+#, fuzzy
+msgid "Nenhum item disponível"
 msgstr "No item available"
 
 #: nodes/bau_aventureiro_noob.lua
 msgid "Bau do Aventureiro Noob"
 msgstr "Adventure Noob checkpoint Items"
 
+#: nodes/bau_aventureiro_noob.lua
+#, fuzzy
+msgid "Precisa pagar @1 para comprar"
+msgstr "You need the items for to continue"
+
 #: recursos/acesso_npc.lua
 msgid "Escolha uma aventura"
 msgstr "Choose an adventure"
 
 #: recursos/acesso_npc.lua
-msgid "Nenhuma interacao disponivel"
+msgid "Nenhuma interação disponível"
 msgstr "No interaction available"
+
+#: recursos/acesso_npc.lua
+msgid "Tarefa inválida"
+msgstr "Invalid task"
 
 #: craftitens/livro_de_aventuras.lua
 msgid "Livro de Aventuras"
@@ -88,7 +122,7 @@ msgid "Precisa dos itens para continuar"
 msgstr "You need the items for to continue"
 
 #: estatisticas.lua
-msgid "Ver estatisticas de aventuras"
+msgid "Ver estatísticas de aventuras"
 msgstr "View advent statistics"
 
 #: estatisticas.lua
@@ -96,8 +130,45 @@ msgid "terminada @1 vezes"
 msgstr "completed @1 times"
 
 #: estatisticas.lua
-msgid "Estatisticas das aventuras"
+msgid "Estatísticas das aventuras"
 msgstr "Advent statistics"
 
-#~ msgid "Tarefa invalida"
-#~ msgstr "Invalid task"
+#: checkpoint.lua
+msgid "Checkpoint"
+msgstr "Checkpoint"
+
+#: checkpoint.lua
+msgid "Aventuras:Checkpoint"
+msgstr "Everybody"
+
+#: recursos/estruturas/estruturas.lua
+msgid "Preparando estruturas de aventuras"
+msgstr "Preparing adventure structures"
+
+#: recursos/estruturas/estruturas.lua
+msgid "Isso pode demorar algum tempo..."
+msgstr "This may take some time ..."
+
+#: recursos/estruturas/estruturas.lua
+msgid "Montando @1"
+msgstr "Building @1"
+
+#: recursos/estruturas/estruturas.lua
+msgid "Tentativa @1"
+msgstr "Attempt @1"
+
+#: recursos/estruturas/estruturas.lua
+msgid "Verificando area protegida ..."
+msgstr "Checking protected area ..."
+
+#: recursos/estruturas/estruturas.lua
+msgid "Gerando mapa ..."
+msgstr "Generating map ..."
+
+#: recursos/estruturas/estruturas.lua
+msgid "Estrutura @1 construida"
+msgstr "Structure @1 built"
+
+#: recursos/estruturas/estruturas.lua
+msgid "Iniciando montagem de lugares. Isso pode demorar algum tempo ..."
+msgstr "Starting places assembly. This may take some time ..."

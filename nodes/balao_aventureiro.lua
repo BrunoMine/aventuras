@@ -30,6 +30,7 @@ aventuras.registrar_lugar = function(nome, def)
 	aventuras.lugares[nome] = {
 		titulo = def.titulo,
 		aven_req = def.aven_req,
+		req_exato = def.req_exato,
 		pos = def.pos,
 	}
 end
@@ -38,7 +39,7 @@ end
 local show_formspec = function(name)
 	
 	local formspec = "size[7,5]"
-		.."label[0,0;Aqui podes viajar para alguns lugares]"
+		.."label[0,0;"..S("Aqui podes viajar para alguns lugares").."]"
 		.."image[6,-0.2;1,1;aventuras_caixa_balao_mapa.png]"
 		..default.gui_bg
 		..default.gui_bg_img
@@ -53,17 +54,17 @@ local show_formspec = function(name)
 	
 	-- Adiciona propria casa na lista
 	if aventuras.bd.verif("balao_aventureiro", name) == true then
+		acesso.menu = {}
 		table.insert(acesso.menu, "aventuras:casa")
 		s = S("Minha Casa")
 	end
 	
 	-- Adiciona lugares na lista
 	for n,d in pairs(aventuras.lugares) do
-		
 		-- Verifica aventuras requeridas
-		if d.aven_req == nil or aventuras.comum.check_aven_req(name, d.aven_req) == true then
+		if d.aven_req == nil or aventuras.comum.check_aven_req(name, d.aven_req, d.req_exato) == true then
 			if s ~= "" then s = s .. "," end
-	
+			
 			table.insert(acesso.menu, n)
 			s = s .. d.titulo
 		end
@@ -85,7 +86,7 @@ local show_formspec = function(name)
 			titulo = aventuras.lugares[acesso.lugar].titulo
 		end
 		
-		formspec = formspec .. "button_exit[0,4.3;7,1;viajar;Viajar para "..titulo.."]"
+		formspec = formspec .. "button_exit[0,4.3;7,1;viajar;"..S("Viajar para @1", titulo).."]"
 	end
 	
 	minetest.show_formspec(name, "aventuras:caixa_balao_aventureiro", formspec)

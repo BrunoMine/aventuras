@@ -160,7 +160,7 @@ aventuras.recursos.npc.on_rightclick = function(self, clicker)
 	else
 		
 		-- Informa que nao existe tarefa disponivel no momento
-		aventuras.comum.exibir_alerta(clicker:get_player_name(), S("Nenhuma interacao disponivel"))
+		aventuras.comum.exibir_alerta(clicker:get_player_name(), S("Nenhuma interação disponível"))
 		return true
 	end
 end
@@ -183,7 +183,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			
 			-- Verifica se a tarefa ainda esta habilitada
 			if aventuras.bd.pegar("player_"..name, "aventura_"..aventura) ~= tarefa-1 then
-				aventuras.comum.exibir_alerta(player:get_player_name(), SS(lang, "Tarefa invalida"))
+				aventuras.comum.exibir_alerta(player:get_player_name(), S("Tarefa inválida"))
 				return
 			end
 			

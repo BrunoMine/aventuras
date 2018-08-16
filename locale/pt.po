@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-11 13:23-0300\n"
-"PO-Revision-Date: 2018-08-11 13:24-0300\n"
+"POT-Creation-Date: 2018-08-15 23:25-0300\n"
+"PO-Revision-Date: 2018-08-15 23:23-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.6\n"
+
+#: nodes/balao_aventureiro.lua
+msgid "Aqui podes viajar para alguns lugares"
+msgstr "Aqui podes viajar para alguns lugares"
 
 #: nodes/balao_aventureiro.lua
 msgid "Minha Casa"
@@ -27,6 +31,10 @@ msgid "Nenhum destino conhecido"
 msgstr "Nenhum destino conhecido"
 
 #: nodes/balao_aventureiro.lua
+msgid "Viajar para @1"
+msgstr "Viajar para @1"
+
+#: nodes/balao_aventureiro.lua
 msgid "Caixa de Balao de Aventuras"
 msgstr "Caixa de Balao de Aventuras"
 
@@ -35,20 +43,36 @@ msgid "Balao de Aventuras"
 msgstr "Balao de Aventuras"
 
 #: nodes/bau_aventureiro_noob.lua
-msgid "Nenhum item disponivel"
-msgstr "Nenhum item disponivel"
+msgid "Aqui podes recuperar itens perdidos"
+msgstr "Aqui podes recuperar itens perdidos"
+
+#: nodes/bau_aventureiro_noob.lua
+msgid "Nenhum item disponível"
+msgstr "Nenhum item disponível"
+
+#: nodes/bau_aventureiro_noob.lua
+msgid "Comprar"
+msgstr "Comprar"
 
 #: nodes/bau_aventureiro_noob.lua
 msgid "Bau do Aventureiro Noob"
 msgstr "Bau do Aventureiro Noob"
+
+#: nodes/bau_aventureiro_noob.lua
+msgid "Precisa pagar @1 para comprar"
+msgstr "Precisa pagar @1 para comprar"
 
 #: recursos/acesso_npc.lua
 msgid "Escolha uma aventura"
 msgstr "Escolha uma aventura"
 
 #: recursos/acesso_npc.lua
-msgid "Nenhuma interacao disponivel"
-msgstr "Nenhuma interacao disponivel"
+msgid "Nenhuma interação disponível"
+msgstr "Nenhuma interação disponível"
+
+#: recursos/acesso_npc.lua
+msgid "Tarefa inválida"
+msgstr "Tarefa inválida"
 
 #: craftitens/livro_de_aventuras.lua
 msgid "Livro de Aventuras"
@@ -92,16 +116,56 @@ msgid "Precisa dos itens para continuar"
 msgstr "Precisa dos itens para continuar"
 
 #: estatisticas.lua
-msgid "Ver estatisticas de aventuras"
-msgstr "Ver estatisticas de aventuras"
+msgid "Ver estatísticas de aventuras"
+msgstr "Ver estatísticas de aventuras"
 
 #: estatisticas.lua
 msgid "terminada @1 vezes"
 msgstr "terminada @1 vezes"
 
 #: estatisticas.lua
-msgid "Estatisticas das aventuras"
-msgstr "Estatisticas das aventuras"
+msgid "Estatísticas das aventuras"
+msgstr "Estatísticas das aventuras"
 
-#~ msgid "Tarefa invalida"
-#~ msgstr "Tarefa invalida"
+#: checkpoint.lua
+msgid "Checkpoint"
+msgstr "Checkpoint"
+
+#: checkpoint.lua
+msgid "Aventuras:Checkpoint"
+msgstr "Todos"
+
+#: recursos/estruturas/estruturas.lua
+msgid "Preparando estruturas de aventuras"
+msgstr "Preparando estruturas de aventuras"
+
+#: recursos/estruturas/estruturas.lua
+msgid "Isso pode demorar algum tempo..."
+msgstr "Isso pode demorar algum tempo..."
+
+#: recursos/estruturas/estruturas.lua
+msgid "Montando @1"
+msgstr "Montando @1"
+
+#: recursos/estruturas/estruturas.lua
+msgid "Tentativa @1"
+msgstr "Tentativa @1"
+
+#: recursos/estruturas/estruturas.lua
+msgid "Verificando area protegida ..."
+msgstr "Verificando area protegida ..."
+
+#: recursos/estruturas/estruturas.lua
+msgid "Gerando mapa ..."
+msgstr "Gerando mapa ..."
+
+#: recursos/estruturas/estruturas.lua
+msgid "Estrutura @1 construida"
+msgstr "Estrutura @1 construida"
+
+#: recursos/estruturas/estruturas.lua
+msgid "Iniciando montagem de lugares. Isso pode demorar algum tempo ..."
+msgstr "Iniciando montagem de lugares. Isso pode demorar algum tempo ..."
+
+#~ msgid "Nenhum item disponivel"
+#~ msgstr "Nenhum item disponivel"

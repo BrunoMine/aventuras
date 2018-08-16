@@ -12,6 +12,8 @@
 -- Tabela global de lugares
 aventuras.estruturas = {}
 
+local S = aventuras.S
+
 -- Nodes especiais para montagem
 dofile(minetest.get_modpath("aventuras").."/recursos/estruturas/nodes.lua")
 
@@ -54,10 +56,12 @@ aventuras.registrar_estrutura = function(name, def)
 	
 	-- Estrutura
 	r.titulo = def.titulo
+	r.protected_area_id = def.protected_area_id
 	r.largura = def.largura
 	r.altura = def.altura
 	r.filepath = def.filepath
 	r.aven_req = def.aven_req
+	r.req_exato = def.req_exato
 	
 	-- MapGen para montagem
 	r.mapgen = def.mapgen
@@ -126,7 +130,8 @@ local informe_geral = function(text)
 		minetest.show_formspec(player:get_player_name(), "aventuras:estruturas_load", "size[8,2]"
 			.."bgcolor[#000000FF;true]"
 			.."image[0,0;2,2;default_acacia_bush_sapling.png]"
-			.."label[2,0;Preparando estruturas de aventuras\nIsso pode demorar algum tempo...\n\n"..text.."]")
+			.."label[2,0;"..S("Preparando estruturas de aventuras")
+			.."\n"..S("Isso pode demorar algum tempo...").."\n\n"..text.."]")
 	end
 end
 
@@ -166,6 +171,7 @@ aventuras.estruturas.preparar_tudo = function(name)
 				
 				local proc = processo.em_curso
 				local dados_lugar = aventuras.estruturas.registradas[estrut]
+				minetest.log("action", "dados_lugar = "..dump(dados_lugar))
 				local largura_area = dados_lugar.largura * 15
 				local limite = map_limit - largura_area - 100
 				local dist_area = largura_area/2
@@ -187,9 +193,9 @@ aventuras.estruturas.preparar_tudo = function(name)
 				-- Verifica area protegida
 				if not proc.prot_ok then
 				
-					informe_geral("Montando \""..dados_lugar.titulo.."\""
-						.."\nTentativa "..proc.tentativas
-						.."\nVerificando area protegida ...")
+					informe_geral(S("Montando @1", "\""..dados_lugar.titulo.."\"")
+						.."\n"..S("Tentativa @1", proc.tentativas)
+						.."\n"..S("Verificando area protegida ..."))
 					
 					act_log("Verificando area protegida ("..Spos(minp).." a "..Spos(maxp)..")")
 					
@@ -215,9 +221,9 @@ aventuras.estruturas.preparar_tudo = function(name)
 						act_log("Gerando e/ou carregando mapa ("..Spos(minp).." a "..Spos(maxp)..")...")
 					end
 					
-					informe_geral("Montando \""..dados_lugar.titulo.."\""
-						.."\nTentativa "..proc.tentativas
-						.."\nGerando mapa ...")
+					informe_geral(S("Montando @1", "\""..dados_lugar.titulo.."\"")
+						.."\n"..S("Tentativa @1", proc.tentativas)
+						.."\n"..S("Gerando mapa ..."))
 					
 					minetest.after(2, aventuras.estruturas.preparar_tudo, name)
 					return
@@ -230,8 +236,8 @@ aventuras.estruturas.preparar_tudo = function(name)
 				if r_montagem == true then
 					
 					local dist = dados_lugar.largura/2
-					local estrut_minp = {x=pos_montagem.x, y=pos_montagem.y, z=pos_montagem.z}
-					local estrut_maxp = {x=pos_montagem.x+dados_lugar.largura, y=pos_montagem.y+dados_lugar.altura, z=pos_montagem.z+dados_lugar.largura}
+					local estrut_minp = {x=pos_montagem.x-dist, y=pos_montagem.y, z=pos_montagem.z-dist}
+					local estrut_maxp = {x=pos_montagem.x+dist, y=pos_montagem.y+dados_lugar.altura, z=pos_montagem.z+dist}
 					
 					-- Registra o lugar para teleporte
 					if table.maxn(minetest.find_nodes_in_area(estrut_minp, estrut_maxp, {"aventuras:caixa_balao_aventureiro"})) > 0 then
@@ -240,6 +246,7 @@ aventuras.estruturas.preparar_tudo = function(name)
 						aventuras.registrar_lugar(estrut, {
 							titulo = dados_lugar.titulo,
 							aven_req = dados_lugar.aven_req,
+							req_exato = dados_lugar.req_exato,
 							pos = minetest.deserialize(minetest.serialize(tp_pos)),
 						})
 					end
@@ -252,13 +259,14 @@ aventuras.estruturas.preparar_tudo = function(name)
 					
 					-- Cria area protegida
 					local p = pos_montagem
-					areas:add("Aventuras:Tomas", dados_lugar.titulo, {x=p.x-200, y=p.y-100, z=p.z-200}, {x=p.x+200, y=p.y+15000, z=p.z+200}, nil)
+					areas:add(dados_lugar.protected_area_id, dados_lugar.titulo, {x=p.x-50, y=p.y-100, z=p.z-50}, {x=p.x+200, y=p.y+15000, z=p.z+200}, nil)
+					areas:save()
 					
 					-- estrutura criada
 					processo.processadas[estrut] = 1
 					
 					act_log("Estrutura "..estrut.." montada em "..pos_montagem.x.." "..pos_montagem.y.." "..pos_montagem.z)
-					informe_geral("Estrutura \""..dados_lugar.titulo.."\" construida")
+					informe_geral(S("Estrutura @1 construida", "\""..dados_lugar.titulo.."\""))
 					minetest.after(0.5, aventuras.estruturas.preparar_tudo, name)
 					return
 				else
@@ -276,8 +284,8 @@ aventuras.estruturas.preparar_tudo = function(name)
 				local dados_lugar = aventuras.estruturas.registradas[estrut]
 				local dist = dados_lugar.largura/2
 				local pos = aventuras.estruturas.montadas[estrut].pos
-				local minp = {x=pos.x, y=pos.y, z=pos.z}
-				local maxp = {x=pos.x+dados_lugar.largura, y=pos.y+dados_lugar.altura, z=pos.z+dados_lugar.largura}
+				local minp = {x=pos.x-dist, y=pos.y, z=pos.z-dist}
+				local maxp = {x=pos.x+dist, y=pos.y+dados_lugar.altura, z=pos.z+dist}
 				
 				
 				-- Recoloca estrutura no mapa
@@ -295,6 +303,7 @@ aventuras.estruturas.preparar_tudo = function(name)
 					aventuras.registrar_lugar(estrut, {
 						titulo = dados_lugar.titulo,
 						aven_req = dados_lugar.aven_req,
+						req_exato = dados_lugar.req_exato,
 						pos = minetest.deserialize(minetest.serialize(tp_pos)),
 					})
 				end
@@ -403,11 +412,10 @@ minetest.register_chatcommand("aventuras_setup_estrut", {
 	description = "Inicia montagem e atualização de lugares",
 	privs = {server = true},
 	func = function(name, param)
-		minetest.chat_send_player(name, "Iniciando montagem de lugares. Isso pode demorar algum tempo ...")
+		minetest.chat_send_player(name, S("Iniciando montagem de lugares. Isso pode demorar algum tempo ..."))
 		aventuras.estruturas.preparar_tudo(name)
 	end,
 })
-
 
 -- Autosetup estruturas
 if aventuras.autosetup_estruturas == true then

@@ -36,7 +36,7 @@ end
 local show_formspec = function(name)
 	
 	local formspec = "size[8,9]"
-		.."label[0,0;Aqui podes recuperar um item que \nprecisas para concluir uma aventura]"
+		.."label[0,0;"..S("Aqui podes recuperar itens perdidos").."]"
 		..default.gui_bg
 		..default.gui_bg_img
 		..default.gui_slots
@@ -76,18 +76,18 @@ local show_formspec = function(name)
 		if s ~= "" then
 			formspec = formspec.."textlist[0,1;4.7,3.5;menu;"..s..";;true]"
 		else
-			formspec = formspec .. "label[1,2;"..S("Nenhum item disponivel").."]"
+			formspec = formspec .. "label[1,2;"..S("Nenhum item disponível").."]"
 		end
 		
 		-- Coloca item selecionado
 		if acesso.selected_item then
 			formspec = formspec .. "item_image_button[5,0.8;3,3;"..acesso.selected_item..";item;]"
-				.. "button_exit[5,3.8;2,1;comprar;Comprar]"
+				.. "button_exit[5,3.8;2,1;comprar;"..S("Comprar").."]"
 				.. "item_image_button[7,3.8;1,1;"..aventuras.moeda_bau_noob.." "..registros[acesso.selected_item].custo..";custo;]"
 		end
 		
 	else
-		formspec = formspec .. "label[1,2;"..S("Nenhum item disponivel").."]"
+		formspec = formspec .. "label[1,2;"..S("Nenhum item disponível").."]"
 	end
 	
 	minetest.show_formspec(name, "aventuras:bau_aventureiro_noob", formspec)
@@ -137,13 +137,13 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 					{aventuras.moeda_bau_noob.." "..registros[acesso.selected_item].custo}, 
 					{acesso.selected_item}) ~= true 
 				then
-					minetest.chat_send_player(name, "Precisa pagar "..registros[acesso.selected_item].custo.." "..minetest.registered_items[aventuras.moeda_bau_noob].description.." para comprar")
+					minetest.chat_send_player(name, S("Precisa pagar @1 para comprar", registros[acesso.selected_item].custo))
 				end
 			else
 				if aventuras.tror.trocar(player, {aventuras.moeda_bau_noob.." "..registros[acesso.selected_item].custo}, {}) == true then
 					registros[acesso.selected_item].give_item(player)
 				else
-					minetest.chat_send_player(name, "Precisa pagar "..registros[acesso.selected_item].custo.." "..minetest.registered_items[aventuras.moeda_bau_noob].description.." para comprar")
+					minetest.chat_send_player(name, S("Precisa pagar @1 para comprar", registros[acesso.selected_item].custo))
 				end
 			end
 			

@@ -16,6 +16,7 @@ aventuras.registrar_estrutura("aventuras:checkpoint", {
 	
 	titulo = S("Checkpoint"),
 	versao = "1",
+	protected_area_id = S("Aventuras:Checkpoint"),
 	
 	altura = 140,
 	largura = 14,

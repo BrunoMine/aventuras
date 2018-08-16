@@ -9,6 +9,7 @@
 	Nodes uteis para montagem de estruturas
   ]]
 
+local S = aventuras.S
 
 -- Replicador de blocos para baixo simples
 minetest.register_node("aventuras:replicador_inferior_simples", {
