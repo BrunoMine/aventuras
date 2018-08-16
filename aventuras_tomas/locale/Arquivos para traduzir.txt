@@ -1,0 +1,1 @@
+casa_tomas.lua npc_tomas.lua aventuras/conhecendo_tomas.lua

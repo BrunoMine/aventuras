@@ -1,0 +1,113 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-15 18:05-0300\n"
+"PO-Revision-Date: 2018-08-15 22:47-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: casa_tomas.lua
+msgid "Casa do Tomas"
+msgstr "Casa do Tomas"
+
+#: casa_tomas.lua
+msgid "Aventuras_Tomas:Casa"
+msgstr "Tomas"
+
+#: npc_tomas.lua
+msgid "Bau do Tomas"
+msgstr "Bau do Tomas"
+
+#: aventuras/conhecendo_tomas.lua
+msgid "Conhecendo Tomas"
+msgstr "Conhecendo Tomas"
+
+#: aventuras/conhecendo_tomas.lua
+msgid ""
+"Esse parece ser um bom homem. Receptivo e ajudador. Dono de uma bela e "
+"grande casa onde sobreviventes sao sempre bem vindos."
+msgstr ""
+"Esse parece ser um bom homem. Receptivo e ajudador. Dono de uma bela e "
+"grande casa onde sobreviventes sao sempre bem vindos."
+
+#: aventuras/conhecendo_tomas.lua
+msgid "Boas Vindas"
+msgstr "Boas Vindas"
+
+#: aventuras/conhecendo_tomas.lua
+msgid ""
+"Ola. Prazer e conhecer-te. Sempre gosto de conhecer pessoas novas. "
+"Frequentemente vejo sobreviventes pela regiao. Espero que sinta-se bem em "
+"minha casa."
+msgstr ""
+"Ola. Prazer e conhecer-te. Sempre gosto de conhecer pessoas novas. "
+"Frequentemente vejo sobreviventes pela regiao. Espero que sinta-se bem em "
+"minha casa."
+
+#: aventuras/conhecendo_tomas.lua
+msgid "Se precisar de ajuda estarei por aqui."
+msgstr "Se precisar de ajuda estarei por aqui."
+
+#: aventuras/conhecendo_tomas.lua
+msgid "Uma ajuda com a fazendinha"
+msgstr "Uma ajuda com a fazendinha"
+
+#: aventuras/conhecendo_tomas.lua
+msgid ""
+"Bom... Gostaria de falar mais sobre essas terras, mas estou atarefado com "
+"uma pequena fazenda que estou tentando criar. Poderia me ajudar com alguma "
+"quantia de sementes. Essa bela e rustica casa foi feita com a ajuda de meus "
+"amigos. Voce e bem vindo, mas precisa ajudar tambem."
+msgstr ""
+"Bom... Gostaria de falar mais sobre essas terras, mas estou atarefado com "
+"uma pequena fazenda que estou tentando criar. Poderia me ajudar com alguma "
+"quantia de sementes. Essa bela e rustica casa foi feita com a ajuda de meus "
+"amigos. Voce e bem vindo, mas precisa ajudar tambem."
+
+#: aventuras/conhecendo_tomas.lua
+msgid "Obrigado, parece que te devo uma."
+msgstr "Obrigado, parece que te devo uma."
+
+#: aventuras/conhecendo_tomas.lua
+msgid "Alimento para sobreviver"
+msgstr "Alimento para sobreviver"
+
+#: aventuras/conhecendo_tomas.lua
+msgid ""
+"Estamos com dificuldades no estoque de lenha. Traga madeira para que "
+"possamos assar mais alimento."
+msgstr ""
+"Estamos com dificuldades no estoque de lenha. Traga madeira para que "
+"possamos assar mais alimento."
+
+#: aventuras/conhecendo_tomas.lua
+msgid "Sua ajuda foi valiosa para essa casa. Tome esses pães."
+msgstr "Sua ajuda foi valiosa para essa casa. Tome esses pães."
+
+#: aventuras/conhecendo_tomas.lua
+msgid "Combustível Vital"
+msgstr "Combustível Vital"
+
+#: aventuras/conhecendo_tomas.lua
+msgid ""
+"Mesmo usando Madeira em meu forno, eu preciso muito de carvão para boas "
+"tochas e como eu não sou muito habilidoso em mineração."
+msgstr ""
+"Mesmo usando Madeira em meu forno, eu preciso muito de carvão para boas "
+"tochas e como eu não sou muito habilidoso em mineração."
+
+#: aventuras/conhecendo_tomas.lua
+msgid "Sua ajuda foi valiosa. Sempre vai ser bem vindo aqui."
+msgstr "Sua ajuda foi valiosa. Sempre vai ser bem vindo aqui."

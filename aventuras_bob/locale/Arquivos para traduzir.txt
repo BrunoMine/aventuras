@@ -1,0 +1,1 @@
+bau_labirinto_das_masmorras.lua craftitems.lua forja_bob.lua labirinto_das_masmorras.lua mazenode.lua npc_bob.lua aventuras/bob_o_forjador.lua aventuras/caminho_da_forja.lua

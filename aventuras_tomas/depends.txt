@@ -1,0 +1,8 @@
+default
+aventuras
+bucket
+stairs
+xpanes
+vessels
+farming
+beds

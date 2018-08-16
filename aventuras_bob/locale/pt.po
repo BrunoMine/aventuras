@@ -1,0 +1,286 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-15 22:44-0300\n"
+"PO-Revision-Date: 2018-08-15 22:44-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: bau_labirinto_das_masmorras.lua
+msgid "Muito distante do baú"
+msgstr "Muito distante do baú"
+
+#: bau_labirinto_das_masmorras.lua
+msgid "Finalmente encontrei esse mapa. Preciso mostrar isso ao Tomas."
+msgstr "Finalmente encontrei esse mapa. Preciso mostrar isso ao Tomas."
+
+#: forja_bob.lua
+msgid "Forja do Bob"
+msgstr "Forja do Bob"
+
+#: forja_bob.lua
+msgid "Aventuras_Bob:Forja"
+msgstr "Bob"
+
+#: labirinto_das_masmorras.lua
+msgid "Labirinto das Masmorras"
+msgstr "Labirinto das Masmorras"
+
+#: labirinto_das_masmorras.lua
+msgid "Aventuras_Bob:Labirinto"
+msgstr "Desconhecido"
+
+#: npc_bob.lua
+msgid "Bau do Bob"
+msgstr "Bau do Bob"
+
+#: aventuras/bob_o_forjador.lua
+msgid "Bob o Forjador"
+msgstr "Bob o Forjador"
+
+#: aventuras/bob_o_forjador.lua
+msgid "Conhecendo o ferreiro Bob"
+msgstr "Conhecendo o ferreiro Bob"
+
+#: aventuras/bob_o_forjador.lua
+msgid "Um Mercante de Ferro"
+msgstr "Um Mercante de Ferro"
+
+#: aventuras/bob_o_forjador.lua
+msgid ""
+"Oi. Imagino que você tenha chegado aqui por um daqueles mapas que espalhei. "
+"Sou um ferreiro mercante e preciso receber visitas para obter meus recursos "
+"atravez de trocas comerciais."
+msgstr ""
+"Oi. Imagino que você tenha chegado aqui por um daqueles mapas que espalhei. "
+"Sou um ferreiro mercante e preciso receber visitas para obter meus recursos "
+"atravez de trocas comerciais."
+
+#: aventuras/bob_o_forjador.lua
+msgid "Obrigado pela visita. Se precisar de ajuda com forjas estarei aqui."
+msgstr "Obrigado pela visita. Se precisar de ajuda com forjas estarei aqui."
+
+#: aventuras/bob_o_forjador.lua
+msgid "Sem Comida, Sem Forja"
+msgstr "Sem Comida, Sem Forja"
+
+#: aventuras/bob_o_forjador.lua
+msgid ""
+"Desde que abri meu negócio tenho dificuldades para encontrar novos clientes. "
+"Preciso que me ajudes com alguns recursos. Traga-me trigo eu garanto que lhe "
+"conseguirei uma bela troca."
+msgstr ""
+"Desde que abri meu negócio tenho dificuldades para encontrar novos clientes. "
+"Preciso que me ajudes com alguns recursos. Traga-me trigo eu garanto que lhe "
+"conseguirei uma bela troca."
+
+#: aventuras/bob_o_forjador.lua
+msgid "Agora poderei me alimentar melhor e você poderá se defender melhor."
+msgstr "Agora poderei me alimentar melhor e você poderá se defender melhor."
+
+#: aventuras/bob_o_forjador.lua
+msgid "Areia nos Ouvidos"
+msgstr "Areia nos Ouvidos"
+
+#: aventuras/bob_o_forjador.lua
+msgid ""
+"Você já deve ter percebido que eu trabalho com grandes quantias de material. "
+"Estou precisando de uma boa quantidade de areia. Se você conseguir me ajudar "
+"com isso, prometo que terás uma boa recompensa."
+msgstr ""
+"Você já deve ter percebido que eu trabalho com grandes quantias de material. "
+"Estou precisando de uma boa quantidade de areia. Se você conseguir me ajudar "
+"com isso, prometo que terás uma boa recompensa."
+
+#: aventuras/bob_o_forjador.lua
+msgid ""
+"Muito obrigado. Tome aqui sua recompensa. Espero poder fazer mais trocas com "
+"você pois tenho muito trabalho pela frente."
+msgstr ""
+"Muito obrigado. Tome aqui sua recompensa. Espero poder fazer mais trocas com "
+"você pois tenho muito trabalho pela frente."
+
+#: aventuras/bob_o_forjador.lua
+msgid "Frutas são Boas"
+msgstr "Frutas são Boas"
+
+#: aventuras/bob_o_forjador.lua
+msgid ""
+"Um ferreiro habilidoso como eu precisa ter um bom estoque de frutas para se "
+"alimentar adequadamente. Consiga um bom punhado de frutas e te darei uma boa "
+"e pesada proteção."
+msgstr ""
+"Um ferreiro habilidoso como eu precisa ter um bom estoque de frutas para se "
+"alimentar adequadamente. Consiga um bom punhado de frutas e te darei uma boa "
+"e pesada proteção."
+
+#: aventuras/bob_o_forjador.lua
+msgid "Essas frutas estão ótimas! Tome aqui sua armadura."
+msgstr "Essas frutas estão ótimas! Tome aqui sua armadura."
+
+#: aventuras/bob_o_forjador.lua
+msgid "Terra para Ilhas"
+msgstr "Terra para Ilhas"
+
+#: aventuras/bob_o_forjador.lua
+msgid ""
+"Estou trabalhando em uma nova ilha para um projeto futuro e precisarei de "
+"bastante terra. Me traga uma boa quantia e lhe darei uma boa proteção para "
+"as pernas."
+msgstr ""
+"Estou trabalhando em uma nova ilha para um projeto futuro e precisarei de "
+"bastante terra. Me traga uma boa quantia e lhe darei uma boa proteção para "
+"as pernas."
+
+#: aventuras/bob_o_forjador.lua
+msgid "Perfeito! Aqui está sua recompensa."
+msgstr "Perfeito! Aqui está sua recompensa."
+
+#: aventuras/bob_o_forjador.lua
+msgid "Fonte de Madeira"
+msgstr "Fonte de Madeira"
+
+#: aventuras/bob_o_forjador.lua
+msgid ""
+"Em minha ilha também vou precisar de mudas de árvore para completar minha "
+"ilha. Você poderia me dar algumas?"
+msgstr ""
+"Em minha ilha também vou precisar de mudas de árvore para completar minha "
+"ilha. Você poderia me dar algumas?"
+
+#: aventuras/bob_o_forjador.lua
+msgid ""
+"Agora poderei ter uma boa fonte de madeira. Tome essa proteção para sua "
+"cabeça."
+msgstr ""
+"Agora poderei ter uma boa fonte de madeira. Tome essa proteção para sua "
+"cabeça."
+
+#: aventuras/bob_o_forjador.lua
+msgid "Caminho pelo Mar"
+msgstr "Caminho pelo Mar"
+
+#: aventuras/bob_o_forjador.lua
+msgid ""
+"Um ultimo detalhe para que eu possa chegar em minha ilha é um barco. Eu "
+"tenho habilidade com ferro, mas nem tanto com madeira. Podes vazer um Barco "
+"para mim?"
+msgstr ""
+"Um ultimo detalhe para que eu possa chegar em minha ilha é um barco. Eu "
+"tenho habilidade com ferro, mas nem tanto com madeira. Podes vazer um Barco "
+"para mim?"
+
+#: aventuras/bob_o_forjador.lua
+msgid "Ótimo! Tome uma recompensa para completar sua armadura."
+msgstr "Ótimo! Tome uma recompensa para completar sua armadura."
+
+#: aventuras/caminho_da_forja.lua
+msgid "Caminho da Forja"
+msgstr "Caminho da Forja"
+
+#: aventuras/caminho_da_forja.lua
+msgid "Tomas conhece um ferreiro chamado Bob"
+msgstr "Tomas conhece um ferreiro chamado Bob"
+
+#: aventuras/caminho_da_forja.lua
+msgid "Um Conhecido Distante"
+msgstr "Um Conhecido Distante"
+
+#: aventuras/caminho_da_forja.lua
+msgid ""
+"Eu tenho algumas demandas por trabalho com ferro e outros metais, no entanto "
+"vejo que precisarei de uma ajuda com ferramentas e utensilios mais modernos. "
+"Eu conheci um ferreiro chamado Bob que passou por aqui a um tempo. Não "
+"lembro muitas coisas sobre ele, mas lembro-me que ele estava a caminho do "
+"labirinto das masmorras, um velho ponto de encontro de exploradores. Eu não "
+"me dou bem com lugares fechados então preciso que você vá lá e procure por "
+"ele."
+msgstr ""
+"Eu tenho algumas demandas por trabalho com ferro e outros metais, no entanto "
+"vejo que precisarei de uma ajuda com ferramentas e utensilios mais modernos. "
+"Eu conheci um ferreiro chamado Bob que passou por aqui a um tempo. Não "
+"lembro muitas coisas sobre ele, mas lembro-me que ele estava a caminho do "
+"labirinto das masmorras, um velho ponto de encontro de exploradores. Eu não "
+"me dou bem com lugares fechados então preciso que você vá lá e procure por "
+"ele."
+
+#: aventuras/caminho_da_forja.lua
+msgid "Estarei aguardando alguma notícia. Boa sorte."
+msgstr "Estarei aguardando alguma notícia. Boa sorte."
+
+#: aventuras/caminho_da_forja.lua
+msgid "Coletar mapa"
+msgstr "Coletar mapa"
+
+#: aventuras/caminho_da_forja.lua
+msgid "Mapa Secreto"
+msgstr "Mapa Secreto"
+
+#: aventuras/caminho_da_forja.lua
+msgid "Parece levar a uma forja"
+msgstr "Parece levar a uma forja"
+
+#: aventuras/caminho_da_forja.lua
+msgid "Mapa encontrado"
+msgstr "Mapa encontrado"
+
+#: aventuras/caminho_da_forja.lua
+msgid "Encontrou algo?"
+msgstr "Encontrou algo?"
+
+#: aventuras/caminho_da_forja.lua
+msgid ""
+"Otimo. Esse mapa vai me ajudar a encontra-lo futuramente. Muito obrigado."
+msgstr ""
+"Otimo. Esse mapa vai me ajudar a encontra-lo futuramente. Muito obrigado."
+
+#~ msgid "Mapa Secreto para a Forja do Bob"
+#~ msgstr "Mapa Secreto para a Forja do Bob"
+
+#~ msgid "Masmorras do Esquecimento"
+#~ msgstr "Masmorras do Esquecimento"
+
+#~ msgid "Um Passado Obscuro"
+#~ msgstr "Um Passado Obscuro"
+
+#~ msgid "Uma historia esta para ser desvendada"
+#~ msgstr "Uma historia esta para ser desvendada"
+
+#~ msgid "Contando historia"
+#~ msgstr "Contando historia"
+
+#~ msgid "Vai la."
+#~ msgstr "Vai la."
+
+#~ msgid "Se precisar de ajud"
+#~ msgstr "Se precisar de ajud"
+
+#~ msgid "Uma ajuda com a fazendinha"
+#~ msgstr "Uma ajuda com a fazendinha"
+
+#~ msgid "Estou esperando ..."
+#~ msgstr "Estou esperando ..."
+
+#~ msgid "Obrigado, parece que te devo uma."
+#~ msgstr "Obrigado, parece que te devo uma."
+
+#~ msgid "Alimento para sobreviver"
+#~ msgstr "Alimento para sobreviver"
+
+#~ msgid "Conseguiu o mapa?"
+#~ msgstr "Conseguiu o mapa?"
+
+#~ msgid "Otimo"
+#~ msgstr "Otimo"
