@@ -11,7 +11,7 @@ API para criação de aventuras para Minetest
 Minetest Adventures Creation API
 
 ## Requisitos _(Requirements)_
-* Minetest 0.4.16
+* Minetest 0.5.0
 * Mod default
 * Mod wool
 * Mod sfinv
