@@ -2,7 +2,7 @@
 
 [![download](https://img.shields.io/github/tag/BrunoMine/sociedades.svg?style=flat-square&label=release)](https://github.com/BrunoMine/aventuras/archive/master.zip)
 [![git](https://img.shields.io/badge/git-project-green.svg?style=flat-square)](https://github.com/BrunoMine/aventuras)
-[![forum](https://img.shields.io/badge/minetest-mod-green.svg?style=flat-square)](https://forum.minetest.net)
+[![forum](https://img.shields.io/badge/minetest-mod-green.svg?style=flat-square)](https://forum.minetest.net/viewtopic.php?f=9&t=20661)
 [![bower](https://img.shields.io/badge/bower-mod-green.svg?style=flat-square)](https://minetest-bower.herokuapp.com/mods/aventuras)
 
 ## Requitos
