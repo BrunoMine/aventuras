@@ -84,7 +84,7 @@ aventuras.tarefas.npc_dignode.npcs = {}
 aventuras.tarefas.npc_dignode.npcs.on_rightclick = aventuras.comum.get_on_rightclick_npc("npc_dignode")
 -- Verificar ao cavar node
 minetest.register_on_dignode(function(pos, oldnode, digger)
-	
+	if not digger or digger:is_player() ~= true then return end
 	-- Realiza rotina padrão para itens aguardados por esse tipo de tarefa
 	aventuras.comum.verif_item_tarefa(digger:get_player_name(), "npc_dignode", oldnode.name)
 	

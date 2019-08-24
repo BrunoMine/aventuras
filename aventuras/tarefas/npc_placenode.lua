@@ -85,7 +85,7 @@ aventuras.tarefas.npc_placenode.npcs.on_rightclick = aventuras.comum.get_on_righ
 
 -- Verificar ao colocar node
 minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack, pointed_thing)
-	
+	if not placer or placer:is_player() ~= true then return end
 	-- Realiza rotina padrão para itens aguardados por esse tipo de tarefa
 	aventuras.comum.verif_item_tarefa(placer:get_player_name(), "npc_placenode", newnode.name)
 	
